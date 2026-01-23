@@ -1,0 +1,123 @@
+{
+  "isFull": true,
+  "list": [
+    {
+      "title": "ColorfulCard",
+      "description": "多彩渐变卡片组件，支持多种预设颜色和自定义样式",
+      "code": "./colorful-card.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
+      "title": "GlassCard",
+      "description": "毛玻璃效果卡片组件",
+      "code": "./glass-card.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
+      "title": "Jelly",
+      "description": "Jelly 弹性方块组件",
+      "code": "./jelly.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
+      "title": "Result",
+      "description": "结果展示组件",
+      "code": "./result.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "icons",
+          "packageName": "@ant-design/icons"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
+      "title": "PersonalCard",
+      "description": "个人档案卡片组件 - 大模式、纵向和横向三种展示模式",
+      "code": "./personal-card.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
+      "title": "PersonalCard-Status",
+      "description": "个人档案卡片 - 状态切换示例",
+      "code": "./personal-card-status.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    }
+  ]
+}

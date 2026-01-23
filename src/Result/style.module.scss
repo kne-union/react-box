@@ -1,0 +1,121 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+  border-radius: 9999px;
+  background: linear-gradient(to bottom right, var(--very-light-color), #ffffff);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: -40px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #f9a8d4;
+    opacity: 0.4;
+    filter: blur(12px);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 48px;
+    right: -48px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #93c5fd;
+    opacity: 0.4;
+    filter: blur(12px);
+  }
+
+  .icon-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 112px;
+    height: 112px;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 30%, var(--light-color) 0%, var(--base-color) 60%, var(--dark-color) 100%);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .icon-highlight {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    width: 40px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 9999px;
+    filter: blur(4px);
+    transform: rotate(-15deg);
+  }
+
+  .icon-svg {
+    color: #ffffff;
+    font-size: 70px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .decoration-1 {
+    position: absolute;
+    top: 8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgba(56, 189, 248, 0.3);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .decoration-2 {
+    position: absolute;
+    bottom: 32px;
+    left: -16px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgba(192, 132, 252, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #0d141c;
+  margin-top: 24px;
+  letter-spacing: -0.025em;
+}
+
+.description {
+  font-size: 18px;
+  color: #64748b;
+  margin-top: 8px;
+  max-width: 500px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.content {
+  margin-top: 24px;
+}
