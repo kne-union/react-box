@@ -15,11 +15,12 @@
   &::before {
     content: '';
     position: absolute;
-    bottom: -250%;
-    right: -250%;
-    width: 400%;
-    height: 400%;
-    background: radial-gradient(circle, var(--color-alpha) 0%, transparent 50%);
+    bottom: -30%;
+    right: -30%;
+    width: 80%;
+    height: 80%;
+    filter: blur(60px);
+    background: var(--color-alpha);
     border-radius: 50%;
     pointer-events: none;
   }
