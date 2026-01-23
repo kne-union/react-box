@@ -3,16 +3,7 @@ import style from './style.module.scss';
 import { MailIcon, CallIcon, QuoteIcon } from './icons';
 
 const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo = [], status = 'online', badge, mode = 'large' }) => {
-  const { gender = '-', age = '-', department = '-' } = moreInfo;
-
   const statusClass = style[`status-${status}`] || style['status-online'];
-
-  const statusTextMap = {
-    online: '在线',
-    offline: '离线',
-    busy: '忙碌'
-  };
-  const statusText = statusTextMap[status] || statusTextMap.online;
 
   const AvatarWithStatus = ({ size = 'default' }) => {
     const sizeClasses = {
@@ -113,7 +104,6 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
       <div className={style['minimal-main']}>
         <InfoGrid />
         <div className={style['mini-description']}>
-          <span className={style['desc-label']}>简介:</span>
           <p className={style['description']}>{description}</p>
         </div>
       </div>
@@ -139,7 +129,6 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
         <InfoGrid />
         <div className={style['description-box']}>
           <QuoteIcon className={style['quote-icon']} size={24} />
-          <span className={style['info-label']}>个人简介</span>
           <p className={style['description']}>"{description}"</p>
         </div>
       </div>
