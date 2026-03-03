@@ -21,6 +21,25 @@
       ]
     },
     {
+      "title": "Zsh",
+      "description": "终端窗口组件，模拟 macOS 终端样式",
+      "code": "./zsh.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
       "title": "ColorfulCard",
       "description": "多彩渐变卡片组件，支持多种预设颜色和自定义样式",
       "code": "./colorful-card.js",

@@ -5,12 +5,34 @@ const BaseExample = () => {
   return (
     <Flex vertical gap={16}>
       <Card
-        title="基础卡片"
+        title="大尺寸卡片"
+        icon="📊"
+        size="large"
+        extra={<a href="#">查看更多</a>}
+      >
+        <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
+          大尺寸卡片，padding: 32px，标题更大
+        </div>
+      </Card>
+
+      <Card
+        title="默认尺寸卡片"
         icon="📊"
         extra={<a href="#">查看更多</a>}
       >
         <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
           这是卡片内容区域
+        </div>
+      </Card>
+
+      <Card
+        title="小尺寸卡片"
+        icon="📊"
+        size="small"
+        extra={<a href="#">查看更多</a>}
+      >
+        <div style={{ padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
+          小尺寸卡片，padding: 16px，标题更小
         </div>
       </Card>
 
@@ -55,6 +77,7 @@ const BaseExample = () => {
       <Card
         title="图表卡片"
         icon="📈"
+        size="large"
       >
         <div style={{ 
           height: '200px', 
@@ -69,7 +92,7 @@ const BaseExample = () => {
         </div>
       </Card>
 
-      <Card title="简洁卡片">
+      <Card title="简洁卡片" size="small">
         <p style={{ margin: 0, color: '#475569', lineHeight: 1.6 }}>
           这是一个简洁的卡片，只包含标题和内容区域。适用于不需要额外装饰的场景。
         </p>

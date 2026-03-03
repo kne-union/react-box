@@ -18,7 +18,7 @@ npm i --save @kne/react-box
 
 一个轻量级的 React 设计组件库，专注于提供精致美观的信息展示小组件。组件采用现代化 CSS 变量和 SCSS 模块化样式，支持灵活的定制和响应式布局。所有组件均遵循统一的命名规范，代码简洁易用，无需外部字体依赖。
 
-目前提供六种常用展示组件：通用卡片组件、多彩卡片组件、毛玻璃卡片组件、弹性方块组件、结果展示组件和个人档案卡片组件，每种组件都经过精心设计，具有平滑的过渡动画和细腻的视觉效果，能够快速提升应用的界面质感。
+目前提供七种常用展示组件：通用卡片组件、终端窗口组件、多彩卡片组件、毛玻璃卡片组件、弹性方块组件、结果展示组件和个人档案卡片组件，每种组件都经过精心设计，具有平滑的过渡动画和细腻的视觉效果，能够快速提升应用的界面质感。
 
 
 ### 示例(全屏)
@@ -37,12 +37,34 @@ const BaseExample = () => {
   return (
     <Flex vertical gap={16}>
       <Card
-        title="基础卡片"
+        title="大尺寸卡片"
+        icon="📊"
+        size="large"
+        extra={<a href="#">查看更多</a>}
+      >
+        <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
+          大尺寸卡片，padding: 32px，标题更大
+        </div>
+      </Card>
+
+      <Card
+        title="默认尺寸卡片"
         icon="📊"
         extra={<a href="#">查看更多</a>}
       >
         <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
           这是卡片内容区域
+        </div>
+      </Card>
+
+      <Card
+        title="小尺寸卡片"
+        icon="📊"
+        size="small"
+        extra={<a href="#">查看更多</a>}
+      >
+        <div style={{ padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
+          小尺寸卡片，padding: 16px，标题更小
         </div>
       </Card>
 
@@ -87,6 +109,7 @@ const BaseExample = () => {
       <Card
         title="图表卡片"
         icon="📈"
+        size="large"
       >
         <div style={{ 
           height: '200px', 
@@ -101,11 +124,83 @@ const BaseExample = () => {
         </div>
       </Card>
 
-      <Card title="简洁卡片">
+      <Card title="简洁卡片" size="small">
         <p style={{ margin: 0, color: '#475569', lineHeight: 1.6 }}>
           这是一个简洁的卡片，只包含标题和内容区域。适用于不需要额外装饰的场景。
         </p>
       </Card>
+    </Flex>
+  );
+};
+
+render(<BaseExample />);
+
+```
+
+- Zsh
+- 终端窗口组件，模拟 macOS 终端样式
+- _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
+
+```jsx
+const { Zsh } = _ReactBox;
+const { Flex } = antd;
+
+const BaseExample = () => {
+  return (
+    <Flex vertical gap={16}>
+      <Zsh title="终端 — zsh">
+        <div style={{ color: '#1f2937' }}>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <span style={{ color: '#22c55e', fontWeight: 'bold' }}>➜</span>
+            <span style={{ color: '#3b82f6', fontWeight: 'bold' }}>~</span>
+            <span>npm init @kne/union-app my-dashboard</span>
+          </div>
+          <div style={{ marginTop: '1rem' }}>
+            <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ color: '#0052D9' }}>ℹ</span> 正在初始化 KNE Union 应用...
+            </p>
+            <p style={{ color: '#9ca3af', fontSize: '0.75rem', paddingLeft: '1.5rem' }}>v3.0.0</p>
+          </div>
+          <div style={{ marginTop: '1rem' }}>
+            <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ color: '#22c55e' }}>✔</span> 模板已下载
+            </p>
+            <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ color: '#22c55e' }}>✔</span> 依赖已解析
+            </p>
+            <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ color: '#22c55e' }}>✔</span> 配置已生成
+            </p>
+          </div>
+          <div style={{ 
+            marginTop: '1.5rem', 
+            padding: '0.75rem', 
+            backgroundColor: '#f0fdf4', 
+            borderRadius: '8px', 
+            border: '1px solid #dcfce7',
+            color: '#15803d',
+            fontSize: '0.75rem',
+            fontWeight: 'bold'
+          }}>
+            <p style={{ margin: 0 }}>成功！项目已创建于 ./my-dashboard</p>
+          </div>
+        </div>
+      </Zsh>
+
+      <Zsh title="终端 — bash" padding="24px" radius="8px">
+        <div style={{ color: '#1f2937' }}>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <span style={{ color: '#22c55e', fontWeight: 'bold' }}>$</span>
+            <span>ls -la</span>
+          </div>
+          <div style={{ marginTop: '1rem', color: '#6b7280', fontSize: '0.875rem' }}>
+            <p>total 48</p>
+            <p>drwxr-xr-x  12 user  staff   384 Mar  3 10:30 .</p>
+            <p>drwxr-xr-x   6 user  staff   192 Mar  3 09:15 ..</p>
+            <p>-rw-r--r--   1 user  staff  1024 Mar  3 10:30 README.md</p>
+          </div>
+        </div>
+      </Zsh>
     </Flex>
   );
 };
@@ -588,17 +683,34 @@ render(<BaseExample />);
 
 #### 属性
 
-| 属性        | 类型        | 默认值    | 描述                               |
-|-----------|-----------|--------|----------------------------------|
-| className | string    | -      | 自定义类名                            |
-| title     | ReactNode | -      | 卡片标题                             |
-| icon      | ReactNode | -      | 标题图标，通常为 emoji 或图标组件             |
-| extra     | ReactNode | -      | 标题栏右侧的额外内容，可放置操作按钮等              |
-| children  | ReactNode | -      | 卡片主体内容                           |
-| padding   | string    | '24px' | 内边距（通过 CSS 变量 --card-padding 控制） |
-| radius    | string    | '12px' | 圆角大小（通过 CSS 变量 --card-radius 控制） |
-| border    | boolean   | true   | 是否显示边框                           |
-| style     | object    | -      | 自定义样式对象                          |
+| 属性        | 类型        | 默认值      | 描述                                              |
+|-----------|-----------|----------|--------------------------------------------------|
+| className | string    | -        | 自定义类名                                           |
+| title     | ReactNode | -        | 卡片标题                                            |
+| icon      | ReactNode | -        | 标题图标，通常为 emoji 或图标组件                            |
+| extra     | ReactNode | -        | 标题栏右侧的额外内容，可放置操作按钮等                             |
+| children  | ReactNode | -        | 卡片主体内容                                          |
+| size      | string    | 'default' | 卡片尺寸，可选值：'large' \| 'default' \| 'small'       |
+| padding   | string    | -        | 内边距，会覆盖 size 的默认值（通过 CSS 变量 --card-padding 控制） |
+| radius    | string    | '12px'   | 圆角大小（通过 CSS 变量 --card-radius 控制）              |
+| border    | boolean   | true     | 是否显示边框                                          |
+| style     | object    | -        | 自定义样式对象                                         |
+
+### Zsh
+
+终端窗口组件，模拟 macOS 终端样式，支持自定义标题和内容。
+
+#### 属性
+
+| 属性        | 类型        | 默认值        | 描述                              |
+|-----------|-----------|------------|---------------------------------|
+| className | string    | -          | 自定义类名                           |
+| title     | string    | '终端 — zsh' | 终端标题                            |
+| children  | ReactNode | -          | 终端内容                            |
+| padding   | string    | '32px'     | 内边距（通过 CSS 变量 --zsh-padding 控制） |
+| radius    | string    | '12px'     | 圆角大小（通过 CSS 变量 --zsh-radius 控制） |
+| border    | boolean   | true       | 是否显示边框                          |
+| style     | object    | -          | 自定义样式对象                         |
 
 ### ColorfulCard
 
