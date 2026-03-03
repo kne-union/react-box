@@ -4,17 +4,34 @@
 
 #### 属性
 
-| 属性        | 类型        | 默认值    | 描述                               |
-|-----------|-----------|--------|----------------------------------|
-| className | string    | -      | 自定义类名                            |
-| title     | ReactNode | -      | 卡片标题                             |
-| icon      | ReactNode | -      | 标题图标，通常为 emoji 或图标组件             |
-| extra     | ReactNode | -      | 标题栏右侧的额外内容，可放置操作按钮等              |
-| children  | ReactNode | -      | 卡片主体内容                           |
-| padding   | string    | '24px' | 内边距（通过 CSS 变量 --card-padding 控制） |
-| radius    | string    | '12px' | 圆角大小（通过 CSS 变量 --card-radius 控制） |
-| border    | boolean   | true   | 是否显示边框                           |
-| style     | object    | -      | 自定义样式对象                          |
+| 属性        | 类型        | 默认值      | 描述                                              |
+|-----------|-----------|----------|--------------------------------------------------|
+| className | string    | -        | 自定义类名                                           |
+| title     | ReactNode | -        | 卡片标题                                            |
+| icon      | ReactNode | -        | 标题图标，通常为 emoji 或图标组件                            |
+| extra     | ReactNode | -        | 标题栏右侧的额外内容，可放置操作按钮等                             |
+| children  | ReactNode | -        | 卡片主体内容                                          |
+| size      | string    | 'default' | 卡片尺寸，可选值：'large' \| 'default' \| 'small'       |
+| padding   | string    | -        | 内边距，会覆盖 size 的默认值（通过 CSS 变量 --card-padding 控制） |
+| radius    | string    | '12px'   | 圆角大小（通过 CSS 变量 --card-radius 控制）              |
+| border    | boolean   | true     | 是否显示边框                                          |
+| style     | object    | -        | 自定义样式对象                                         |
+
+### Zsh
+
+终端窗口组件，模拟 macOS 终端样式，支持自定义标题和内容。
+
+#### 属性
+
+| 属性        | 类型        | 默认值        | 描述                              |
+|-----------|-----------|------------|---------------------------------|
+| className | string    | -          | 自定义类名                           |
+| title     | string    | '终端 — zsh' | 终端标题                            |
+| children  | ReactNode | -          | 终端内容                            |
+| padding   | string    | '32px'     | 内边距（通过 CSS 变量 --zsh-padding 控制） |
+| radius    | string    | '12px'     | 圆角大小（通过 CSS 变量 --zsh-radius 控制） |
+| border    | boolean   | true       | 是否显示边框                          |
+| style     | object    | -          | 自定义样式对象                         |
 
 ### ColorfulCard
 

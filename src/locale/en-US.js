@@ -1,3 +1,5 @@
-const locale = {};
+const locale = {
+  ZshTitle: 'Terminal — zsh'
+};
 
 export default locale;
