@@ -18,12 +18,101 @@ npm i --save @kne/react-box
 
 一个轻量级的 React 设计组件库，专注于提供精致美观的信息展示小组件。组件采用现代化 CSS 变量和 SCSS 模块化样式，支持灵活的定制和响应式布局。所有组件均遵循统一的命名规范，代码简洁易用，无需外部字体依赖。
 
-目前提供五种常用展示组件：多彩卡片组件、毛玻璃卡片组件、弹性方块组件、结果展示组件和个人档案卡片组件，每种组件都经过精心设计，具有平滑的过渡动画和细腻的视觉效果，能够快速提升应用的界面质感。
+目前提供六种常用展示组件：通用卡片组件、多彩卡片组件、毛玻璃卡片组件、弹性方块组件、结果展示组件和个人档案卡片组件，每种组件都经过精心设计，具有平滑的过渡动画和细腻的视觉效果，能够快速提升应用的界面质感。
 
 
 ### 示例(全屏)
 
 #### 示例代码
+
+- Card
+- 通用卡片组件，支持标题、图标和操作区域
+- _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
+
+```jsx
+const { Card } = _ReactBox;
+const { Flex, Space, Button } = antd;
+
+const BaseExample = () => {
+  return (
+    <Flex vertical gap={16}>
+      <Card
+        title="基础卡片"
+        icon="📊"
+        extra={<a href="#">查看更多</a>}
+      >
+        <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
+          这是卡片内容区域
+        </div>
+      </Card>
+
+      <Card
+        title="自定义样式"
+        icon="🎨"
+        padding="32px"
+        radius="16px"
+        style={{ borderLeft: '4px solid #741ce9' }}
+      >
+        <p style={{ margin: 0, color: '#475569' }}>
+          通过 padding、radius 和 style 属性自定义卡片样式
+        </p>
+      </Card>
+
+      <Card
+        title="无边框卡片"
+        icon="📄"
+        border={false}
+        padding="20px"
+      >
+        <p style={{ margin: 0, color: '#475569' }}>
+          设置 border=false 可以移除边框，适用于需要自定义背景或嵌入其他容器的场景
+        </p>
+      </Card>
+
+      <Card
+        title="操作按钮"
+        icon="⚙️"
+        extra={
+          <Space>
+            <Button type="link" size="small">编辑</Button>
+            <Button type="link" size="small">删除</Button>
+          </Space>
+        }
+      >
+        <p style={{ margin: 0, color: '#475569' }}>
+          在 extra 区域放置操作按钮，实现卡片的交互功能
+        </p>
+      </Card>
+
+      <Card
+        title="图表卡片"
+        icon="📈"
+      >
+        <div style={{ 
+          height: '200px', 
+          backgroundColor: '#f8fafc', 
+          borderRadius: '8px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          color: '#64748b'
+        }}>
+          图表展示区域
+        </div>
+      </Card>
+
+      <Card title="简洁卡片">
+        <p style={{ margin: 0, color: '#475569', lineHeight: 1.6 }}>
+          这是一个简洁的卡片，只包含标题和内容区域。适用于不需要额外装饰的场景。
+        </p>
+      </Card>
+    </Flex>
+  );
+};
+
+render(<BaseExample />);
+
+```
 
 - ColorfulCard
 - 多彩渐变卡片组件，支持多种预设颜色和自定义样式
@@ -493,6 +582,24 @@ render(<BaseExample />);
 
 ### API
 
+### Card
+
+通用卡片组件，支持标题、图标和操作区域，适用于展示图表、统计数据等内容。
+
+#### 属性
+
+| 属性        | 类型        | 默认值    | 描述                               |
+|-----------|-----------|--------|----------------------------------|
+| className | string    | -      | 自定义类名                            |
+| title     | ReactNode | -      | 卡片标题                             |
+| icon      | ReactNode | -      | 标题图标，通常为 emoji 或图标组件             |
+| extra     | ReactNode | -      | 标题栏右侧的额外内容，可放置操作按钮等              |
+| children  | ReactNode | -      | 卡片主体内容                           |
+| padding   | string    | '24px' | 内边距（通过 CSS 变量 --card-padding 控制） |
+| radius    | string    | '12px' | 圆角大小（通过 CSS 变量 --card-radius 控制） |
+| border    | boolean   | true   | 是否显示边框                           |
+| style     | object    | -      | 自定义样式对象                          |
+
 ### ColorfulCard
 
 多彩渐变卡片组件，支持多种预设颜色和自定义样式，具有精美的光晕效果和平滑的悬停动画。
@@ -557,18 +664,18 @@ render(<BaseExample />);
 
 #### 属性
 
-| 属性          | 类型     | 默认值      | 描述                                               |
-|-------------|--------|----------|--------------------------------------------------|
-| avatar      | string | -        | 头像图片地址                                           |
-| name        | string | -        | 姓名                                               |
-| title       | string | -        | 职位/头衔                                            |
-| description | string | -        | 个人简介                                             |
-| phone       | string | -        | 电话号码                                             |
-| email       | string | -        | 邮箱地址                                             |
-| moreInfo    | array  | []       | 附加信息数组，格式为 [{ label, content }]                  |
-| status      | string | 'online' | 在线状态，可选值：'online' \\| 'offline' \\| 'busy'       |
-| badge       | string | -        | 徽章文字                                             |
-| mode        | string | 'large'  | 显示模式，可选值：'large' \\| 'vertical' \\| 'horizontal' |
+| 属性          | 类型     | 默认值      | 描述                                             |
+|-------------|--------|----------|------------------------------------------------|
+| avatar      | string | -        | 头像图片地址                                         |
+| name        | string | -        | 姓名                                             |
+| title       | string | -        | 职位/头衔                                          |
+| description | string | -        | 个人简介                                           |
+| phone       | string | -        | 电话号码                                           |
+| email       | string | -        | 邮箱地址                                           |
+| moreInfo    | array  | []       | 附加信息数组，格式为 [{ label, content }]                |
+| status      | string | 'online' | 在线状态，可选值：'online' \| 'offline' \| 'busy'       |
+| badge       | string | -        | 徽章文字                                           |
+| mode        | string | 'large'  | 显示模式，可选值：'large' \| 'vertical' \| 'horizontal' |
 
 ### defaultColors
 

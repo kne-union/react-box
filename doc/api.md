@@ -1,3 +1,21 @@
+### Card
+
+通用卡片组件，支持标题、图标和操作区域，适用于展示图表、统计数据等内容。
+
+#### 属性
+
+| 属性        | 类型        | 默认值    | 描述                               |
+|-----------|-----------|--------|----------------------------------|
+| className | string    | -      | 自定义类名                            |
+| title     | ReactNode | -      | 卡片标题                             |
+| icon      | ReactNode | -      | 标题图标，通常为 emoji 或图标组件             |
+| extra     | ReactNode | -      | 标题栏右侧的额外内容，可放置操作按钮等              |
+| children  | ReactNode | -      | 卡片主体内容                           |
+| padding   | string    | '24px' | 内边距（通过 CSS 变量 --card-padding 控制） |
+| radius    | string    | '12px' | 圆角大小（通过 CSS 变量 --card-radius 控制） |
+| border    | boolean   | true   | 是否显示边框                           |
+| style     | object    | -      | 自定义样式对象                          |
+
 ### ColorfulCard
 
 多彩渐变卡片组件，支持多种预设颜色和自定义样式，具有精美的光晕效果和平滑的悬停动画。
@@ -62,18 +80,18 @@
 
 #### 属性
 
-| 属性          | 类型     | 默认值      | 描述                                               |
-|-------------|--------|----------|--------------------------------------------------|
-| avatar      | string | -        | 头像图片地址                                           |
-| name        | string | -        | 姓名                                               |
-| title       | string | -        | 职位/头衔                                            |
-| description | string | -        | 个人简介                                             |
-| phone       | string | -        | 电话号码                                             |
-| email       | string | -        | 邮箱地址                                             |
-| moreInfo    | array  | []       | 附加信息数组，格式为 [{ label, content }]                  |
-| status      | string | 'online' | 在线状态，可选值：'online' \\| 'offline' \\| 'busy'       |
-| badge       | string | -        | 徽章文字                                             |
-| mode        | string | 'large'  | 显示模式，可选值：'large' \\| 'vertical' \\| 'horizontal' |
+| 属性          | 类型     | 默认值      | 描述                                             |
+|-------------|--------|----------|------------------------------------------------|
+| avatar      | string | -        | 头像图片地址                                         |
+| name        | string | -        | 姓名                                             |
+| title       | string | -        | 职位/头衔                                          |
+| description | string | -        | 个人简介                                           |
+| phone       | string | -        | 电话号码                                           |
+| email       | string | -        | 邮箱地址                                           |
+| moreInfo    | array  | []       | 附加信息数组，格式为 [{ label, content }]                |
+| status      | string | 'online' | 在线状态，可选值：'online' \| 'offline' \| 'busy'       |
+| badge       | string | -        | 徽章文字                                           |
+| mode        | string | 'large'  | 显示模式，可选值：'large' \| 'vertical' \| 'horizontal' |
 
 ### defaultColors
 

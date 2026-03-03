@@ -1,3 +1,4 @@
+export { default as Card } from './Card';
 export { default as Jelly } from './Jelly';
 export { default as Result } from './Result';
 export { default as PersonalCard } from './PersonalCard';

@@ -14,7 +14,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
 
     return (
       <div className={style['avatar-container'] + ' ' + style[sizeClasses[size] || sizeClasses.medium]}>
-        <img src={avatar} alt={name} className={style['avatar']} />
+        {typeof avatar === 'function' ? avatar({ className: style['avatar'] }) : <img src={avatar} alt={name} className={style['avatar']} />}
         <span className={`${style['status-indicator']} ${statusClass}`}></span>
       </div>
     );
@@ -71,12 +71,12 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
             {name}
             {badge && <span className={style['badge']}>{badge}</span>}
           </h1>
-          {title && <p className={style['title']}>{title}</p>}
+          {title && <div className={style['title']}>{title}</div>}
         </div>
         <BasicInfo />
       </div>
       <div className={style['card-description']}>
-        <p className={style['description']}>"{description}"</p>
+        <div className={style['description']}>{description}</div>
       </div>
       <div className={style['card-footer']}>
         <ContactItem icon={MailIcon} size={14} value={email} />
@@ -94,7 +94,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
             <h1 className={style['name']}>{name}</h1>
             {badge && <span className={style['badge']}>{badge}</span>}
           </div>
-          {title && <p className={style['title']}>{title}</p>}
+          {title && <div className={style['title']}>{title}</div>}
           <div className={style['contact-row']}>
             <ContactItem icon={MailIcon} size={14} value={email} />
             <ContactItem icon={CallIcon} size={14} value={phone} />
@@ -104,7 +104,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
       <div className={style['minimal-main']}>
         <InfoGrid />
         <div className={style['mini-description']}>
-          <p className={style['description']}>{description}</p>
+          <div className={style['description']}>{description}</div>
         </div>
       </div>
     </div>
@@ -117,7 +117,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
         <h1 className={style['name']}>
           {name} {badge && <span className={style['badge']}>{badge}</span>}
         </h1>
-        {title && <p className={style['title']}>{title}</p>}
+        {title && <div className={style['title']}>{title}</div>}
         <div className={style['contact-section']}>
           <div className={style['contact-box']}>
             <ContactItem icon={MailIcon} size={20} value={email} />
@@ -129,7 +129,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
         <InfoGrid />
         <div className={style['description-box']}>
           <QuoteIcon className={style['quote-icon']} size={24} />
-          <p className={style['description']}>"{description}"</p>
+          <div className={style['description']}>{description}</div>
         </div>
       </div>
     </div>
