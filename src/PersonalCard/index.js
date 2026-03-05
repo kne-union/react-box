@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import style from './style.module.scss';
 import { MailIcon, CallIcon, QuoteIcon } from './icons';
 
-const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo = [], status = 'online', badge, mode = 'large' }) => {
+const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo = [], status, badge, mode = 'large' }) => {
   const statusClass = style[`status-${status}`] || style['status-online'];
 
   const AvatarWithStatus = ({ size = 'default' }) => {
@@ -15,7 +15,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
     return (
       <div className={style['avatar-container'] + ' ' + style[sizeClasses[size] || sizeClasses.medium]}>
         {typeof avatar === 'function' ? avatar({ className: style['avatar'] }) : <img src={avatar} alt={name} className={style['avatar']} />}
-        <span className={`${style['status-indicator']} ${statusClass}`}></span>
+        {status && <span className={`${style['status-indicator']} ${statusClass}`}></span>}
       </div>
     );
   };
@@ -23,7 +23,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
   const ContactItem = ({ icon: Icon, size = 14, value }) => (
     <div className={style['contact-item']}>
       <Icon className={style['icon']} size={size} />
-      <span className={value.includes('@') ? style['email'] : style['phone']}>{value}</span>
+      {value && <span className={value.includes('@') ? style['email'] : style['phone']}>{value}</span>}
     </div>
   );
 
