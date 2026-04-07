@@ -1,6 +1,6 @@
 {
   "name": "@kne/react-box",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "一个轻量级的 React 设计组件库，专注于提供精致美观的信息展示小组件",
   "syntax": {
     "esmodules": true

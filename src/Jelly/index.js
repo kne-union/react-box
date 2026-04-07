@@ -1,9 +1,12 @@
 import { useMemo } from 'react';
 import classnames from 'classnames';
 import tinyColor from 'tinycolor2';
-import { withColors } from '../defaultColors';
+import defaultColors, { withColors } from '../defaultColors';
 import style from './style.module.scss';
-const Jelly = ({ className, size = '60px', width, borderRadius = '18px', color = Jelly.Purple, ...props }) => {
+
+const DEFAULT_COLOR = defaultColors.Purple;
+
+const Jelly = ({ className, size = '60px', width, borderRadius = '18px', color = DEFAULT_COLOR, ...props }) => {
   const colors = useMemo(() => {
     const colorObj = tinyColor(color);
     return {
