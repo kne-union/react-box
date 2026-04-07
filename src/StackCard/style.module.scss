@@ -1,0 +1,33 @@
+.stack-card {
+  --stack-card-layers: 2;
+  --stack-card-offset: 8px;
+  --stack-card-radius: 12px;
+  --stack-card-tail: calc(var(--stack-card-layers) * var(--stack-card-offset));
+
+  position: relative;
+  overflow: visible;
+  margin: var(--stack-card-margin-top, 0px) var(--stack-card-margin-right, 0px) var(--stack-card-margin-bottom, 0px) var(--stack-card-margin-left, 0px);
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  isolation: isolate;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: var(--stack-card-radius);
+  background: var(--stack-card-layer-bg);
+  border: 1px solid var(--stack-card-layer-border);
+  box-shadow: var(--stack-card-layer-shadow);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+}

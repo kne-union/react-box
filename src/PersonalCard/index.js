@@ -7,25 +7,29 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
 
   const AvatarWithStatus = ({ size = 'default' }) => {
     const sizeClasses = {
-      large: 'w-32 h-32',
-      medium: 'w-20 h-20',
-      small: 'w-16 h-16'
+      large: 'avatar-large',
+      medium: 'avatar-medium',
+      small: 'avatar-small',
+      default: 'avatar-medium'
     };
 
     return (
-      <div className={style['avatar-container'] + ' ' + style[sizeClasses[size] || sizeClasses.medium]}>
+      <div className={`${style['avatar-container']} ${style[sizeClasses[size] || sizeClasses.default]}`}>
         {typeof avatar === 'function' ? avatar({ className: style['avatar'] }) : <img src={avatar} alt={name} className={style['avatar']} />}
         {status && <span className={`${style['status-indicator']} ${statusClass}`}></span>}
       </div>
     );
   };
 
-  const ContactItem = ({ icon: Icon, size = 14, value }) => (
-    <div className={style['contact-item']}>
-      <Icon className={style['icon']} size={size} />
-      {value && <span className={value.includes('@') ? style['email'] : style['phone']}>{value}</span>}
-    </div>
-  );
+  const ContactItem = ({ icon: Icon, size = 14, value }) => {
+    if (!value) return null;
+    return (
+      <div className={style['contact-item']}>
+        <Icon className={style['icon']} size={size} />
+        <span className={value.includes('@') ? style['email'] : style['phone']}>{value}</span>
+      </div>
+    );
+  };
 
   const InfoItem = ({ label, value }) => (
     <div className={style['info-item']}>
@@ -78,10 +82,12 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
       <div className={style['card-description']}>
         <div className={style['description']}>{description}</div>
       </div>
-      <div className={style['card-footer']}>
-        <ContactItem icon={MailIcon} size={14} value={email} />
-        <ContactItem icon={CallIcon} size={14} value={phone} />
-      </div>
+      {(phone || email) && (
+        <div className={style['card-footer']}>
+          <ContactItem icon={MailIcon} size={14} value={email} />
+          <ContactItem icon={CallIcon} size={14} value={phone} />
+        </div>
+      )}
     </div>
   );
 
@@ -95,10 +101,12 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
             {badge && <span className={style['badge']}>{badge}</span>}
           </div>
           {title && <div className={style['title']}>{title}</div>}
-          <div className={style['contact-row']}>
-            <ContactItem icon={MailIcon} size={14} value={email} />
-            <ContactItem icon={CallIcon} size={14} value={phone} />
-          </div>
+          {(phone || email) && (
+            <div className={style['contact-row']}>
+              <ContactItem icon={MailIcon} size={14} value={email} />
+              <ContactItem icon={CallIcon} size={14} value={phone} />
+            </div>
+          )}
         </div>
       </div>
       <div className={style['minimal-main']}>
@@ -118,12 +126,14 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
           {name} {badge && <span className={style['badge']}>{badge}</span>}
         </h1>
         {title && <div className={style['title']}>{title}</div>}
-        <div className={style['contact-section']}>
-          <div className={style['contact-box']}>
-            <ContactItem icon={MailIcon} size={20} value={email} />
-            <ContactItem icon={CallIcon} size={20} value={phone} />
+        {(phone || email) && (
+          <div className={style['contact-section']}>
+            <div className={style['contact-box']}>
+              <ContactItem icon={MailIcon} size={20} value={email} />
+              <ContactItem icon={CallIcon} size={20} value={phone} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className={style['card-right']}>
         <InfoGrid />
