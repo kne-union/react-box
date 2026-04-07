@@ -54,6 +54,10 @@
           "packageName": "antd"
         },
         {
+          "name": "icons",
+          "packageName": "@ant-design/icons"
+        },
+        {
           "packageName": "@kne/current-lib_react-box/dist/index.css"
         }
       ]
@@ -98,7 +102,7 @@
     },
     {
       "title": "Result",
-      "description": "结果展示组件",
+      "description": "结果展示组件，内置成功、警告、失败、信息四种快捷状态",
       "code": "./result.js",
       "scope": [
         {
@@ -121,7 +125,7 @@
     },
     {
       "title": "PersonalCard",
-      "description": "个人档案卡片组件 - 大模式、纵向和横向三种展示模式",
+      "description": "个人档案卡片组件 - 在一个示例中演示三种模式、状态切换与空值处理",
       "code": "./personal-card.js",
       "scope": [
         {
@@ -139,9 +143,28 @@
       ]
     },
     {
-      "title": "PersonalCard-Status",
-      "description": "个人档案卡片 - 状态切换示例",
-      "code": "./personal-card-status.js",
+      "title": "HeaderCard",
+      "description": "头部卡片组件 - 展示多种主题色效果",
+      "code": "./header-card.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
+      "title": "StackCard",
+      "description": "层叠卡片容器组件，可包裹其他 Card 类组件并控制层叠数量",
+      "code": "./stack-card.js",
       "scope": [
         {
           "name": "_ReactBox",

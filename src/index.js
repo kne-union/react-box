@@ -1,8 +1,10 @@
 export { default as Card } from './Card';
 export { default as Zsh } from './Zsh';
 export { default as Jelly } from './Jelly';
-export { default as Result } from './Result';
+export { default as Result, SuccessResult, WarningResult, ErrorResult, InfoResult } from './Result';
 export { default as PersonalCard } from './PersonalCard';
 export { default as GlassCard } from './GlassCard';
 export { default as ColorfulCard } from './ColorfulCard';
+export { default as HeaderCard } from './HeaderCard';
+export { default as StackCard } from './StackCard';
 export { default as defaultColors, withColors } from './defaultColors';

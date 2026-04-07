@@ -211,11 +211,26 @@ render(<BaseExample />);
 
 - ColorfulCard
 - 多彩渐变卡片组件，支持多种预设颜色和自定义样式
-- _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
+- _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),icons(@ant-design/icons),(@kne/current-lib_react-box/dist/index.css)
 
 ```jsx
 const { ColorfulCard } = _ReactBox;
 const { Flex, Badge } = antd;
+const {
+  BgColorsOutlined,
+  FireOutlined,
+  HeartOutlined,
+  BulbOutlined,
+  ThunderboltOutlined,
+  StarOutlined,
+  TrophyOutlined,
+  MoonOutlined,
+  BorderOutlined,
+  RocketOutlined,
+  ApiOutlined,
+  ExperimentOutlined,
+  HighlightOutlined
+} = icons;
 
 const BaseExample = () => {
   return (
@@ -231,63 +246,63 @@ const BaseExample = () => {
         <Flex gap={16} wrap>
           <ColorfulCard
             color={ColorfulCard.Purple}
-            icon="🎨"
+            icon={<BgColorsOutlined />}
             title="Purple"
             description={ColorfulCard.Purple}
             style={{ width: '200px' }}
           />
           <ColorfulCard
             color={ColorfulCard.Orange}
-            icon="🍊"
+            icon={<FireOutlined />}
             title="Orange"
             description={ColorfulCard.Orange}
             style={{ width: '200px' }}
           />
           <ColorfulCard
             color={ColorfulCard.Blue}
-            icon="💙"
+            icon={<ApiOutlined />}
             title="Blue"
             description={ColorfulCard.Blue}
             style={{ width: '200px' }}
           />
           <ColorfulCard
             color={ColorfulCard.Pink}
-            icon="💗"
+            icon={<HeartOutlined />}
             title="Pink"
             description={ColorfulCard.Pink}
             style={{ width: '200px' }}
           />
           <ColorfulCard
             color={ColorfulCard.Green}
-            icon="🌿"
+            icon={<BulbOutlined />}
             title="Green"
             description={ColorfulCard.Green}
             style={{ width: '200px' }}
           />
           <ColorfulCard
             color={ColorfulCard.Yellow}
-            icon="💛"
+            icon={<ThunderboltOutlined />}
             title="Yellow"
             description={ColorfulCard.Yellow}
             style={{ width: '200px' }}
           />
           <ColorfulCard
             color={ColorfulCard.Red}
-            icon="❤️"
+            icon={<TrophyOutlined />}
             title="Red"
             description={ColorfulCard.Red}
             style={{ width: '200px' }}
           />
           <ColorfulCard
             color={ColorfulCard.Gray}
-            icon="🌑"
+            icon={<MoonOutlined />}
             title="Gray"
             description={ColorfulCard.Gray}
             style={{ width: '200px' }}
           />
           <ColorfulCard
             color={ColorfulCard.Black}
-            icon="⚫"
+            icon={<BorderOutlined />}
             title="Black"
             description={ColorfulCard.Black}
             style={{ width: '200px' }}
@@ -302,7 +317,7 @@ const BaseExample = () => {
         <Flex gap={16} align="center">
           <ColorfulCard
             color={ColorfulCard.Purple}
-            icon="🎨"
+            icon={<BgColorsOutlined />}
             title="圆角 8px"
             description="小圆角风格"
             radius="8px"
@@ -310,7 +325,7 @@ const BaseExample = () => {
           />
           <ColorfulCard
             color={ColorfulCard.Blue}
-            icon="💙"
+            icon={<ApiOutlined />}
             title="圆角 12px"
             description="中等圆角风格"
             radius="12px"
@@ -318,7 +333,7 @@ const BaseExample = () => {
           />
           <ColorfulCard
             color={ColorfulCard.Green}
-            icon="🌿"
+            icon={<BulbOutlined />}
             title="圆角 16px"
             description="较大圆角风格"
             radius="16px"
@@ -326,7 +341,7 @@ const BaseExample = () => {
           />
           <ColorfulCard
             color={ColorfulCard.Orange}
-            icon="🍊"
+            icon={<FireOutlined />}
             title="圆角 24px"
             description="大圆角风格"
             radius="24px"
@@ -334,7 +349,7 @@ const BaseExample = () => {
           />
           <ColorfulCard
             color={ColorfulCard.Pink}
-            icon="💗"
+            icon={<HeartOutlined />}
             title="圆角 32px"
             description="超大圆角风格"
             radius="32px"
@@ -349,7 +364,7 @@ const BaseExample = () => {
         </h3>
         <ColorfulCard
           color={ColorfulCard.Purple}
-          icon="🎨"
+          icon={<RocketOutlined />}
           title="ColorfulCard"
           description="多彩渐变卡片组件，支持多种预设颜色和自定义样式，适用于现代化的 UI 设计场景。"
           radius="40px"
@@ -370,28 +385,28 @@ const BaseExample = () => {
         <Flex gap={16} align="center">
           <ColorfulCard
             color="#6366f1"
-            icon="💎"
+            icon={<StarOutlined />}
             title="Indigo"
             description="靛蓝色主题"
             style={{ width: '180px' }}
           />
           <ColorfulCard
             color="#8b5cf6"
-            icon="💜"
+            icon={<ExperimentOutlined />}
             title="Violet"
             description="紫罗兰主题"
             style={{ width: '180px' }}
           />
           <ColorfulCard
             color="#ec4899"
-            icon="🌹"
+            icon={<HighlightOutlined />}
             title="Rose"
             description="玫瑰色主题"
             style={{ width: '180px' }}
           />
           <ColorfulCard
             color="#14b8a6"
-            icon="💚"
+            icon={<BulbOutlined />}
             title="Teal"
             description="蓝绿色主题"
             style={{ width: '180px' }}
@@ -519,21 +534,28 @@ render(<BaseExample />);
 ```
 
 - Result
-- 结果展示组件
+- 结果展示组件，内置成功、警告、失败、信息四种快捷状态
 - _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),icons(@ant-design/icons),(@kne/current-lib_react-box/dist/index.css)
 
 ```jsx
 const { Result } = _ReactBox;
 const { Flex, Button } = antd;
-const { CheckOutlined } = icons;
 
 const BaseExample = () => {
   return (
-    <Result icon={<CheckOutlined />} title="Onboarding Successful!" description="Welcome to the platform. Your workspace is ready and waiting for your first project.">
-      <Button type="primary" size="large" shape="round">
-        Enter Dashboard
-      </Button>
-    </Result>
+    <Flex vertical gap={48} style={{ padding: '24px 0' }}>
+      <Result.Success title="操作成功" description="数据已保存，您可以继续下一步操作。">
+        <Button type="primary" size="large" shape="round">
+          查看详情
+        </Button>
+      </Result.Success>
+
+      <Flex wrap gap={32} justify="center">
+        <Result.Warning title="注意风险" description="当前配置尚未完全生效，请确认后再提交。" />
+        <Result.Error title="提交失败" description="网络请求超时，请稍后重试。" />
+        <Result.Info title="提示信息" description="您可以先完成基础设置，再进行高级配置。" />
+      </Flex>
+    </Flex>
   );
 };
 
@@ -542,77 +564,424 @@ render(<BaseExample />);
 ```
 
 - PersonalCard
-- 个人档案卡片组件 - 大模式、纵向和横向三种展示模式
+- 个人档案卡片组件 - 在一个示例中演示三种模式、状态切换与空值处理
 - _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
 
 ```jsx
 const { PersonalCard } = _ReactBox;
-const { Flex } = antd;
+const { Flex, Select, Segmented, Tag } = antd;
+const { useMemo, useState } = React;
+
+const avatar =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuDqLnDmKjqh6t4I7p2ox9cVq2MTqqBKE6BBO49c-FAxX4Y8EwyDik-JP7x_oQctnOedSDTpGgs5-sZLDcuzrBcS766dwWL2cPxo9HvgVxV4-pfMoA9NMMgwTSXXcqpKySJjiaNrL7mkkH2VD_hKBRffEuILfooFtU8q3j9j-9BRYSBv32LitbcfBOcJjlsVniybDF9XC-h5CvNevPbJPTAqsfx1zLXNviJYh50e_TTtk_rEVgTGzls7CWfRW7Od2T7_K5ALkUUzlA';
+
+const modeOptions = [
+  { label: '大模式', value: 'large' },
+  { label: '纵向模式', value: 'vertical' },
+  { label: '横向模式', value: 'horizontal' }
+];
+
+const statusOptions = [
+  { label: '在线', value: 'online' },
+  { label: '离线', value: 'offline' },
+  { label: '忙碌', value: 'busy' }
+];
+
+const BaseExample = () => {
+  const [mode, setMode] = useState('large');
+  const [status, setStatus] = useState('online');
+
+  const profileCards = useMemo(
+    () => [
+      {
+        key: 'full',
+        label: '完整信息',
+        badge: '推荐',
+        name: '莎拉·詹金斯',
+        title: '高级账户战略师',
+        description: '我的使命是确保您的团队拥有轻松扩展所需的资源和战略指导。让我们携手共创辉煌。',
+        phone: '+86 138 0000 0000',
+        email: 'sarah.j@example.com',
+        moreInfo: [
+          { label: '性别', content: '女' },
+          { label: '年龄', content: '32' },
+          { label: '部门', content: '账户管理' },
+          { label: '职位', content: '高级账户战略师' }
+        ]
+      },
+      {
+        key: 'email-only',
+        label: '仅邮箱',
+        badge: '候选',
+        name: '林知夏',
+        title: '产品经理',
+        description: '负责产品规划与用户体验优化，擅长把复杂问题转化为清晰方案。',
+        email: 'linzhixia@example.com',
+        moreInfo: [
+          { label: '性别', content: '女' },
+          { label: '年龄', content: '29' },
+          { label: '部门', content: '产品部' },
+          { label: '专长', content: '增长策略' }
+        ]
+      },
+      {
+        key: 'empty-contact',
+        label: '无联系方式',
+        badge: '归档',
+        name: '周予安',
+        title: '数据分析师',
+        description: '关注业务指标体系建设与可视化分析，强调用数据驱动决策。',
+        moreInfo: [
+          { label: '性别', content: '男' },
+          { label: '年龄', content: '31' },
+          { label: '部门', content: '数据中心' },
+          { label: '专长', content: '经营分析' }
+        ]
+      }
+    ],
+    []
+  );
+
+  return (
+    <Flex vertical gap={32} style={{ padding: '40px' }}>
+      <Flex vertical gap={16}>
+        <div style={{ fontSize: 18, fontWeight: 600 }}>综合示例</div>
+        <Flex wrap gap={16} align="center" justify="space-between">
+          <Flex gap={12} align="center" wrap="wrap">
+            <span>mode：</span>
+            <Segmented value={mode} onChange={setMode} options={modeOptions} />
+          </Flex>
+          <Flex gap={12} align="center" wrap="wrap">
+            <span>status：</span>
+            <Select value={status} onChange={setStatus} style={{ width: 120 }} options={statusOptions} />
+          </Flex>
+        </Flex>
+      </Flex>
+
+      <Flex wrap gap={24} justify="center">
+        {profileCards.map(item => (
+          <div key={item.key} style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+            <Tag color="blue">{item.label}</Tag>
+            <PersonalCard avatar={avatar} mode={mode} status={status} {...item} />
+          </div>
+        ))}
+      </Flex>
+    </Flex>
+  );
+};
+
+render(<BaseExample />);
+
+```
+
+- HeaderCard
+- 头部卡片组件 - 展示多种主题色效果
+- _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
+
+```jsx
+const { HeaderCard } = _ReactBox;
+const { Input, Space, Tag, Button, Flex, Slider } = antd;
+const { Search } = Input;
 
 const BaseExample = () => {
   return (
-    <Flex vertical gap={40} style={{ padding: '40px', alignItems: 'center' }}>
-      {/* Large Mode */}
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-        <h3 style={{ margin: 0 }}>大模式</h3>
-        <PersonalCard
-          avatar="https://lh3.googleusercontent.com/aida-public/AB6AXuDqLnDmKjqh6t4I7p2ox9cVq2MTqqBKE6BBO49c-FAxX4Y8EwyDik-JP7x_oQctnOedSDTpGgs5-sZLDcuzrBcS766dwWL2cPxo9HvgVxV4-pfMoA9NMMgwTSXXcqpKySJjiaNrL7mkkH2VD_hKBRffEuILfooFtU8q3j9j-9BRYSBv32LitbcfBOcJjlsVniybDF9XC-h5CvNevPbJPTAqsfx1zLXNviJYh50e_TTtk_rEVgTGzls7CWfRW7Od2T7_K5ALkUUzlA"
-          name="莎拉·詹金斯"
-          title="高级账户战略师"
-          description="我的使命是确保您的团队拥有轻松扩展所需的资源和战略指导。让我们携手共创辉煌。"
-          phone="+86 138 0000 0000"
-          email="sarah.j@example.com"
-          moreInfo={[
-            { label: '性别', content: '女' },
-            { label: '年龄', content: '32' },
-            { label: '部门', content: '账户管理' },
-            { label: '职位', content: '高级账户战略师' }
-          ]}
-          status="online"
-          mode="large"
-        />
+    <Flex vertical gap={48}>
+      {/* 基础示例 - 展示所有API */}
+      <HeaderCard
+        color="#2563eb"
+        subtitle={
+          <>
+            <Tag color="processing" style={{ marginInlineEnd: 0 }}>
+              资源目录
+            </Tag>
+            HeaderCard
+          </>
+        }
+        title="组件与远程模块目录"
+        description="统一承载目录检索、分类筛选与说明文案，适用于组件市场、文档首页与资源聚合等场景。"
+        footer={
+          <Space size={8}>
+            <Button type="primary" size="small">
+              新建资源
+            </Button>
+            <Button size="small">查看接入规范</Button>
+          </Space>
+        }
+        icon={
+          <div
+            style={{
+              width: 80,
+              height: 80,
+              borderRadius: 24,
+              border: '1px solid rgba(37, 99, 235, 0.2)',
+              background: 'linear-gradient(180deg, rgba(37, 99, 235, 0.16) 0%, rgba(37, 99, 235, 0.04) 100%)',
+              clipPath: 'polygon(25% 6%, 75% 6%, 96% 50%, 75% 94%, 25% 94%, 4% 50%)'
+            }}
+          />
+        }
+      >
+        <Search allowClear enterButton="搜索" size="large" placeholder="搜索组件 / 模块 / 关键字" />
+      </HeaderCard>
+
+      {/* icon 位置和大小的控制 */}
+      <div>
+        <h3 style={{ marginBottom: 24, fontSize: 18, fontWeight: 600 }}>icon 位置和大小控制</h3>
+        <Flex vertical gap={36}>
+          <HeaderCard
+            color="#8b5cf6"
+            subtitle="iconPosition: right-top"
+            title="图标位置：右上角"
+            description="通过 iconPosition 参数可以控制图标的位置"
+            iconPosition="right-top"
+            iconSize={72}
+            icon={
+              <div
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: 16,
+                  background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.1) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <div style={{ width: 24, height: 24, background: '#8b5cf6', borderRadius: 6, transform: 'rotate(45deg)' }} />
+              </div>
+            }
+          />
+
+          <HeaderCard
+            color="#06b6d4"
+            subtitle="iconPosition: left-bottom"
+            title="图标位置：左下角"
+            description="支持四个位置：right-bottom（默认）、right-top、left-bottom、left-top"
+            iconPosition="left-bottom"
+            iconSize={80}
+            icon={
+              <div
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 16,
+                  background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(6, 182, 212, 0.1) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <div style={{ width: 28, height: 28, border: '3px solid #06b6d4', borderRadius: '50%' }} />
+              </div>
+            }
+          />
+
+          <HeaderCard
+            color="#ec4899"
+            subtitle="iconPosition: left-top"
+            title="图标位置：左上角"
+            description="iconSize 支持数字（px）或字符串"
+            iconPosition="left-top"
+            iconSize="64px"
+            icon={
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.3) 0%, rgba(236, 72, 153, 0.1) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <div style={{ width: 20, height: 20, background: '#ec4899', borderRadius: '50%' }} />
+              </div>
+            }
+          />
+
+          <HeaderCard
+            color="#10b981"
+            subtitle="iconSize: 120"
+            title="大图标示例"
+            description="通过 iconSize 参数可以控制图标容器的大小"
+            iconPosition="right-bottom"
+            iconSize={120}
+            icon={
+              <div
+                style={{
+                  width: 96,
+                  height: 96,
+                  borderRadius: 24,
+                  background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0.1) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <div style={{ width: 40, height: 40, background: '#10b981', borderRadius: 12, transform: 'rotate(45deg)' }} />
+              </div>
+            }
+          />
+        </Flex>
       </div>
 
-      {/* Vertical Mode */}
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-        <h3 style={{ margin: 0 }}>纵向模式</h3>
-        <PersonalCard
-          mode="vertical"
-          avatar="https://lh3.googleusercontent.com/aida-public/AB6AXuDqLnDmKjqh6t4I7p2ox9cVq2MTqqBKE6BBO49c-FAxX4Y8EwyDik-JP7x_oQctnOedSDTpGgs5-sZLDcuzrBcS766dwWL2cPxo9HvgVxV4-pfMoA9NMMgwTSXXcqpKySJjiaNrL7mkkH2VD_hKBRffEuILfooFtU8q3j9j-9BRYSBv32LitbcfBOcJjlsVniybDF9XC-h5CvNevPbJPTAqsfx1zLXNviJYh50e_TTtk_rEVgTGzls7CWfRW7Od2T7_K5ALkUUzlA"
-          name="莎拉·詹金斯"
-          title="高级账户战略师"
-          description="我的使命是确保您的团队拥有轻松扩展所需的资源和战略指导。"
-          phone="+86 138 0000 0000"
-          email="sarah.j@example.com"
-          moreInfo={[
-            { label: '性别', content: '女' },
-            { label: '年龄', content: '32' },
-            { label: '部门', content: '账户管理' }
-          ]}
-          status="online"
-        />
+      {/* 多种颜色展示 */}
+      <div>
+        <h3 style={{ marginBottom: 24, fontSize: 18, fontWeight: 600 }}>多种主题色</h3>
+        <Flex vertical gap={36}>
+          {[
+            { color: HeaderCard.Purple, name: 'Purple' },
+            { color: HeaderCard.Green, name: 'Green' },
+            { color: HeaderCard.Orange, name: 'Orange' },
+            { color: HeaderCard.Pink, name: 'Pink' },
+            { color: HeaderCard.Red, name: 'Red' }
+          ].map(({ color, name }) => (
+            <HeaderCard
+              key={name}
+              color={color}
+              subtitle={`${name} 主题`}
+              title={`${name} HeaderCard`}
+              description="这是一个支持主题色的头部卡片组件，可以根据传入的颜色自动计算衍生颜色，生成协调的视觉效果。"
+              footer={
+                <Flex justify="space-between" align="center">
+                  <Tag color={color}>自动配色</Tag>
+                  <span style={{ color: '#94a3b8', fontSize: 13 }}>支持自定义颜色值</span>
+                </Flex>
+              }
+              icon={
+                <div
+                  style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: '50%',
+                    background: `linear-gradient(135deg, ${color}40 0%, ${color}20 100%)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <div style={{ width: 24, height: 24, borderRadius: '50%', background: color }} />
+                </div>
+              }
+            />
+          ))}
+        </Flex>
       </div>
 
-      {/* Horizontal Mode */}
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-        <h3 style={{ margin: 0 }}>横向模式</h3>
-        <PersonalCard
-          mode="horizontal"
-          avatar="https://lh3.googleusercontent.com/aida-public/AB6AXuDqLnDmKjqh6t4I7p2ox9cVq2MTqqBKE6BBO49c-FAxX4Y8EwyDik-JP7x_oQctnOedSDTpGgs5-sZLDcuzrBcS766dwWL2cPxo9HvgVxV4-pfMoA9NMMgwTSXXcqpKySJjiaNrL7mkkH2VD_hKBRffEuILfooFtU8q3j9j-9BRYSBv32LitbcfBOcJjlsVniybDF9XC-h5CvNevPbJPTAqsfx1zLXNviJYh50e_TTtk_rEVgTGzls7CWfRW7Od2T7_K5ALkUUzlA"
-          name="莎拉·詹金斯"
-          title="高级账户战略师"
-          description="确保团队拥有轻松扩展所需的资源和战略指导"
-          phone="+86 138 0000 0000"
-          email="sarah.j@example.com"
-          moreInfo={[
-            { label: '性别', content: '女' },
-            { label: '年龄', content: '32' },
-            { label: '部门', content: '账户管理' },
-            { label: '职位', content: '高级账户战略师' }
-          ]}
-          badge="在职"
-          status="online"
-        />
+      {/* 自定义样式 */}
+      <div>
+        <h3 style={{ marginBottom: 24, fontSize: 18, fontWeight: 600 }}>自定义样式</h3>
+        <HeaderCard
+          color="#8b5cf6"
+          subtitle="自定义样式"
+          title="支持 style 和 className"
+          description="可以通过 style 和 contentStyle 属性自定义卡片样式"
+          style={{ borderRadius: 24 }}
+          contentStyle={{ padding: 32 }}
+          footer={
+            <Space>
+              <Button type="primary" size="small" style={{ background: '#8b5cf6', borderColor: '#8b5cf6' }}>
+                立即使用
+              </Button>
+            </Space>
+          }
+          icon={
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.1) 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <div style={{ width: 24, height: 24, background: '#8b5cf6', borderRadius: 6, transform: 'rotate(45deg)' }} />
+            </div>
+          }
+        >
+          <Slider defaultValue={30} style={{ width: 300 }} />
+        </HeaderCard>
+      </div>
+
+      {/* content 参数示例 */}
+      <div>
+        <h3 style={{ marginBottom: 24, fontSize: 18, fontWeight: 600 }}>content 参数 - description 下方的额外内容</h3>
+        <Flex vertical gap={36}>
+          <HeaderCard
+            color="#06b6d4"
+            subtitle="content 参数"
+            title="在 description 下方添加内容"
+            description="通过 content 参数可以在描述文字下方添加自定义内容，适合放置标签、状态等信息"
+            content={
+              <Flex gap={8} wrap="wrap">
+                <Tag color="cyan">React</Tag>
+                <Tag color="geekblue">TypeScript</Tag>
+                <Tag color="purple">Ant Design</Tag>
+                <Tag color="magenta">现代前端</Tag>
+              </Flex>
+            }
+            footer={
+              <Space>
+                <Button type="primary" size="small">了解更多</Button>
+              </Space>
+            }
+            icon={
+              <div
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: 16,
+                  background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(6, 182, 212, 0.1) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <div style={{ width: 28, height: 28, border: '3px solid #06b6d4', borderRadius: '50%' }} />
+              </div>
+            }
+          />
+
+          <HeaderCard
+            color="#ec4899"
+            subtitle="content 参数"
+            title="展示统计数据"
+            description="可以在 content 中放置统计信息"
+            content={
+              <Flex gap={24} style={{ marginTop: 12 }}>
+                <div>
+                  <div style={{ fontSize: 24, fontWeight: 700, color: '#ec4899' }}>1,234</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8' }}>总访问量</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 24, fontWeight: 700, color: '#ec4899' }}>567</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8' }}>活跃用户</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 24, fontWeight: 700, color: '#ec4899' }}>89%</div>
+                  <div style={{ fontSize: 12, color: '#94a3b8' }}>完成率</div>
+                </div>
+              </Flex>
+            }
+            icon={
+              <div
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: 16,
+                  background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.3) 0%, rgba(236, 72, 153, 0.1) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <div style={{ width: 20, height: 20, background: '#ec4899', borderRadius: '50%' }} />
+              </div>
+            }
+          />
+        </Flex>
       </div>
     </Flex>
   );
@@ -622,50 +991,193 @@ render(<BaseExample />);
 
 ```
 
-- PersonalCard-Status
-- 个人档案卡片 - 状态切换示例
+- StackCard
+- 层叠卡片容器组件，可包裹其他 Card 类组件并控制层叠数量
 - _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
 
 ```jsx
-const { PersonalCard } = _ReactBox;
-const { Flex, Select } = antd;
+const { StackCard, Card, HeaderCard } = _ReactBox;
+const { Flex, Slider, Space, Tag, Button, Select, Divider } = antd;
 const { useState } = React;
 
+const AUTO_LAYER_COLOR = '__auto__';
+
 const BaseExample = () => {
-  const [status, setStatus] = useState('online');
+  const [layers, setLayers] = useState(4);
+  const [offset, setOffset] = useState(14);
+  const [radius, setRadius] = useState(16);
+  const [opacityStep, setOpacityStep] = useState(0.12);
+  const [minLayerOpacity, setMinLayerOpacity] = useState(0.35);
+  const [offsetDirection, setOffsetDirection] = useState('right-bottom');
+  const [layerColor, setLayerColor] = useState(AUTO_LAYER_COLOR);
 
   return (
-    <Flex vertical gap={24} style={{ padding: '40px', alignItems: 'center' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <span>状态:</span>
-        <Select
-          value={status}
-          onChange={setStatus}
-          style={{ width: 120 }}
-          options={[
-            { label: '在线', value: 'online' },
-            { label: '离线', value: 'offline' },
-            { label: '忙碌', value: 'busy' }
-          ]}
-        />
-      </div>
+    <Flex vertical gap={36}>
+      <Card title="交互式配置" icon="🧪" size="small">
+        <Flex vertical gap={18}>
+          <Flex align="center" justify="space-between" gap={16}>
+            <span>layers（层数）</span>
+            <div style={{ width: 260 }}>
+              <Slider min={0} max={8} value={layers} onChange={setLayers} />
+            </div>
+          </Flex>
 
-      <PersonalCard
-        avatar="https://lh3.googleusercontent.com/aida-public/AB6AXuDqLnDmKjqh6t4I7p2ox9cVq2MTqqBKE6BBO49c-FAxX4Y8EwyDik-JP7x_oQctnOedSDTpGgs5-sZLDcuzrBcS766dwWL2cPxo9HvgVxV4-pfMoA9NMMgwTSXXcqpKySJjiaNrL7mkkH2VD_hKBRffEuILfooFtU8q3j9j-9BRYSBv32LitbcfBOcJjlsVniybDF9XC-h5CvNevPbJPTAqsfx1zLXNviJYh50e_TTtk_rEVgTGzls7CWfRW7Od2T7_K5ALkUUzlA"
-        name="莎拉·詹金斯"
-        title="高级账户战略师"
-        description="我的使命是确保您的团队拥有轻松扩展所需的资源和战略指导。让我们携手共创辉煌。"
-        phone="+86 138 0000 0000"
-        email="sarah.j@example.com"
-        moreInfo={[
-          { label: '性别', content: '女' },
-          { label: '年龄', content: '32' },
-          { label: '部门', content: '账户管理' },
-          { label: '职位', content: '高级账户战略师' }
-        ]}
-        status={status}
-        mode="large"
-      />
+          <Flex align="center" justify="space-between" gap={16}>
+            <span>offset（偏移）</span>
+            <div style={{ width: 260 }}>
+              <Slider min={0} max={28} value={offset} onChange={setOffset} />
+            </div>
+          </Flex>
+
+          <Flex align="center" justify="space-between" gap={16}>
+            <span>radius（圆角）</span>
+            <div style={{ width: 260 }}>
+              <Slider min={0} max={30} value={radius} onChange={setRadius} />
+            </div>
+          </Flex>
+
+          <Flex align="center" justify="space-between" gap={16}>
+            <span>opacityStep（透明递减）</span>
+            <div style={{ width: 260 }}>
+              <Slider min={0} max={0.3} step={0.01} value={opacityStep} onChange={setOpacityStep} />
+            </div>
+          </Flex>
+
+          <Flex align="center" justify="space-between" gap={16}>
+            <span>minLayerOpacity（最小透明）</span>
+            <div style={{ width: 260 }}>
+              <Slider min={0} max={1} step={0.01} value={minLayerOpacity} onChange={setMinLayerOpacity} />
+            </div>
+          </Flex>
+
+          <Flex align="center" justify="space-between" gap={16}>
+            <span>offsetDirection（方向）</span>
+            <Select
+              value={offsetDirection}
+              style={{ width: 260 }}
+              onChange={setOffsetDirection}
+              options={[
+                { label: 'right-bottom', value: 'right-bottom' },
+                { label: 'right-top', value: 'right-top' },
+                { label: 'left-bottom', value: 'left-bottom' },
+                { label: 'left-top', value: 'left-top' }
+              ]}
+            />
+          </Flex>
+
+          <Flex align="center" justify="space-between" gap={16}>
+            <span>layerColor（背景色）</span>
+            <Select
+              value={layerColor}
+              style={{ width: 260 }}
+              onChange={setLayerColor}
+              options={[
+                { label: 'Auto（复制子卡片）', value: AUTO_LAYER_COLOR },
+                { label: 'White', value: '#ffffff' },
+                { label: 'Blue', value: '#dbeafe' },
+                { label: 'Purple', value: '#ede9fe' },
+                { label: 'Green', value: '#dcfce7' },
+                { label: 'Orange', value: '#ffedd5' }
+              ]}
+            />
+          </Flex>
+        </Flex>
+      </Card>
+
+      <StackCard
+        layers={layers}
+        offset={offset}
+        radius={radius}
+        opacityStep={opacityStep}
+        minLayerOpacity={minLayerOpacity}
+        offsetDirection={offsetDirection}
+        layerColor={layerColor === AUTO_LAYER_COLOR ? undefined : layerColor}
+      >
+        <HeaderCard
+          color={HeaderCard.Blue}
+          style={{ borderRadius: radius }}
+          subtitle="StackCard Playground"
+          title="层叠效果完整能力演示"
+          description="可配置层数、偏移、偏移方向、圆角、透明度递减强度与最小透明度。默认会复制子卡片的背景与圆角。"
+          content={
+            <Space wrap>
+              <Tag color="processing">layers: {layers}</Tag>
+              <Tag color="purple">offset: {offset}px</Tag>
+              <Tag color="cyan">direction: {offsetDirection}</Tag>
+              <Tag color="magenta">bg: {layerColor === AUTO_LAYER_COLOR ? 'auto' : layerColor}</Tag>
+              <Tag color="geekblue">opacityStep: {opacityStep}</Tag>
+              <Tag color="gold">minOpacity: {minLayerOpacity}</Tag>
+            </Space>
+          }
+          footer={
+            <Space>
+              <Button type="primary" size="small">应用配置</Button>
+              <Button size="small">重置</Button>
+            </Space>
+          }
+        />
+      </StackCard>
+
+      <Divider style={{ margin: 0 }} />
+
+      <Flex vertical gap={20}>
+        <div style={{ fontSize: 16, fontWeight: 600 }}>样式能力展示</div>
+        <StackCard
+          layers={3}
+          offset={12}
+          offsetDirection="right-bottom"
+          radius={18}
+          layerBackground="linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)"
+          layerBorderColor="rgba(37, 99, 235, 0.22)"
+          layerShadow="0 10px 28px rgba(37, 99, 235, 0.12)"
+          opacityStep={0.16}
+          minLayerOpacity={0.28}
+        >
+          <Card title="自定义层样式" icon="🎨" extra={<Tag color="blue">style</Tag>}>
+            <div style={{ color: '#475569', lineHeight: 1.7 }}>
+              通过 layerBackground、layerColor、layerBorderColor、layerShadow、radius 等参数可定义背后层叠风格。
+            </div>
+          </Card>
+        </StackCard>
+      </Flex>
+
+      <Divider style={{ margin: 0 }} />
+
+      <Flex vertical gap={20}>
+        <div style={{ fontSize: 16, fontWeight: 600 }}>自动继承子卡片样式</div>
+        <StackCard layers={3} offset={12} offsetDirection="right-bottom">
+          <Card
+            title="自动读取背景和边框"
+            icon="🪄"
+            style={{
+              background: 'linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%)',
+              border: '1px solid #fdba74'
+            }}
+          >
+            <div style={{ color: '#9a3412', lineHeight: 1.7 }}>
+              未传入 `layerBackground`、`layerColor`、`layerBorderColor` 时，会尝试从单个子节点的 style 中读取背景和边框。
+            </div>
+          </Card>
+        </StackCard>
+      </Flex>
+
+      <Divider style={{ margin: 0 }} />
+
+      <Flex vertical gap={16}>
+        <div style={{ fontSize: 16, fontWeight: 600 }}>方向能力展示</div>
+        <Flex wrap gap={24}>
+          {['right-bottom', 'right-top', 'left-bottom', 'left-top'].map(direction => (
+            <div key={direction} style={{ width: 'calc(50% - 12px)', minWidth: 320 }}>
+              <div style={{ marginBottom: 10, color: '#64748b', fontSize: 13 }}>{direction}</div>
+              <StackCard layers={3} offset={10} offsetDirection={direction} opacityStep={0.14} minLayerOpacity={0.32}>
+                <Card title="方向示例" size="small">
+                  <div style={{ color: '#64748b' }}>offsetDirection = {direction}</div>
+                </Card>
+              </StackCard>
+            </div>
+          ))}
+        </Flex>
+      </Flex>
     </Flex>
   );
 };
@@ -683,18 +1195,18 @@ render(<BaseExample />);
 
 #### 属性
 
-| 属性        | 类型        | 默认值      | 描述                                              |
-|-----------|-----------|----------|--------------------------------------------------|
-| className | string    | -        | 自定义类名                                           |
-| title     | ReactNode | -        | 卡片标题                                            |
-| icon      | ReactNode | -        | 标题图标，通常为 emoji 或图标组件                            |
-| extra     | ReactNode | -        | 标题栏右侧的额外内容，可放置操作按钮等                             |
-| children  | ReactNode | -        | 卡片主体内容                                          |
+| 属性        | 类型        | 默认值       | 描述                                             |
+|-----------|-----------|-----------|------------------------------------------------|
+| className | string    | -         | 自定义类名                                          |
+| title     | ReactNode | -         | 卡片标题                                           |
+| icon      | ReactNode | -         | 标题图标，通常为 emoji 或图标组件                           |
+| extra     | ReactNode | -         | 标题栏右侧的额外内容，可放置操作按钮等                            |
+| children  | ReactNode | -         | 卡片主体内容                                         |
 | size      | string    | 'default' | 卡片尺寸，可选值：'large' \| 'default' \| 'small'       |
-| padding   | string    | -        | 内边距，会覆盖 size 的默认值（通过 CSS 变量 --card-padding 控制） |
-| radius    | string    | '12px'   | 圆角大小（通过 CSS 变量 --card-radius 控制）              |
-| border    | boolean   | true     | 是否显示边框                                          |
-| style     | object    | -        | 自定义样式对象                                         |
+| padding   | string    | -         | 内边距，会覆盖 size 的默认值（通过 CSS 变量 --card-padding 控制） |
+| radius    | string    | '12px'    | 圆角大小（通过 CSS 变量 --card-radius 控制）               |
+| border    | boolean   | true      | 是否显示边框                                         |
+| style     | object    | -         | 自定义样式对象                                        |
 
 ### Zsh
 
@@ -769,6 +1281,66 @@ render(<BaseExample />);
 | description | ReactNode | -         | 描述文字     |
 | color       | string    | '#10b981' | 主题颜色     |
 | children    | ReactNode | -         | 底部操作区域内容 |
+
+#### 快捷组件
+
+`Result` 提供以下常用状态快捷组件，均支持与 `Result` 相同的属性，并内置默认图标与主题色：
+
+- `Result.Success`
+- `Result.Warning`
+- `Result.Error`
+- `Result.Info`
+
+同时也提供顶层导出：
+
+- `SuccessResult`
+- `WarningResult`
+- `ErrorResult`
+- `InfoResult`
+
+### HeaderCard
+
+头部卡片组件，支持主题色、副标题、标题、描述、额外内容等，适用于页面头部、资源目录、组件市场等场景。根据传入的颜色自动计算衍生颜色，生成协调的视觉效果。
+
+#### 属性
+
+| 属性           | 类型               | 默认值             | 描述                                                                    |
+|--------------|------------------|-----------------|-----------------------------------------------------------------------|
+| className    | string           | -               | 自定义类名                                                                 |
+| style        | object           | -               | 卡片容器自定义样式对象                                                           |
+| contentStyle | object           | -               | 内容区域自定义样式对象                                                           |
+| color        | string           | HeaderCard.Blue | 主题颜色，支持预设颜色或自定义颜色值                                                    |
+| subtitle     | ReactNode        | -               | 副标题，支持字符串或 JSX（如带 Tag 的复合内容）                                          |
+| title        | ReactNode        | -               | 标题                                                                    |
+| description  | ReactNode        | -               | 描述文字                                                                  |
+| content      | ReactNode        | -               | 描述文字下方的额外内容区域，适合放置标签、统计信息等                                            |
+| footer       | ReactNode        | -               | 底部操作区域，通常放置按钮组                                                        |
+| icon         | ReactNode        | -               | 角落图标元素，带有浮动动画效果                                                       |
+| iconPosition | string           | 'right-bottom'  | 图标位置，可选值：'right-bottom' \| 'right-top' \| 'left-bottom' \| 'left-top' |
+| iconSize     | string \| number | 96              | 图标容器大小，支持数字（px）或字符串                                                   |
+| children     | ReactNode        | -               | 右侧额外内容区域，通常放置搜索框、表单等                                                  |
+
+### StackCard
+
+层叠卡片容器组件，可包裹其他 Card 类组件，在背后生成层叠视觉效果。
+
+#### 属性
+
+| 属性               | 类型               | 默认值                                         | 描述                                                                    |
+|------------------|------------------|---------------------------------------------|-----------------------------------------------------------------------|
+| className        | string           | -                                           | 自定义类名                                                                 |
+| style            | object           | -                                           | 外层容器自定义样式                                                             |
+| children         | ReactElement     | -                                           | 被包裹的主卡片内容，仅允许一个子节点                                                    |
+| layers           | number           | 2                                           | 背后层叠数量（不包含最上层主卡片）                                                     |
+| offset           | number \| string | 8                                           | 每层偏移距离，支持数字（px）或字符串                                                   |
+| offsetDirection  | string           | 'right-bottom'                              | 偏移方向，可选值：'right-bottom' \| 'right-top' \| 'left-bottom' \| 'left-top' |
+| radius           | number \| string | '12px'                                      | 背后层圆角，支持数字（px）或字符串                                                    |
+| layerBackground  | string           | 自动读取 children 背景 / '#ffffff'                | 背后层背景样式，支持颜色值或渐变等 background 值；未传时会尝试读取子节点样式                          |
+| layerColor       | string           | -                                           | 背后层背景颜色，优先级高于 layerBackground                                         |
+| layerBorderColor | string           | 自动读取 children 边框 / 'rgba(15, 23, 42, 0.08)' | 背后层边框颜色；未传时会尝试读取子节点边框样式                                               |
+| layerShadow      | string           | '0 6px 20px rgba(15, 23, 42, 0.06)'         | 背后层阴影样式                                                               |
+| opacityStep      | number           | 0.12                                        | 每向后一层透明度递减值，值越大层叠透明差异越明显                                              |
+| minLayerOpacity  | number           | 0.35                                        | 背景层最小透明度（范围 0~1），防止后层完全不可见                                            |
 
 ### PersonalCard
 

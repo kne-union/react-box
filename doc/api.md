@@ -4,18 +4,18 @@
 
 #### 属性
 
-| 属性        | 类型        | 默认值      | 描述                                              |
-|-----------|-----------|----------|--------------------------------------------------|
-| className | string    | -        | 自定义类名                                           |
-| title     | ReactNode | -        | 卡片标题                                            |
-| icon      | ReactNode | -        | 标题图标，通常为 emoji 或图标组件                            |
-| extra     | ReactNode | -        | 标题栏右侧的额外内容，可放置操作按钮等                             |
-| children  | ReactNode | -        | 卡片主体内容                                          |
+| 属性        | 类型        | 默认值       | 描述                                             |
+|-----------|-----------|-----------|------------------------------------------------|
+| className | string    | -         | 自定义类名                                          |
+| title     | ReactNode | -         | 卡片标题                                           |
+| icon      | ReactNode | -         | 标题图标，通常为 emoji 或图标组件                           |
+| extra     | ReactNode | -         | 标题栏右侧的额外内容，可放置操作按钮等                            |
+| children  | ReactNode | -         | 卡片主体内容                                         |
 | size      | string    | 'default' | 卡片尺寸，可选值：'large' \| 'default' \| 'small'       |
-| padding   | string    | -        | 内边距，会覆盖 size 的默认值（通过 CSS 变量 --card-padding 控制） |
-| radius    | string    | '12px'   | 圆角大小（通过 CSS 变量 --card-radius 控制）              |
-| border    | boolean   | true     | 是否显示边框                                          |
-| style     | object    | -        | 自定义样式对象                                         |
+| padding   | string    | -         | 内边距，会覆盖 size 的默认值（通过 CSS 变量 --card-padding 控制） |
+| radius    | string    | '12px'    | 圆角大小（通过 CSS 变量 --card-radius 控制）               |
+| border    | boolean   | true      | 是否显示边框                                         |
+| style     | object    | -         | 自定义样式对象                                        |
 
 ### Zsh
 
@@ -90,6 +90,66 @@
 | description | ReactNode | -         | 描述文字     |
 | color       | string    | '#10b981' | 主题颜色     |
 | children    | ReactNode | -         | 底部操作区域内容 |
+
+#### 快捷组件
+
+`Result` 提供以下常用状态快捷组件，均支持与 `Result` 相同的属性，并内置默认图标与主题色：
+
+- `Result.Success`
+- `Result.Warning`
+- `Result.Error`
+- `Result.Info`
+
+同时也提供顶层导出：
+
+- `SuccessResult`
+- `WarningResult`
+- `ErrorResult`
+- `InfoResult`
+
+### HeaderCard
+
+头部卡片组件，支持主题色、副标题、标题、描述、额外内容等，适用于页面头部、资源目录、组件市场等场景。根据传入的颜色自动计算衍生颜色，生成协调的视觉效果。
+
+#### 属性
+
+| 属性           | 类型               | 默认值             | 描述                                                                    |
+|--------------|------------------|-----------------|-----------------------------------------------------------------------|
+| className    | string           | -               | 自定义类名                                                                 |
+| style        | object           | -               | 卡片容器自定义样式对象                                                           |
+| contentStyle | object           | -               | 内容区域自定义样式对象                                                           |
+| color        | string           | HeaderCard.Blue | 主题颜色，支持预设颜色或自定义颜色值                                                    |
+| subtitle     | ReactNode        | -               | 副标题，支持字符串或 JSX（如带 Tag 的复合内容）                                          |
+| title        | ReactNode        | -               | 标题                                                                    |
+| description  | ReactNode        | -               | 描述文字                                                                  |
+| content      | ReactNode        | -               | 描述文字下方的额外内容区域，适合放置标签、统计信息等                                            |
+| footer       | ReactNode        | -               | 底部操作区域，通常放置按钮组                                                        |
+| icon         | ReactNode        | -               | 角落图标元素，带有浮动动画效果                                                       |
+| iconPosition | string           | 'right-bottom'  | 图标位置，可选值：'right-bottom' \| 'right-top' \| 'left-bottom' \| 'left-top' |
+| iconSize     | string \| number | 96              | 图标容器大小，支持数字（px）或字符串                                                   |
+| children     | ReactNode        | -               | 右侧额外内容区域，通常放置搜索框、表单等                                                  |
+
+### StackCard
+
+层叠卡片容器组件，可包裹其他 Card 类组件，在背后生成层叠视觉效果。
+
+#### 属性
+
+| 属性               | 类型               | 默认值                                         | 描述                                                                    |
+|------------------|------------------|---------------------------------------------|-----------------------------------------------------------------------|
+| className        | string           | -                                           | 自定义类名                                                                 |
+| style            | object           | -                                           | 外层容器自定义样式                                                             |
+| children         | ReactElement     | -                                           | 被包裹的主卡片内容，仅允许一个子节点                                                    |
+| layers           | number           | 2                                           | 背后层叠数量（不包含最上层主卡片）                                                     |
+| offset           | number \| string | 8                                           | 每层偏移距离，支持数字（px）或字符串                                                   |
+| offsetDirection  | string           | 'right-bottom'                              | 偏移方向，可选值：'right-bottom' \| 'right-top' \| 'left-bottom' \| 'left-top' |
+| radius           | number \| string | '12px'                                      | 背后层圆角，支持数字（px）或字符串                                                    |
+| layerBackground  | string           | 自动读取 children 背景 / '#ffffff'                | 背后层背景样式，支持颜色值或渐变等 background 值；未传时会尝试读取子节点样式                          |
+| layerColor       | string           | -                                           | 背后层背景颜色，优先级高于 layerBackground                                         |
+| layerBorderColor | string           | 自动读取 children 边框 / 'rgba(15, 23, 42, 0.08)' | 背后层边框颜色；未传时会尝试读取子节点边框样式                                               |
+| layerShadow      | string           | '0 6px 20px rgba(15, 23, 42, 0.06)'         | 背后层阴影样式                                                               |
+| opacityStep      | number           | 0.12                                        | 每向后一层透明度递减值，值越大层叠透明差异越明显                                              |
+| minLayerOpacity  | number           | 0.35                                        | 背景层最小透明度（范围 0~1），防止后层完全不可见                                            |
 
 ### PersonalCard
 
