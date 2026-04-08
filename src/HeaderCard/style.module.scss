@@ -37,12 +37,12 @@
 .extra,
 .corner-icon {
   position: relative;
-  z-index: 1;
 }
 
 .content {
   min-height: 148px;
   padding: 22px 24px;
+  z-index: 10;
 }
 
 .with-extra {
@@ -89,12 +89,14 @@
   top: 22px;
   right: 24px;
   width: min(440px, calc(100% - 48px));
+  z-index: 20;
 }
 
 .footer {
   margin: 0 24px 22px;
   padding-top: 14px;
   border-top: 1px solid var(--header-card-footer-border);
+  z-index: 10;
 }
 
 .corner-icon {
@@ -105,7 +107,7 @@
   min-width: var(--icon-size, 96px);
   min-height: var(--icon-size, 96px);
   color: var(--header-card-primary);
-  opacity: 0.82;
+  opacity: 0.42;
   transform-origin: center;
   animation: icon-float 3.8s ease-in-out infinite;
 }

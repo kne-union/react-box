@@ -6,5 +6,6 @@ export { default as PersonalCard } from './PersonalCard';
 export { default as GlassCard } from './GlassCard';
 export { default as ColorfulCard } from './ColorfulCard';
 export { default as HeaderCard } from './HeaderCard';
+export { default as AuroraCard } from './AuroraCard';
 export { default as StackCard } from './StackCard';
 export { default as defaultColors, withColors } from './defaultColors';

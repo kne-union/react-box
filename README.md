@@ -991,6 +991,138 @@ render(<BaseExample />);
 
 ```
 
+- AuroraCard
+- 极光流光激活容器组件
+- _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),icons(@ant-design/icons),(@kne/current-lib_react-box/dist/index.css)
+
+```jsx
+const { AuroraCard } = _ReactBox;
+const { Flex, Button, Space, Tag, Switch, Slider, Segmented } = antd;
+const { useMemo, useState } = React;
+const { RobotOutlined, AudioOutlined, ThunderboltOutlined, BulbOutlined } = icons;
+
+const themeOptions = [
+  { label: '默认', value: 'default' },
+  { label: 'Ocean', value: 'ocean' },
+  { label: 'Sunset', value: 'sunset' }
+];
+
+const variantOptions = [
+  { label: '乳光', value: 'soft' },
+  { label: '流光', value: 'vivid' }
+];
+
+const BaseExample = () => {
+  const [animated, setAnimated] = useState(true);
+  const [radius, setRadius] = useState(32);
+  const [glow, setGlow] = useState(1);
+  const [flowSpeed, setFlowSpeed] = useState(1);
+  const [variant, setVariant] = useState('soft');
+  const [theme, setTheme] = useState('default');
+
+  const themeStyle = useMemo(() => {
+    const themes = {
+      default: {
+        color: AuroraCard.Blue,
+        secondaryColor: AuroraCard.Purple,
+        accentColor: AuroraCard.Pink
+      },
+      ocean: {
+        color: '#38bdf8',
+        secondaryColor: '#6366f1',
+        accentColor: '#2dd4bf'
+      },
+      sunset: {
+        color: '#fb7185',
+        secondaryColor: '#f97316',
+        accentColor: '#f59e0b'
+      }
+    };
+
+    return themes[theme];
+  }, [theme]);
+
+  return (
+    <Flex vertical gap={32} style={{ padding: '24px 0' }}>
+      <Flex wrap gap={16} align="center" justify="space-between">
+        <Flex gap={12} align="center" wrap="wrap">
+          <span>主题：</span>
+          <Segmented value={theme} onChange={setTheme} options={themeOptions} />
+          <span>风格：</span>
+          <Segmented value={variant} onChange={setVariant} options={variantOptions} />
+        </Flex>
+        <Flex gap={16} align="center" wrap="wrap">
+          <span>动画：</span>
+          <Switch checked={animated} onChange={setAnimated} />
+          <span>圆角：</span>
+          <div style={{ width: 160 }}>
+            <Slider min={20} max={44} value={radius} onChange={setRadius} />
+          </div>
+          <span>光晕：</span>
+          <div style={{ width: 160 }}>
+            <Slider min={0.4} max={1.6} step={0.1} value={glow} onChange={setGlow} />
+          </div>
+          <span>流速：</span>
+          <div style={{ width: 160 }}>
+            <Slider min={0.4} max={2.4} step={0.1} value={flowSpeed} onChange={setFlowSpeed} />
+          </div>
+        </Flex>
+      </Flex>
+
+      <AuroraCard animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} variant={variant} minHeight={280} style={{ maxWidth: 760, margin: '0 auto' }} {...themeStyle}>
+        <Flex vertical gap={20} justify="center" style={{ minHeight: 224 }}>
+          <Space wrap>
+            <Tag color="processing">Aurora Glow</Tag>
+            <Tag color="purple">Active</Tag>
+          </Space>
+          <div style={{ fontSize: 40, fontWeight: 700, color: '#0f172a', letterSpacing: '-0.03em' }}>你的智能能力已就绪</div>
+          <div style={{ maxWidth: 560, color: 'rgba(15,23,42,0.72)', lineHeight: 1.8 }}>
+            用流动彩边、呼吸光晕与玻璃质感，营造沉浸式激活视觉效果，适合 AI 对话入口、语音面板或欢迎区。
+          </div>
+          <Space wrap size={12}>
+            <Button type="primary" icon={<RobotOutlined />}>
+              开始对话
+            </Button>
+            <Button icon={<AudioOutlined />}>
+              语音唤醒
+            </Button>
+          </Space>
+        </Flex>
+      </AuroraCard>
+
+      <Flex wrap gap={24} justify="center">
+        <AuroraCard width={320} minHeight={168} padding={20} radius={28} flowSpeed={1.4} variant="soft" {...themeStyle}>
+          <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a' }}>
+            <AudioOutlined style={{ fontSize: 28 }} />
+            <div style={{ fontSize: 22, fontWeight: 600 }}>语音待命</div>
+            <div style={{ color: 'rgba(15,23,42,0.68)' }}>适合语音助手入口或悬浮模块</div>
+          </Flex>
+        </AuroraCard>
+
+        <AuroraCard width={320} minHeight={168} padding={20} radius={28} flowSpeed={0.8} variant="vivid" color="#2dd4bf" secondaryColor="#38bdf8" accentColor="#a78bfa">
+          <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a' }}>
+            <BulbOutlined style={{ fontSize: 28 }} />
+            <div style={{ fontSize: 22, fontWeight: 600 }}>智能建议</div>
+            <div style={{ color: 'rgba(15,23,42,0.68)' }}>用于推荐卡、洞察提示或助手摘要</div>
+          </Flex>
+        </AuroraCard>
+
+        <AuroraCard width={320} minHeight={168} padding={20} radius={999} flowSpeed={1.8} variant="vivid" color="#f472b6" secondaryColor="#a78bfa" accentColor="#60a5fa">
+          <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a', textAlign: 'center' }}>
+            <ThunderboltOutlined style={{ fontSize: 28 }} />
+            <div style={{ fontSize: 22, fontWeight: 600 }}>快速激活</div>
+            <div style={{ color: 'rgba(15,23,42,0.68)' }}>可做按钮强化态或激活态反馈</div>
+          </Flex>
+        </AuroraCard>
+      </Flex>
+    </Flex>
+  );
+};
+
+render(<BaseExample />);
+
+```
+
 - StackCard
 - 层叠卡片容器组件，可包裹其他 Card 类组件并控制层叠数量
 - _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
@@ -1319,6 +1451,32 @@ render(<BaseExample />);
 | iconPosition | string           | 'right-bottom'  | 图标位置，可选值：'right-bottom' \| 'right-top' \| 'left-bottom' \| 'left-top' |
 | iconSize     | string \| number | 96              | 图标容器大小，支持数字（px）或字符串                                                   |
 | children     | ReactNode        | -               | 右侧额外内容区域，通常放置搜索框、表单等                                                  |
+
+### AuroraCard
+
+极光流光激活容器组件，使用流动彩边、呼吸光晕和玻璃质感模拟激活态视觉效果。
+
+#### 属性
+
+| 属性           | 类型               | 默认值                          | 描述                                  |
+|--------------|------------------|------------------------------|-------------------------------------|
+| className    | string           | -                            | 自定义类名                               |
+| style        | object           | -                            | 外层容器自定义样式对象                         |
+| children     | ReactNode        | -                            | 内容区域                                 |
+| width        | number \| string | '100%'                       | 组件宽度，支持数字（px）或字符串                   |
+| minHeight    | number \| string | 220                          | 最小高度，支持数字（px）或字符串                   |
+| radius       | number \| string | 32                           | 外层圆角大小                              |
+| padding      | number \| string | 28                           | 内容区内边距                              |
+| ringWidth    | number \| string | 2.5                          | 激活彩边厚度                              |
+| blur         | number \| string | 28                           | 外围光晕模糊半径                            |
+| color        | string           | AuroraCard.Blue       | 主色                                  |
+| secondaryColor | string         | AuroraCard.Purple     | 次级流动色                               |
+| accentColor  | string           | AuroraCard.Pink       | 点缀流动色                               |
+| background   | string           | '#ffffff'                    | 内层内容面板背景                            |
+| glow         | number           | 1                            | 光晕强度系数                              |
+| flowSpeed    | number           | 1                            | 流光速度系数，值越大流动越快                      |
+| variant      | string           | 'soft'                       | 视觉风格，可选值：'soft'（柔和乳光）\| 'vivid'（彩色流光边框） |
+| animated     | boolean          | true                         | 是否启用旋转和呼吸动画                         |
 
 ### StackCard
 
