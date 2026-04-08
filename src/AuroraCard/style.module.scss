@@ -1,0 +1,230 @@
+.aurora-card {
+  position: relative;
+  display: block;
+  width: var(--aurora-card-width, 100%);
+  min-height: var(--aurora-card-min-height, 220px);
+  border-radius: var(--aurora-card-radius, 32px);
+  isolation: isolate;
+}
+
+.soft {
+  --aurora-card-aura-blur-scale: 1.14;
+  --aurora-card-pulse-spread: 40px;
+  --aurora-card-pulse-soft-spread: 68px;
+  --aurora-card-border-glow-blur: 22px;
+}
+
+.vivid {
+  --aurora-card-aura-blur-scale: 0.92;
+  --aurora-card-pulse-spread: 46px;
+  --aurora-card-pulse-soft-spread: 78px;
+  --aurora-card-border-glow-blur: 18px;
+}
+
+.aura,
+.pulse,
+.border-glow,
+.border-glow::before,
+.border-glow::after {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.aura {
+  inset: -10%;
+  z-index: 0;
+  border-radius: calc(var(--aurora-card-radius, 32px) + 28px);
+  background:
+    radial-gradient(circle at 16% 18%, var(--aurora-card-primary-soft) 0%, rgba(255, 255, 255, 0) 34%), radial-gradient(circle at 84% 18%, var(--aurora-card-secondary-soft) 0%, rgba(255, 255, 255, 0) 36%),
+    radial-gradient(circle at 50% 84%, var(--aurora-card-accent-soft) 0%, rgba(255, 255, 255, 0) 42%);
+  filter: blur(calc(var(--aurora-card-blur, 28px) * var(--aurora-card-aura-blur-scale, 1)));
+  opacity: var(--aurora-card-aura-opacity, 0.36);
+  animation: aurora-card-aura var(--aurora-card-flow-duration-slow, 7.2s) ease-in-out infinite;
+}
+
+.pulse {
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 255, 0.48),
+    inset 0 0 76px -20px var(--aurora-card-ring-glow),
+    0 0 var(--aurora-card-pulse-spread, 28px) -12px var(--aurora-card-ring-glow-soft),
+    0 0 var(--aurora-card-pulse-soft-spread, 48px) -16px var(--aurora-card-ring-glow);
+  opacity: var(--aurora-card-pulse-opacity, 0.64);
+  animation: aurora-card-glow var(--aurora-card-pulse-duration, 3.8s) ease-in-out infinite;
+}
+
+.ring {
+  position: relative;
+  z-index: 2;
+  min-height: inherit;
+  padding: var(--aurora-card-ring-width, 2.5px);
+  border-radius: inherit;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: 0 20px 48px -36px var(--aurora-card-shadow);
+}
+
+.border-glow {
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  padding: var(--aurora-card-ring-width, 2.5px);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.border-glow::before,
+.border-glow::after {
+  content: '';
+  top: 50%;
+  left: 50%;
+  width: var(--aurora-card-rotate-size, 180%);
+  height: var(--aurora-card-rotate-size, 180%);
+  transform-origin: center;
+}
+
+.border-glow::before {
+  background: conic-gradient(
+    from 0deg,
+    var(--aurora-card-primary-strong) 0deg,
+    var(--aurora-card-secondary-strong) 72deg,
+    var(--aurora-card-accent-strong) 144deg,
+    var(--aurora-card-primary-strong) 216deg,
+    var(--aurora-card-accent-strong) 288deg,
+    var(--aurora-card-secondary-strong) 360deg
+  );
+  filter: saturate(1.48) brightness(1.16) contrast(1.08);
+  opacity: var(--aurora-card-border-opacity, 0.9);
+  animation: aurora-card-border-spin var(--aurora-card-flow-duration, 4.8s) linear infinite;
+}
+
+.border-glow::after {
+  background: conic-gradient(
+    from 18deg,
+    rgba(255, 255, 255, 0) 0deg 20deg,
+    var(--aurora-card-primary-strong) 36deg,
+    var(--aurora-card-secondary-strong) 58deg,
+    rgba(255, 255, 255, 0) 80deg 140deg,
+    var(--aurora-card-accent-strong) 156deg,
+    var(--aurora-card-primary-strong) 178deg,
+    rgba(255, 255, 255, 0) 200deg 260deg,
+    var(--aurora-card-secondary-strong) 276deg,
+    var(--aurora-card-accent-strong) 298deg,
+    rgba(255, 255, 255, 0) 320deg 360deg
+  );
+  filter: blur(var(--aurora-card-border-glow-blur, 18px)) saturate(1.72) brightness(1.22) contrast(1.16);
+  opacity: var(--aurora-card-border-glow-opacity, 0.48);
+  animation:
+    aurora-card-border-spin var(--aurora-card-flow-duration, 4.8s) linear infinite,
+    aurora-card-border-glow var(--aurora-card-pulse-duration, 3.8s) ease-in-out infinite;
+}
+
+.surface {
+  position: relative;
+  z-index: 1;
+  min-height: calc(var(--aurora-card-min-height, 220px) - (var(--aurora-card-ring-width, 2.5px) * 2));
+  padding: var(--aurora-card-padding, 28px);
+  border-radius: calc(var(--aurora-card-radius, 32px) - var(--aurora-card-ring-width, 2.5px));
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99) 0%, var(--aurora-card-surface) 100%);
+  border: 1px solid var(--aurora-card-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    0 18px 48px rgba(15, 23, 42, 0.12);
+}
+
+.surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 22%);
+  pointer-events: none;
+}
+
+.surface > * {
+  position: relative;
+  z-index: 1;
+}
+
+.static .aura,
+.static .pulse,
+.static .border-glow::before,
+.static .border-glow::after {
+  animation: none !important;
+}
+
+@keyframes aurora-card-border-spin {
+  from {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+
+  to {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+
+@keyframes aurora-card-aura {
+  0%,
+  100% {
+    opacity: calc(var(--aurora-card-aura-opacity, 0.36) * 0.76);
+    transform: scale(0.97);
+  }
+
+  50% {
+    opacity: var(--aurora-card-aura-opacity, 0.36);
+    transform: scale(1.04);
+  }
+}
+
+@keyframes aurora-card-glow {
+  0%,
+  100% {
+    opacity: calc(var(--aurora-card-pulse-opacity, 0.64) * 0.8);
+    transform: scale(0.985);
+  }
+
+  50% {
+    opacity: var(--aurora-card-pulse-opacity, 0.64);
+    transform: scale(1.018);
+  }
+}
+
+@keyframes aurora-card-border-glow {
+  0%,
+  100% {
+    opacity: calc(var(--aurora-card-border-glow-opacity, 0.48) * 0.78);
+    filter: blur(var(--aurora-card-border-glow-blur, 18px)) saturate(1.62) brightness(1.14) contrast(1.1);
+  }
+
+  50% {
+    opacity: var(--aurora-card-border-glow-opacity, 0.48);
+    filter: blur(calc(var(--aurora-card-border-glow-blur, 18px) * 1.08)) saturate(1.9) brightness(1.34) contrast(1.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aura,
+  .pulse,
+  .border-glow::before,
+  .border-glow::after {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .surface {
+    padding: 22px;
+  }
+}

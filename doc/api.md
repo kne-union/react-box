@@ -129,6 +129,32 @@
 | iconSize     | string \| number | 96              | 图标容器大小，支持数字（px）或字符串                                                   |
 | children     | ReactNode        | -               | 右侧额外内容区域，通常放置搜索框、表单等                                                  |
 
+### AuroraCard
+
+极光流光激活容器组件，使用流动彩边、呼吸光晕和玻璃质感模拟激活态视觉效果。
+
+#### 属性
+
+| 属性           | 类型               | 默认值                          | 描述                                  |
+|--------------|------------------|------------------------------|-------------------------------------|
+| className    | string           | -                            | 自定义类名                               |
+| style        | object           | -                            | 外层容器自定义样式对象                         |
+| children     | ReactNode        | -                            | 内容区域                                 |
+| width        | number \| string | '100%'                       | 组件宽度，支持数字（px）或字符串                   |
+| minHeight    | number \| string | 220                          | 最小高度，支持数字（px）或字符串                   |
+| radius       | number \| string | 32                           | 外层圆角大小                              |
+| padding      | number \| string | 28                           | 内容区内边距                              |
+| ringWidth    | number \| string | 2.5                          | 激活彩边厚度                              |
+| blur         | number \| string | 28                           | 外围光晕模糊半径                            |
+| color        | string           | AuroraCard.Blue       | 主色                                  |
+| secondaryColor | string         | AuroraCard.Purple     | 次级流动色                               |
+| accentColor  | string           | AuroraCard.Pink       | 点缀流动色                               |
+| background   | string           | '#ffffff'                    | 内层内容面板背景                            |
+| glow         | number           | 1                            | 光晕强度系数                              |
+| flowSpeed    | number           | 1                            | 流光速度系数，值越大流动越快                      |
+| variant      | string           | 'soft'                       | 视觉风格，可选值：'soft'（柔和乳光）\| 'vivid'（彩色流光边框） |
+| animated     | boolean          | true                         | 是否启用旋转和呼吸动画                         |
+
 ### StackCard
 
 层叠卡片容器组件，可包裹其他 Card 类组件，在背后生成层叠视觉效果。
