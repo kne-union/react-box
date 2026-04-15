@@ -181,6 +181,50 @@
 
 个人档案卡片组件，支持大模式、纵向和横向三种展示模式，用于展示人员信息。
 
+### ResultCard
+
+简约结果卡片组件，用于显示操作结果、状态提示等信息，支持底部信息列表。
+
+#### 属性
+
+| 属性          | 类型        | 默认值       | 描述                                                                |
+|-------------|-----------|-----------|-------------------------------------------------------------------|
+| className   | string    | -         | 自定义类名                                                             |
+| title       | ReactNode | -         | 标题                                                                |
+| icon        | ReactNode | -         | 图标                                                                |
+| description | ReactNode | -         | 描述文字                                                              |
+| color       | string    | '#07c160' | 主题颜色                                                              |
+| items       | array     | []        | 底部信息列表，格式为 [{ icon, label, value }]，icon 支持内置名称或自定义 ReactNode |
+| children    | ReactNode | -         | 底部操作区域内容                                                          |
+
+#### items 子项属性
+
+| 属性    | 类型               | 默认值 | 描述                                              |
+|-------|------------------|-----|-------------------------------------------------|
+| icon  | string \| ReactNode | -   | 图标，内置名称：'briefcase'、'clock'，或自定义 ReactNode    |
+| label | string           | -   | 标签名                                             |
+| value | ReactNode        | -   | 值                                               |
+
+#### 快捷组件
+
+`ResultCard` 提供以下常用状态快捷组件，均支持与 `ResultCard` 相同的属性，并内置默认图标与主题色：
+
+- `ResultCard.Success`
+- `ResultCard.Warning`
+- `ResultCard.Error`
+- `ResultCard.Info`
+
+同时也提供顶层导出：
+
+- `ResultCardSuccess`
+- `ResultCardWarning`
+- `ResultCardError`
+- `ResultCardInfo`
+
+### PersonalCard
+
+个人档案卡片组件，支持大模式、纵向和横向三种展示模式，用于展示人员信息。
+
 #### 属性
 
 | 属性          | 类型     | 默认值      | 描述                                             |

@@ -511,6 +511,37 @@ const BaseExample = () => {
         <Jelly color={Jelly.Black} />
       </Flex>
 
+      <h3>带图标</h3>
+      <Flex gap={16} wrap="wrap">
+        <Jelly color={Jelly.Purple} size="80px">
+          <svg viewBox="0 0 24 24" fill="none" width="36" height="36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+          </svg>
+        </Jelly>
+        <Jelly color={Jelly.Red} size="80px">
+          <svg viewBox="0 0 24 24" fill="none" width="36" height="36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+          </svg>
+        </Jelly>
+        <Jelly color={Jelly.Blue} size="80px">
+          <svg viewBox="0 0 24 24" fill="none" width="36" height="36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+          </svg>
+        </Jelly>
+        <Jelly color={Jelly.Green} size="80px">
+          <svg viewBox="0 0 24 24" fill="none" width="36" height="36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        </Jelly>
+        <Jelly color={Jelly.Orange} size="80px">
+          <svg viewBox="0 0 24 24" fill="none" width="36" height="36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+        </Jelly>
+      </Flex>
+
       <h3>不同尺寸</h3>
       <Flex gap={16} align="center">
         <Jelly size="40px" color={Jelly.Purple} />
@@ -555,6 +586,144 @@ const BaseExample = () => {
         <Result.Error title="提交失败" description="网络请求超时，请稍后重试。" />
         <Result.Info title="提示信息" description="您可以先完成基础设置，再进行高级配置。" />
       </Flex>
+    </Flex>
+  );
+};
+
+render(<BaseExample />);
+
+```
+
+- ResultCard
+- 简约结果卡片组件，内置成功、警告、失败、信息四种快捷状态，支持底部信息列表
+- _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
+
+```jsx
+const { ResultCard } = _ReactBox;
+const { Flex, Button } = antd;
+
+const BaseExample = () => {
+  return (
+    <Flex vertical gap={64} style={{ padding: '40px 0' }}>
+      {/* 基础用法 */}
+      <ResultCard.Success
+        title="本轮面试已完成"
+        description="感谢您的参与，面试结果将在3个工作日内通知您"
+        items={[
+          {
+            icon: (
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="7" width="18" height="14" rx="3" stroke="currentColor" strokeWidth="2" />
+                <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" />
+              </svg>
+            ),
+            label: '测评主题',
+            value: '天天拍车 HR 岗位'
+          },
+          {
+            icon: (
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                <polyline points="12,6 12,12 16,14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ),
+            label: '提交时间',
+            value: '2026-04-15 14:30'
+          }
+        ]}
+      >
+        <Button type="primary" size="large" block style={{ marginTop: 24 }}>
+          返回首页
+        </Button>
+      </ResultCard.Success>
+
+      {/* 状态预设 */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px' }}>
+        <ResultCard.Success title="操作成功" description="您的数据已保存成功" />
+        <ResultCard.Warning title="注意风险" description="当前配置尚未完全生效" />
+        <ResultCard.Error title="提交失败" description="网络请求超时，请稍后重试" />
+        <ResultCard.Info title="提示信息" description="您可以先完成基础设置" />
+      </div>
+
+      {/* 自定义颜色 */}
+      <ResultCard
+        title="自定义颜色"
+        description="支持传入自定义颜色和图标"
+        color="#8b5cf6"
+        icon={
+          <svg viewBox="0 0 64 64" fill="none">
+            <path d="M32 12L40 28H24L32 12Z" fill="currentColor" />
+            <rect x="24" y="32" width="16" height="16" rx="2" fill="currentColor" />
+          </svg>
+        }
+        items={[
+          {
+            icon: (
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="7" width="18" height="14" rx="3" stroke="currentColor" strokeWidth="2" />
+                <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" />
+              </svg>
+            ),
+            label: '项目名称',
+            value: 'React Box'
+          },
+          {
+            icon: (
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                <polyline points="12,6 12,12 16,14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ),
+            label: '创建时间',
+            value: '2026-01-01'
+          }
+        ]}
+      />
+
+      {/* 自定义宽度 */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px' }}>
+        <ResultCard.Info
+          width={320}
+          title="窄卡片"
+          description="通过 width 设置卡片宽度"
+        />
+        <ResultCard.Info
+          width={480}
+          title="宽卡片"
+          description="通过 width 设置卡片宽度，支持数字（自动加px）或字符串"
+        />
+      </div>
+
+      {/* 溢出测试 */}
+      <ResultCard.Success
+        title="您已成功预约「高级前端开发工程师（React方向）- 杭州余杭区」岗位的线上面试"
+        description="面试将于2026年4月20日（周日）上午10:00开始，预计时长90分钟，请提前15分钟进入候考室完成设备检测与环境调试，迟到超过15分钟将视为自动放弃本次面试资格。"
+        items={[
+          {
+            icon: (
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="7" width="18" height="14" rx="3" stroke="currentColor" strokeWidth="2" />
+                <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" />
+              </svg>
+            ),
+            label: '期望工作城市及区域',
+            value: '高级前端开发工程师（React方向）'
+          },
+          {
+            icon: (
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                <polyline points="12,6 12,12 16,14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ),
+            label: '面试时间',
+            value: '2026-04-20 10:00-11:30'
+          }
+        ]}
+      />
     </Flex>
   );
 };
@@ -1499,6 +1668,50 @@ render(<BaseExample />);
 | layerShadow      | string           | '0 6px 20px rgba(15, 23, 42, 0.06)'         | 背后层阴影样式                                                               |
 | opacityStep      | number           | 0.12                                        | 每向后一层透明度递减值，值越大层叠透明差异越明显                                              |
 | minLayerOpacity  | number           | 0.35                                        | 背景层最小透明度（范围 0~1），防止后层完全不可见                                            |
+
+### PersonalCard
+
+个人档案卡片组件，支持大模式、纵向和横向三种展示模式，用于展示人员信息。
+
+### ResultCard
+
+简约结果卡片组件，用于显示操作结果、状态提示等信息，支持底部信息列表。
+
+#### 属性
+
+| 属性          | 类型        | 默认值       | 描述                                                                |
+|-------------|-----------|-----------|-------------------------------------------------------------------|
+| className   | string    | -         | 自定义类名                                                             |
+| title       | ReactNode | -         | 标题                                                                |
+| icon        | ReactNode | -         | 图标                                                                |
+| description | ReactNode | -         | 描述文字                                                              |
+| color       | string    | '#07c160' | 主题颜色                                                              |
+| items       | array     | []        | 底部信息列表，格式为 [{ icon, label, value }]，icon 支持内置名称或自定义 ReactNode |
+| children    | ReactNode | -         | 底部操作区域内容                                                          |
+
+#### items 子项属性
+
+| 属性    | 类型               | 默认值 | 描述                                              |
+|-------|------------------|-----|-------------------------------------------------|
+| icon  | string \| ReactNode | -   | 图标，内置名称：'briefcase'、'clock'，或自定义 ReactNode    |
+| label | string           | -   | 标签名                                             |
+| value | ReactNode        | -   | 值                                               |
+
+#### 快捷组件
+
+`ResultCard` 提供以下常用状态快捷组件，均支持与 `ResultCard` 相同的属性，并内置默认图标与主题色：
+
+- `ResultCard.Success`
+- `ResultCard.Warning`
+- `ResultCard.Error`
+- `ResultCard.Info`
+
+同时也提供顶层导出：
+
+- `ResultCardSuccess`
+- `ResultCardWarning`
+- `ResultCardError`
+- `ResultCardInfo`
 
 ### PersonalCard
 
