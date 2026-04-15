@@ -124,6 +124,25 @@
       ]
     },
     {
+      "title": "ResultCard",
+      "description": "简约结果卡片组件，内置成功、警告、失败、信息四种快捷状态，支持底部信息列表",
+      "code": "./result-card.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
       "title": "PersonalCard",
       "description": "个人档案卡片组件 - 在一个示例中演示三种模式、状态切换与空值处理",
       "code": "./personal-card.js",

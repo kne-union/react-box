@@ -8,4 +8,5 @@ export { default as ColorfulCard } from './ColorfulCard';
 export { default as HeaderCard } from './HeaderCard';
 export { default as AuroraCard } from './AuroraCard';
 export { default as StackCard } from './StackCard';
+export { default as ResultCard, SuccessResult as ResultCardSuccess, WarningResult as ResultCardWarning, ErrorResult as ResultCardError, InfoResult as ResultCardInfo } from './ResultCard';
 export { default as defaultColors, withColors } from './defaultColors';
