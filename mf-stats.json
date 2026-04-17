@@ -1,0 +1,327 @@
+{
+  "id": "react_box_0_1_9",
+  "name": "react_box_0_1_9",
+  "metaData": {
+    "name": "react_box_0_1_9",
+    "type": "app",
+    "buildInfo": {
+      "buildVersion": "0.1.0",
+      "buildName": "@kne-components/react-box"
+    },
+    "remoteEntry": {
+      "name": "remoteEntry.js",
+      "path": "",
+      "type": "global"
+    },
+    "types": {
+      "path": "",
+      "name": "",
+      "zip": "",
+      "api": ""
+    },
+    "globalName": "react_box_0_1_9",
+    "pluginVersion": "2.3.3",
+    "prefetchInterface": false,
+    "publicPath": "auto"
+  },
+  "shared": [
+    {
+      "singleton": true,
+      "requiredVersion": "^0.1.9",
+      "shareScope": "default",
+      "name": "@kne/current-lib_react-box",
+      "version": "0.1.9",
+      "eager": false,
+      "id": "react_box_0_1_9:@kne/current-lib_react-box",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/552.eda55be3.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^1.3.2",
+      "shareScope": "default",
+      "name": "@kne/global-context",
+      "version": "1.3.2",
+      "eager": false,
+      "id": "react_box_0_1_9:@kne/global-context",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/175.9453c565.chunk.js",
+            "static/js/556.559bbc0e.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^1.5.5",
+      "shareScope": "default",
+      "name": "@kne/react-fetch",
+      "version": "1.5.5",
+      "eager": false,
+      "id": "react_box_0_1_9:@kne/react-fetch",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/595.3008edc6.chunk.js",
+            "static/js/21.0c42cd01.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^0.1.12",
+      "shareScope": "default",
+      "name": "@kne/react-intl",
+      "version": "0.1.12",
+      "eager": false,
+      "id": "react_box_0_1_9:@kne/react-intl",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/292.2d0717c1.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^1.4.6",
+      "shareScope": "default",
+      "name": "@kne/remote-loader",
+      "version": "1.4.6",
+      "eager": false,
+      "id": "react_box_0_1_9:@kne/remote-loader",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/12.7344e252.chunk.js",
+            "static/js/631.1fc0a1f7.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^6.3.6",
+      "shareScope": "default",
+      "name": "antd",
+      "version": "6.3.6",
+      "eager": false,
+      "id": "react_box_0_1_9:antd",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/253.dfedd520.chunk.js",
+            "static/js/226.6f0fbdb9.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^1.15.0",
+      "shareScope": "default",
+      "name": "axios",
+      "version": "1.15.0",
+      "eager": false,
+      "id": "react_box_0_1_9:axios",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/780.7a420cd2.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^1.11.20",
+      "shareScope": "default",
+      "name": "dayjs",
+      "version": "1.11.20",
+      "eager": false,
+      "id": "react_box_0_1_9:dayjs",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/108.dada25c8.chunk.js",
+            "static/js/734.f51d3d01.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^18.3.1",
+      "shareScope": "default",
+      "name": "react-dom",
+      "version": "18.3.1",
+      "eager": false,
+      "id": "react_box_0_1_9:react-dom",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/766.a01a3658.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^6.30.3",
+      "shareScope": "default",
+      "name": "react-router-dom",
+      "version": "6.30.3",
+      "eager": false,
+      "id": "react_box_0_1_9:react-router-dom",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/811.2d787cf6.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^18.3.1",
+      "shareScope": "default",
+      "name": "react",
+      "version": "18.3.1",
+      "eager": false,
+      "id": "react_box_0_1_9:react",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/24.216277d5.chunk.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [],
+      "usedExports": [],
+      "fallback": ""
+    }
+  ],
+  "remotes": [],
+  "exposes": [
+    {
+      "path": "./components",
+      "id": "react_box_0_1_9:components",
+      "name": "components",
+      "requires": [],
+      "file": "node_modules/readme/modules.js",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/232.5eccf98d.chunk.js",
+            "static/js/2.915b0f65.chunk.js",
+            "static/js/451.c0a1289f.chunk.js",
+            "static/js/__federation_expose_components.d61a4347.chunk.js"
+          ],
+          "async": [
+            "static/js/181.d1d4d0c4.chunk.js"
+          ]
+        },
+        "css": {
+          "sync": [
+            "static/css/451.d75efdc0.chunk.css"
+          ],
+          "async": []
+        }
+      }
+    }
+  ]
+}
