@@ -1186,6 +1186,7 @@ const BaseExample = () => {
   const [radius, setRadius] = useState(32);
   const [glow, setGlow] = useState(1);
   const [flowSpeed, setFlowSpeed] = useState(1);
+  const [lineLength, setLineLength] = useState(0.5);
   const [variant, setVariant] = useState('soft');
   const [theme, setTheme] = useState('default');
 
@@ -1235,10 +1236,14 @@ const BaseExample = () => {
           <div style={{ width: 160 }}>
             <Slider min={0.4} max={2.4} step={0.1} value={flowSpeed} onChange={setFlowSpeed} />
           </div>
+          <span>线长：</span>
+          <div style={{ width: 160 }}>
+            <Slider min={0.1} max={1} step={0.05} value={lineLength} onChange={setLineLength} />
+          </div>
         </Flex>
       </Flex>
 
-      <AuroraCard animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} variant={variant} minHeight={280} style={{ maxWidth: 760, margin: '0 auto' }} {...themeStyle}>
+      <AuroraCard animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} lineLength={lineLength} variant={variant} minHeight={280} style={{ maxWidth: 760, margin: '0 auto' }} {...themeStyle}>
         <Flex vertical gap={20} justify="center" style={{ minHeight: 224 }}>
           <Space wrap>
             <Tag color="processing">Aurora Glow</Tag>
@@ -1260,7 +1265,7 @@ const BaseExample = () => {
       </AuroraCard>
 
       <Flex wrap gap={24} justify="center">
-        <AuroraCard width={320} minHeight={168} padding={20} radius={28} flowSpeed={1.4} variant="soft" {...themeStyle}>
+        <AuroraCard  animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} lineLength={lineLength} variant={variant} width={320} minHeight={168} padding={20} {...themeStyle}>
           <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a' }}>
             <AudioOutlined style={{ fontSize: 28 }} />
             <div style={{ fontSize: 22, fontWeight: 600 }}>语音待命</div>
@@ -1268,7 +1273,7 @@ const BaseExample = () => {
           </Flex>
         </AuroraCard>
 
-        <AuroraCard width={320} minHeight={168} padding={20} radius={28} flowSpeed={0.8} variant="vivid" color="#2dd4bf" secondaryColor="#38bdf8" accentColor="#a78bfa">
+        <AuroraCard  animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} lineLength={lineLength} variant={variant} width={320} minHeight={168} padding={20} color="#2dd4bf" secondaryColor="#38bdf8" accentColor="#a78bfa">
           <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a' }}>
             <BulbOutlined style={{ fontSize: 28 }} />
             <div style={{ fontSize: 22, fontWeight: 600 }}>智能建议</div>
@@ -1276,13 +1281,180 @@ const BaseExample = () => {
           </Flex>
         </AuroraCard>
 
-        <AuroraCard width={320} minHeight={168} padding={20} radius={999} flowSpeed={1.8} variant="vivid" color="#f472b6" secondaryColor="#a78bfa" accentColor="#60a5fa">
+        <AuroraCard  animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} lineLength={lineLength} variant={variant} width={320} minHeight={168} padding={20} color="#f472b6" secondaryColor="#a78bfa" accentColor="#60a5fa">
           <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a', textAlign: 'center' }}>
             <ThunderboltOutlined style={{ fontSize: 28 }} />
             <div style={{ fontSize: 22, fontWeight: 600 }}>快速激活</div>
             <div style={{ color: 'rgba(15,23,42,0.68)' }}>可做按钮强化态或激活态反馈</div>
           </Flex>
         </AuroraCard>
+      </Flex>
+    </Flex>
+  );
+};
+
+render(<BaseExample />);
+
+```
+
+- GlowEffect
+- 鼠标跟随光晕边框效果，包裹其他 Card 组件使用
+- _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),icons(@ant-design/icons),(@kne/current-lib_react-box/dist/index.css)
+
+```jsx
+const { GlowEffect, Card, HeaderCard } = _ReactBox;
+const { Flex, Slider, Switch, Segmented, Space, Tag, Button, Divider } = antd;
+const { useState } = React;
+const { RobotOutlined, AudioOutlined, ThunderboltOutlined, BulbOutlined } = icons;
+
+const variantOptions = [
+  { label: '彩色', value: 'default' },
+  { label: '白色', value: 'white' }
+];
+
+const BaseExample = () => {
+  const [blur, setBlur] = useState(0);
+  const [proximity, setProximity] = useState(64);
+  const [spread, setSpread] = useState(40);
+  const [glow, setGlow] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [variant, setVariant] = useState('default');
+  const [borderWidth, setBorderWidth] = useState(1);
+  const [movementDuration, setMovementDuration] = useState(2);
+
+  return (
+    <Flex vertical gap={32} style={{ padding: '24px 0' }}>
+      <Flex wrap gap={16} align="center" justify="space-between">
+        <Flex gap={12} align="center" wrap="wrap">
+          <span>变体：</span>
+          <Segmented value={variant} onChange={setVariant} options={variantOptions} />
+        </Flex>
+        <Flex gap={16} align="center" wrap="wrap">
+          <span>常亮：</span>
+          <Switch checked={glow} onChange={setGlow} />
+          <span>禁用：</span>
+          <Switch checked={disabled} onChange={setDisabled} />
+          <span>模糊：</span>
+          <div style={{ width: 120 }}>
+            <Slider min={0} max={20} step={1} value={blur} onChange={setBlur} />
+          </div>
+          <span>扩散：</span>
+          <div style={{ width: 120 }}>
+            <Slider min={10} max={80} step={2} value={spread} onChange={setSpread} />
+          </div>
+          <span>感应：</span>
+          <div style={{ width: 120 }}>
+            <Slider min={0} max={200} step={8} value={proximity} onChange={setProximity} />
+          </div>
+          <span>边宽：</span>
+          <div style={{ width: 100 }}>
+            <Slider min={1} max={4} step={0.5} value={borderWidth} onChange={setBorderWidth} />
+          </div>
+          <span>速度：</span>
+          <div style={{ width: 100 }}>
+            <Slider min={0.5} max={4} step={0.5} value={movementDuration} onChange={setMovementDuration} />
+          </div>
+        </Flex>
+      </Flex>
+
+      <GlowEffect
+        blur={blur}
+        proximity={proximity}
+        spread={spread}
+        glow={glow}
+        disabled={disabled}
+        variant={variant}
+        borderWidth={borderWidth}
+        movementDuration={movementDuration}
+      >
+        <HeaderCard
+          color={HeaderCard.Blue}
+          title="GlowEffect 演示"
+          subtitle="鼠标跟随光晕边框"
+          description="将 GlowEffect 包裹在任何 Card 外部，自动读取子卡片的圆角。"
+          content={
+            <Space wrap>
+              <Tag color="processing">proximity: {proximity}</Tag>
+              <Tag color="purple">spread: {spread}</Tag>
+              <Tag color="cyan">borderWidth: {borderWidth}</Tag>
+            </Space>
+          }
+          footer={
+            <Space>
+              <Button type="primary" size="small">确认</Button>
+              <Button size="small">取消</Button>
+            </Space>
+          }
+        />
+      </GlowEffect>
+
+      <Divider style={{ margin: 0 }} />
+
+      <div style={{ fontSize: 16, fontWeight: 600 }}>包裹不同卡片</div>
+
+      <Flex wrap gap={24} justify="center">
+        <GlowEffect
+          radius={16}
+          blur={blur}
+          proximity={proximity}
+          spread={spread}
+          glow={glow}
+          disabled={disabled}
+          variant={variant}
+          borderWidth={borderWidth}
+          movementDuration={movementDuration}
+        >
+          <Card title="普通卡片" icon={<AudioOutlined />} style={{ width: 320, minHeight: 168 }}>
+            <Flex vertical gap={10} justify="center" style={{ minHeight: 100, color: '#0f172a' }}>
+              <div style={{ fontSize: 22, fontWeight: 600 }}>语音待命</div>
+              <div style={{ color: 'rgba(15,23,42,0.68)' }}>适合语音助手入口或悬浮模块</div>
+            </Flex>
+          </Card>
+        </GlowEffect>
+
+        <GlowEffect
+          radius={16}
+          blur={blur}
+          proximity={proximity}
+          spread={spread}
+          glow={glow}
+          disabled={disabled}
+          variant={variant}
+          borderWidth={borderWidth}
+          movementDuration={movementDuration}
+          color="#2dd4bf"
+          secondaryColor="#38bdf8"
+          accentColor="#a78bfa"
+        >
+          <Card title="青紫光晕" icon={<BulbOutlined />} style={{ width: 320, minHeight: 168 }}>
+            <Flex vertical gap={10} justify="center" style={{ minHeight: 100, color: '#0f172a' }}>
+              <div style={{ fontSize: 22, fontWeight: 600 }}>智能建议</div>
+              <div style={{ color: 'rgba(15,23,42,0.68)' }}>用于推荐卡、洞察提示或助手摘要</div>
+            </Flex>
+          </Card>
+        </GlowEffect>
+
+        <GlowEffect
+          radius={999}
+          blur={blur}
+          proximity={proximity}
+          spread={spread}
+          glow={glow}
+          disabled={disabled}
+          variant={variant}
+          borderWidth={borderWidth}
+          movementDuration={movementDuration}
+          color="#f472b6"
+          secondaryColor="#a78bfa"
+          accentColor="#60a5fa"
+        >
+          <Card title="胶囊形状" icon={<ThunderboltOutlined />} style={{ width: 320, minHeight: 168 }}>
+            <Flex vertical gap={10} justify="center" style={{ minHeight: 100, color: '#0f172a', textAlign: 'center' }}>
+              <div style={{ fontSize: 22, fontWeight: 600 }}>快速激活</div>
+              <div style={{ color: 'rgba(15,23,42,0.68)' }}>可做按钮强化态或激活态反馈</div>
+            </Flex>
+          </Card>
+        </GlowEffect>
       </Flex>
     </Flex>
   );

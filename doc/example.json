@@ -204,6 +204,29 @@
       ]
     },
     {
+      "title": "GlowEffect",
+      "description": "鼠标跟随光晕边框效果，包裹其他 Card 组件使用",
+      "code": "./glow-effect.js",
+      "scope": [
+        {
+          "name": "_ReactBox",
+          "packageName": "@kne/current-lib_react-box",
+          "importStatement": "import * as _ReactBox from \"@kne/react-box\""
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "icons",
+          "packageName": "@ant-design/icons"
+        },
+        {
+          "packageName": "@kne/current-lib_react-box/dist/index.css"
+        }
+      ]
+    },
+    {
       "title": "StackCard",
       "description": "层叠卡片容器组件，可包裹其他 Card 类组件并控制层叠数量",
       "code": "./stack-card.js",

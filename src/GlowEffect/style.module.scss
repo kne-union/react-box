@@ -1,0 +1,43 @@
+.glow-effect-wrapper {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-effect {
+  pointer-events: none;
+  position: absolute;
+  inset: calc(-1 * var(--glow-border-width, 1px));
+  overflow: hidden;
+  border-radius: var(--glow-effect-radius, 12px);
+}
+
+.glow-effect-blur {
+  filter: blur(var(--blur));
+}
+
+.glow-effect::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: var(--glow-border-width, 1px) solid transparent;
+  background: var(--gradient);
+  opacity: var(--active, 0);
+  transition: opacity 0.3s ease;
+  -webkit-mask-clip: padding-box, border-box;
+  -webkit-mask-composite: source-in;
+  -webkit-mask-image: linear-gradient(#fff, #fff), conic-gradient(from calc((var(--start, 0) - var(--spread, 20)) * 1deg), transparent 0deg, #ffffff, transparent calc(var(--spread, 20) * 2deg));
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+  mask-image: linear-gradient(#fff, #fff), conic-gradient(from calc((var(--start, 0) - var(--spread, 20)) * 1deg), transparent 0deg, #ffffff, transparent calc(var(--spread, 20) * 2deg));
+}
+
+.glow-effect-content {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-effect::after {
+    transition: none;
+  }
+}

@@ -19,6 +19,7 @@ const BaseExample = () => {
   const [radius, setRadius] = useState(32);
   const [glow, setGlow] = useState(1);
   const [flowSpeed, setFlowSpeed] = useState(1);
+  const [lineLength, setLineLength] = useState(0.5);
   const [variant, setVariant] = useState('soft');
   const [theme, setTheme] = useState('default');
 
@@ -68,10 +69,14 @@ const BaseExample = () => {
           <div style={{ width: 160 }}>
             <Slider min={0.4} max={2.4} step={0.1} value={flowSpeed} onChange={setFlowSpeed} />
           </div>
+          <span>线长：</span>
+          <div style={{ width: 160 }}>
+            <Slider min={0.1} max={1} step={0.05} value={lineLength} onChange={setLineLength} />
+          </div>
         </Flex>
       </Flex>
 
-      <AuroraCard animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} variant={variant} minHeight={280} style={{ maxWidth: 760, margin: '0 auto' }} {...themeStyle}>
+      <AuroraCard animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} lineLength={lineLength} variant={variant} minHeight={280} style={{ maxWidth: 760, margin: '0 auto' }} {...themeStyle}>
         <Flex vertical gap={20} justify="center" style={{ minHeight: 224 }}>
           <Space wrap>
             <Tag color="processing">Aurora Glow</Tag>
@@ -93,7 +98,7 @@ const BaseExample = () => {
       </AuroraCard>
 
       <Flex wrap gap={24} justify="center">
-        <AuroraCard width={320} minHeight={168} padding={20} radius={28} flowSpeed={1.4} variant="soft" {...themeStyle}>
+        <AuroraCard  animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} lineLength={lineLength} variant={variant} width={320} minHeight={168} padding={20} {...themeStyle}>
           <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a' }}>
             <AudioOutlined style={{ fontSize: 28 }} />
             <div style={{ fontSize: 22, fontWeight: 600 }}>语音待命</div>
@@ -101,7 +106,7 @@ const BaseExample = () => {
           </Flex>
         </AuroraCard>
 
-        <AuroraCard width={320} minHeight={168} padding={20} radius={28} flowSpeed={0.8} variant="vivid" color="#2dd4bf" secondaryColor="#38bdf8" accentColor="#a78bfa">
+        <AuroraCard  animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} lineLength={lineLength} variant={variant} width={320} minHeight={168} padding={20} color="#2dd4bf" secondaryColor="#38bdf8" accentColor="#a78bfa">
           <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a' }}>
             <BulbOutlined style={{ fontSize: 28 }} />
             <div style={{ fontSize: 22, fontWeight: 600 }}>智能建议</div>
@@ -109,7 +114,7 @@ const BaseExample = () => {
           </Flex>
         </AuroraCard>
 
-        <AuroraCard width={320} minHeight={168} padding={20} radius={999} flowSpeed={1.8} variant="vivid" color="#f472b6" secondaryColor="#a78bfa" accentColor="#60a5fa">
+        <AuroraCard  animated={animated} radius={radius} glow={glow} flowSpeed={flowSpeed} lineLength={lineLength} variant={variant} width={320} minHeight={168} padding={20} color="#f472b6" secondaryColor="#a78bfa" accentColor="#60a5fa">
           <Flex vertical gap={10} justify="center" style={{ minHeight: 124, color: '#0f172a', textAlign: 'center' }}>
             <ThunderboltOutlined style={{ fontSize: 28 }} />
             <div style={{ fontSize: 22, fontWeight: 600 }}>快速激活</div>
