@@ -2,7 +2,12 @@ import React, { Fragment } from 'react';
 import style from './style.module.scss';
 import { MailIcon, CallIcon, QuoteIcon } from './icons';
 
-const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo = [], status, badge, mode = 'large' }) => {
+/**
+ * @param {React.ReactNode} [extra] 卡片角落扩展区（如 Checkbox）
+ * @param {React.ReactNode} [footer] 卡片底部操作区（如 ButtonGroup）
+ * @param {boolean} [selected] 选中态
+ */
+const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo = [], status, badge, mode = 'large', extra, footer, selected = false, className }) => {
   const statusClass = style[`status-${status}`] || style['status-online'];
 
   const AvatarWithStatus = ({ size = 'default' }) => {
@@ -66,8 +71,36 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
       </div>
     );
 
+  const renderExtra = () =>
+    extra ? (
+      <div
+        className={style['card-extra']}
+        onClick={event => {
+          event.stopPropagation();
+        }}
+      >
+        {extra}
+      </div>
+    ) : null;
+
+  const renderFooter = () =>
+    footer ? (
+      <div
+        className={style['card-actions']}
+        onClick={event => {
+          event.stopPropagation();
+        }}
+      >
+        {/* 包一层稳定宽度容器：ButtonGroup 根是 Fragment，直接放进 flex 会导致宽度测量抖动 */}
+        <div className={style['card-actions-body']}>{footer}</div>
+      </div>
+    ) : null;
+
+  const cardClassName = [style['card'], className, selected ? style['is-selected'] : null].filter(Boolean).join(' ');
+
   const renderVertical = () => (
-    <div className={style['card'] + ' ' + style['card-vertical']}>
+    <div className={`${cardClassName} ${style['card-vertical']}`}>
+      {renderExtra()}
       <div className={style['card-header']}>
         <AvatarWithStatus size="medium" />
         <div className={style['name-section']}>
@@ -88,11 +121,13 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
           <ContactItem icon={CallIcon} size={14} value={phone} />
         </div>
       )}
+      {renderFooter()}
     </div>
   );
 
   const renderMinimal = () => (
-    <div className={style['card'] + ' ' + style['card-minimal']}>
+    <div className={`${cardClassName} ${style['card-minimal']}`}>
+      {renderExtra()}
       <div className={style['minimal-header']}>
         <AvatarWithStatus size="small" />
         <div className={style['minimal-info']}>
@@ -115,11 +150,13 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
           <div className={style['description']}>{description}</div>
         </div>
       </div>
+      {renderFooter()}
     </div>
   );
 
   const renderHorizontal = () => (
-    <div className={style['card'] + ' ' + style['card-horizontal']}>
+    <div className={`${cardClassName} ${style['card-horizontal']}`}>
+      {renderExtra()}
       <div className={style['card-left']}>
         <AvatarWithStatus size="large" />
         <h1 className={style['name']}>
@@ -141,6 +178,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
           <QuoteIcon className={style['quote-icon']} size={24} />
           <div className={style['description']}>{description}</div>
         </div>
+        {renderFooter()}
       </div>
     </div>
   );
