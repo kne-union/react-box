@@ -91,7 +91,8 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
           event.stopPropagation();
         }}
       >
-        {footer}
+        {/* 包一层稳定宽度容器：ButtonGroup 根是 Fragment，直接放进 flex 会导致宽度测量抖动 */}
+        <div className={style['card-actions-body']}>{footer}</div>
       </div>
     ) : null;
 
