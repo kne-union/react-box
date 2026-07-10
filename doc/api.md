@@ -229,16 +229,20 @@
 
 | 属性          | 类型     | 默认值      | 描述                                             |
 |-------------|--------|----------|------------------------------------------------|
-| avatar      | string | -        | 头像图片地址                                         |
-| name        | string | -        | 姓名                                             |
-| title       | string | -        | 职位/头衔                                          |
-| description | string | -        | 个人简介                                           |
-| phone       | string | -        | 电话号码                                           |
-| email       | string | -        | 邮箱地址                                           |
-| moreInfo    | array  | []       | 附加信息数组，格式为 [{ label, content }]                |
-| status      | string | 'online' | 在线状态，可选值：'online' \| 'offline' \| 'busy'       |
-| badge       | string | -        | 徽章文字                                           |
-| mode        | string | 'large'  | 显示模式，可选值：'large' \| 'vertical' \| 'horizontal' |
+| avatar      | string \| function | -        | 头像图片地址，或 `({ className }) => ReactNode` 渲染函数 |
+| name        | string \| ReactNode | -        | 姓名                                             |
+| title       | string \| ReactNode | -        | 职位/头衔                                          |
+| description | string \| ReactNode | -        | 个人简介                                           |
+| phone       | string    | -        | 电话号码                                           |
+| email       | string    | -        | 邮箱地址                                           |
+| moreInfo    | array     | []       | 附加信息数组，格式为 [{ label, content }]                |
+| status      | string    | 'online' | 在线状态，可选值：'online' \| 'offline' \| 'busy'       |
+| badge       | string    | -        | 徽章文字                                           |
+| mode        | string    | 'large'  | 显示模式，可选值：'large' \| 'vertical' \| 'horizontal' |
+| extra       | ReactNode | -        | 卡片角落扩展区，可放置 Checkbox 等                         |
+| footer      | ReactNode | -        | 卡片底部操作区，可放置 ButtonGroup 等                      |
+| selected    | boolean   | false    | 是否选中态                                          |
+| className   | string    | -        | 自定义类名                                          |
 
 ### defaultColors
 
