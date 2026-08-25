@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import style from './style.module.scss';
-import { MailIcon, CallIcon, QuoteIcon } from './icons';
+import { MailIcon, CallIcon, QuoteIcon, UserIcon } from './icons';
 
 /**
  * @param {React.ReactNode} [extra] 卡片角落扩展区（如 Checkbox）
@@ -9,6 +9,10 @@ import { MailIcon, CallIcon, QuoteIcon } from './icons';
  */
 const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo = [], status, badge, mode = 'large', extra, footer, selected = false, className }) => {
   const statusClass = style[`status-${status}`] || style['status-online'];
+  const validMoreInfo = Array.isArray(moreInfo) ? moreInfo.filter(item => item?.content != null && item.content !== '') : [];
+  const hasMoreInfo = validMoreInfo.length > 0;
+  const hasContact = !!(phone || email);
+  const hasDescription = !!description;
 
   const AvatarWithStatus = ({ size = 'default' }) => {
     const sizeClasses = {
@@ -17,10 +21,31 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
       small: 'avatar-small',
       default: 'avatar-medium'
     };
+    const iconSizeMap = {
+      large: 48,
+      medium: 32,
+      small: 24,
+      default: 32
+    };
+    const sizeKey = sizeClasses[size] ? size : 'default';
+
+    const renderAvatarContent = () => {
+      if (typeof avatar === 'function') {
+        return avatar({ className: style['avatar'] });
+      }
+      if (avatar) {
+        return <img src={avatar} alt={name} className={style['avatar']} />;
+      }
+      return (
+        <div className={`${style['avatar']} ${style['avatar-placeholder']}`} aria-label={name || 'avatar placeholder'}>
+          <UserIcon className={style['avatar-placeholder-icon']} size={iconSizeMap[sizeKey]} />
+        </div>
+      );
+    };
 
     return (
       <div className={`${style['avatar-container']} ${style[sizeClasses[size] || sizeClasses.default]}`}>
-        {typeof avatar === 'function' ? avatar({ className: style['avatar'] }) : <img src={avatar} alt={name} className={style['avatar']} />}
+        {renderAvatarContent()}
         {status && <span className={`${style['status-indicator']} ${statusClass}`}></span>}
       </div>
     );
@@ -45,14 +70,13 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
 
   const BasicInfo = ({ showDivider = true }) => {
     return (
-      Array.isArray(moreInfo) &&
-      moreInfo.length > 0 && (
+      hasMoreInfo && (
         <div className={style['basic-info']}>
-          {moreInfo.map(({ content }, index) => {
+          {validMoreInfo.map(({ content }, index) => {
             return (
               <Fragment key={index}>
                 {content}
-                {showDivider && moreInfo.length - 1 !== index && <span className={style['divider']}></span>}
+                {showDivider && validMoreInfo.length - 1 !== index && <span className={style['divider']}></span>}
               </Fragment>
             );
           })}
@@ -62,10 +86,9 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
   };
 
   const InfoGrid = () =>
-    Array.isArray(moreInfo) &&
-    moreInfo.length > 0 && (
+    hasMoreInfo && (
       <div className={style['info-grid']}>
-        {moreInfo.map(({ label, content }, index) => {
+        {validMoreInfo.map(({ label, content }, index) => {
           return <InfoItem key={index} label={label} value={content} />;
         })}
       </div>
@@ -112,10 +135,12 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
         </div>
         <BasicInfo />
       </div>
-      <div className={style['card-description']}>
-        <div className={style['description']}>{description}</div>
-      </div>
-      {(phone || email) && (
+      {hasDescription && (
+        <div className={style['card-description']}>
+          <div className={style['description']}>{description}</div>
+        </div>
+      )}
+      {hasContact && (
         <div className={style['card-footer']}>
           <ContactItem icon={MailIcon} size={14} value={email} />
           <ContactItem icon={CallIcon} size={14} value={phone} />
@@ -136,7 +161,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
             {badge && <span className={style['badge']}>{badge}</span>}
           </div>
           {title && <div className={style['title']}>{title}</div>}
-          {(phone || email) && (
+          {hasContact && (
             <div className={style['contact-row']}>
               <ContactItem icon={MailIcon} size={14} value={email} />
               <ContactItem icon={CallIcon} size={14} value={phone} />
@@ -144,44 +169,55 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
           )}
         </div>
       </div>
-      <div className={style['minimal-main']}>
-        <InfoGrid />
-        <div className={style['mini-description']}>
-          <div className={style['description']}>{description}</div>
+      {(hasMoreInfo || hasDescription) && (
+        <div className={style['minimal-main']}>
+          <InfoGrid />
+          {hasDescription && (
+            <div className={style['mini-description']}>
+              <div className={style['description']}>{description}</div>
+            </div>
+          )}
         </div>
-      </div>
+      )}
       {renderFooter()}
     </div>
   );
 
-  const renderHorizontal = () => (
-    <div className={`${cardClassName} ${style['card-horizontal']}`}>
-      {renderExtra()}
-      <div className={style['card-left']}>
-        <AvatarWithStatus size="large" />
-        <h1 className={style['name']}>
-          {name} {badge && <span className={style['badge']}>{badge}</span>}
-        </h1>
-        {title && <div className={style['title']}>{title}</div>}
-        {(phone || email) && (
-          <div className={style['contact-section']}>
-            <div className={style['contact-box']}>
-              <ContactItem icon={MailIcon} size={20} value={email} />
-              <ContactItem icon={CallIcon} size={20} value={phone} />
+  const renderHorizontal = () => {
+    const showRight = hasMoreInfo || hasDescription || footer;
+    return (
+      <div className={`${cardClassName} ${style['card-horizontal']}${showRight ? '' : ` ${style['card-horizontal-single']}`}`}>
+        {renderExtra()}
+        <div className={style['card-left']}>
+          <AvatarWithStatus size="large" />
+          <h1 className={style['name']}>
+            {name} {badge && <span className={style['badge']}>{badge}</span>}
+          </h1>
+          {title && <div className={style['title']}>{title}</div>}
+          {hasContact && (
+            <div className={style['contact-section']}>
+              <div className={style['contact-box']}>
+                <ContactItem icon={MailIcon} size={20} value={email} />
+                <ContactItem icon={CallIcon} size={20} value={phone} />
+              </div>
             </div>
+          )}
+        </div>
+        {showRight && (
+          <div className={style['card-right']}>
+            <InfoGrid />
+            {hasDescription && (
+              <div className={style['description-box']}>
+                <QuoteIcon className={style['quote-icon']} size={24} />
+                <div className={style['description']}>{description}</div>
+              </div>
+            )}
+            {renderFooter()}
           </div>
         )}
       </div>
-      <div className={style['card-right']}>
-        <InfoGrid />
-        <div className={style['description-box']}>
-          <QuoteIcon className={style['quote-icon']} size={24} />
-          <div className={style['description']}>{description}</div>
-        </div>
-        {renderFooter()}
-      </div>
-    </div>
-  );
+    );
+  };
 
   const renderMode = {
     vertical: renderVertical,

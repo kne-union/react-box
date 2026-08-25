@@ -17,16 +17,31 @@ const statusOptions = [
   { label: '忙碌', value: 'busy' }
 ];
 
+const renderCardList = (cards, mode, status) => (
+  <Flex wrap gap={24} justify="center">
+    {cards.map(item => {
+      const { key, label, withStatus = true, ...cardProps } = item;
+      return (
+        <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+          <Tag color="blue">{label}</Tag>
+          <PersonalCard mode={mode} {...(withStatus ? { status } : {})} {...cardProps} />
+        </div>
+      );
+    })}
+  </Flex>
+);
+
 const BaseExample = () => {
   const [mode, setMode] = useState('large');
   const [status, setStatus] = useState('online');
 
-  const profileCards = useMemo(
+  const basicCards = useMemo(
     () => [
       {
         key: 'full',
         label: '完整信息',
         badge: '推荐',
+        avatar,
         name: '莎拉·詹金斯',
         title: '高级账户战略师',
         description: '我的使命是确保您的团队拥有轻松扩展所需的资源和战略指导。让我们携手共创辉煌。',
@@ -43,6 +58,7 @@ const BaseExample = () => {
         key: 'email-only',
         label: '仅邮箱',
         badge: '候选',
+        avatar,
         name: '林知夏',
         title: '产品经理',
         description: '负责产品规划与用户体验优化，擅长把复杂问题转化为清晰方案。',
@@ -58,6 +74,7 @@ const BaseExample = () => {
         key: 'empty-contact',
         label: '无联系方式',
         badge: '归档',
+        avatar,
         name: '周予安',
         title: '数据分析师',
         description: '关注业务指标体系建设与可视化分析，强调用数据驱动决策。',
@@ -72,8 +89,78 @@ const BaseExample = () => {
     []
   );
 
+  // 空值 / 占位：无头像、无简介、只有姓名等
+  const emptyStateCards = useMemo(
+    () => [
+      {
+        key: 'empty-avatar',
+        label: '无头像（占位）',
+        badge: '新入职',
+        name: '陈思远',
+        title: '前端工程师',
+        description: '头像为空时显示占位头像，避免破损图片。',
+        phone: '+86 139 1111 2222',
+        email: 'chensiyuan@example.com',
+        moreInfo: [
+          { label: '性别', content: '男' },
+          { label: '年龄', content: '27' },
+          { label: '部门', content: '研发中心' },
+          { label: '专长', content: 'React' }
+        ]
+      },
+      {
+        key: 'empty-description',
+        label: '无简介',
+        avatar,
+        name: '赵清禾',
+        title: '设计师',
+        phone: '+86 137 3333 4444',
+        email: 'zhaoqinghe@example.com',
+        moreInfo: [
+          { label: '性别', content: '女' },
+          { label: '年龄', content: '26' },
+          { label: '部门', content: '设计部' },
+          { label: '专长', content: '视觉设计' }
+        ]
+      },
+      {
+        key: 'name-only',
+        label: '只有姓名',
+        name: '顾南星'
+      },
+      {
+        key: 'no-status',
+        label: '无 status',
+        withStatus: false,
+        avatar,
+        name: '沈听澜',
+        title: '内容运营',
+        description: '不传 status 时不显示头像状态点。',
+        phone: '+86 135 7777 8888',
+        email: 'shentinglan@example.com',
+        moreInfo: [
+          { label: '性别', content: '女' },
+          { label: '年龄', content: '28' },
+          { label: '部门', content: '运营部' },
+          { label: '专长', content: '内容策划' }
+        ]
+      },
+      {
+        key: 'empty-more-info',
+        label: '无更多信息',
+        avatar,
+        name: '韩亦辰',
+        title: '运营专员',
+        description: '更多信息为空时不展示信息网格区域。',
+        phone: '+86 136 5555 6666',
+        email: 'hanyichen@example.com'
+      }
+    ],
+    []
+  );
+
   return (
-    <Flex vertical gap={32} style={{ padding: '40px' }}>
+    <Flex vertical gap={48} style={{ padding: '40px' }}>
       <Flex vertical gap={16}>
         <div style={{ fontSize: 18, fontWeight: 600 }}>综合示例</div>
         <Flex wrap gap={16} align="center" justify="space-between">
@@ -88,14 +175,16 @@ const BaseExample = () => {
         </Flex>
       </Flex>
 
-      <Flex wrap gap={24} justify="center">
-        {profileCards.map(item => (
-          <div key={item.key} style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
-            <Tag color="blue">{item.label}</Tag>
-            <PersonalCard avatar={avatar} mode={mode} status={status} {...item} />
-          </div>
-        ))}
+      {renderCardList(basicCards, mode, status)}
+
+      <Flex vertical gap={16}>
+        <div style={{ fontSize: 18, fontWeight: 600 }}>空值与占位示例</div>
+        <div style={{ color: '#64748b', fontSize: 13 }}>
+          无头像显示占位图；无简介 / 无更多信息 / 只有姓名时，对应容器整块不渲染；无 status 时不显示状态点。
+        </div>
       </Flex>
+
+      {renderCardList(emptyStateCards, mode, status)}
     </Flex>
   );
 };
