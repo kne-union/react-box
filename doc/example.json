@@ -144,7 +144,7 @@
     },
     {
       "title": "PersonalCard",
-      "description": "个人档案卡片组件 - 在一个示例中演示三种模式、状态切换与空值处理",
+      "description": "个人档案卡片：三种模式、状态切换，以及无头像占位、无简介、只有姓名等空值示例",
       "code": "./personal-card.js",
       "scope": [
         {
