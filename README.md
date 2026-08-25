@@ -1,11 +1,8 @@
-
 # react-box
-
 
 ### 描述
 
 一个轻量级的 React 设计组件库，专注于提供精致美观的信息展示小组件
-
 
 ### 安装
 
@@ -13,12 +10,13 @@
 npm i --save @kne/react-box
 ```
 
-
 ### 概述
 
 一个轻量级的 React 设计组件库，专注于提供精致美观的信息展示小组件。组件采用现代化 CSS 变量和 SCSS 模块化样式，支持灵活的定制和响应式布局。所有组件均遵循统一的命名规范，代码简洁易用，无需外部字体依赖。
 
-目前提供七种常用展示组件：通用卡片组件、终端窗口组件、多彩卡片组件、毛玻璃卡片组件、弹性方块组件、结果展示组件和个人档案卡片组件，每种组件都经过精心设计，具有平滑的过渡动画和细腻的视觉效果，能够快速提升应用的界面质感。
+`Card` 提供按外观命名的内置主题（`ribbon` / `inset` / `halo` / `split`）：结构与色板分离，可用 `color` 换主色、用 `colors` 覆盖色板。自定义算法可在 `preset({ card: { createThemeColors } })` 注册，主题里用字符串引用（如 `createThemeColors: 'warm'`）。同结构换色推荐 `Card.Ribbon`。
+
+目前提供通用卡片、终端窗口、多彩卡片、毛玻璃卡片、弹性方块、结果展示、结果卡片、个人档案卡片、头部卡片、极光卡片、光晕边框与层叠卡片等展示组件，均经过精心设计，具有平滑过渡与细腻视觉效果，可快速提升界面质感。
 
 
 ### 示例(全屏)
@@ -26,109 +24,488 @@ npm i --save @kne/react-box
 #### 示例代码
 
 - Card
-- 通用卡片组件，支持标题、图标和操作区域
+- 通用卡片组件：内置 ribbon / inset / halo / split 外观主题，支持 theme / color 换色、colors / createThemeColors 自定义色板与嵌套条目布局
 - _ReactBox(@kne/current-lib_react-box)[import * as _ReactBox from "@kne/react-box"],antd(antd),(@kne/current-lib_react-box/dist/index.css)
 
 ```jsx
-const { Card } = _ReactBox;
+const { Card, createThemeColors, preset, resolveCreateThemeColors, THEME_COLOR_KEYS } = _ReactBox;
 const { Flex, Space, Button } = antd;
+
+/** 示例装饰色跟随当前 Card 主题变量，换 color 时一并变色 */
+const indexStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  boxSizing: 'border-box',
+  width: 22,
+  height: 22,
+  borderRadius: 7,
+  background: 'linear-gradient(135deg, var(--card-accent, #4F46E5) 0%, var(--card-glow, #7C6CF6) 100%)',
+  color: '#fff',
+  fontSize: 10,
+  fontWeight: 700,
+  letterSpacing: '0.02em',
+  lineHeight: 1,
+  flexShrink: 0
+};
+
+const topBadgeStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  padding: '4px 10px',
+  borderRadius: 6,
+  background: 'color-mix(in srgb, var(--card-accent, #4F46E5) 12%, transparent)',
+  color: 'var(--card-accent, #4F46E5)',
+  fontSize: 12,
+  fontWeight: 600,
+  lineHeight: 1.2
+};
+
+const ringChipStyle = {
+  fontSize: 9,
+  fontWeight: 600,
+  letterSpacing: '0.04em',
+  color: 'var(--card-muted, #9997B8)',
+  lineHeight: 1
+};
+
+const footerDividerStyle = {
+  width: 1,
+  alignSelf: 'stretch',
+  minHeight: 44,
+  margin: '0 18px',
+  background: 'color-mix(in srgb, var(--card-accent, #4F46E5) 14%, transparent)',
+  flexShrink: 0
+};
+
+const sparkleBadgeStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 24,
+  height: 24,
+  borderRadius: 8,
+  flexShrink: 0,
+  background: 'linear-gradient(135deg, var(--card-accent, #4F46E5) 0%, var(--card-glow, #7C6CF6) 100%)',
+  boxShadow: '0 6px 16px color-mix(in srgb, var(--card-accent, #4F46E5) 55%, transparent)'
+};
+
+const SparkleIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+    <path d="M6.038 1.788L6.77 3.575L8.557 4.306L6.77 5.038L6.038 6.825L5.307 5.038L3.52 4.306L5.307 3.575L6.038 1.788Z" stroke="white" strokeWidth="1.3" />
+    <path d="M10.262 6.987L10.749 8.125L11.887 8.612L10.749 9.1L10.262 10.237L9.774 9.1L8.637 8.612L9.774 8.125L10.262 6.987Z" stroke="white" strokeWidth="1.3" />
+  </svg>
+);
+
+const HaloRing = () => (
+  <div
+    style={{
+      width: 132,
+      height: 132,
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+      background: 'rgba(255,255,255,0.01)',
+      boxShadow: 'inset 0 0 26px color-mix(in srgb, var(--card-accent, #4F46E5) 55%, transparent)'
+    }}
+  >
+    <div
+      style={{
+        width: 110,
+        height: 110,
+        borderRadius: '50%',
+        background: '#fff',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 2
+      }}
+    >
+      <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--card-description-color, #161431)', letterSpacing: '-0.03em', lineHeight: 1 }}>进阶</div>
+      <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--card-muted, #8C8AAE)', lineHeight: 1, letterSpacing: '0.02em' }}>→</div>
+      <div style={{ display: 'flex', gap: 8, marginTop: 6 }}>
+        <span style={ringChipStyle}>笔记</span>
+        <span style={ringChipStyle}>工坊</span>
+      </div>
+    </div>
+  </div>
+);
+
+const HaloFooter = () => (
+  <>
+    <div style={{ flex: '0 0 auto', minWidth: 72 }}>
+      <div style={{ color: 'var(--card-metric-color, #BE123C)', fontSize: 22, fontWeight: 700, lineHeight: 1 }}>2</div>
+      <div style={{ marginTop: 6, color: 'var(--card-muted, #6F6D95)', fontSize: 11, lineHeight: 1.4 }}>
+        → 5
+        <br />
+        熟练度
+      </div>
+    </div>
+    <div style={footerDividerStyle} />
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <div style={{ color: 'var(--card-footer-value, #047857)', fontSize: 18, fontWeight: 700, lineHeight: 1.15 }}>3 小时</div>
+      <div style={{ marginTop: 6, color: 'var(--card-muted, #6F6D95)', fontSize: 11, lineHeight: 1.4 }}>专注制作时段</div>
+    </div>
+    <div style={footerDividerStyle} />
+    <div style={{ flex: 1.35, minWidth: 0 }}>
+      <div style={{ color: 'var(--card-accent-deep, #3A2FA8)', fontSize: 16, fontWeight: 700, lineHeight: 1.15 }}>工坊</div>
+      <div style={{ marginTop: 6, color: 'var(--card-muted, #6F6D95)', fontSize: 11, lineHeight: 1.4 }}>周六下午场</div>
+    </div>
+  </>
+);
+
+const HaloBody = ({ title }) => (
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: '132px minmax(0, 1fr)',
+      columnGap: 26,
+      rowGap: 14,
+      alignItems: 'start'
+    }}
+  >
+    <div
+      style={{
+        gridColumn: 2,
+        gridRow: 1,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 11
+      }}
+    >
+      <span style={sparkleBadgeStyle}>
+        <SparkleIcon />
+      </span>
+      <span
+        style={{
+          color: 'var(--card-accent, #4F46E5)',
+          fontSize: 18,
+          fontWeight: 700,
+          letterSpacing: '-0.01em',
+          lineHeight: 1.2
+        }}
+      >
+        {title}
+      </span>
+    </div>
+    <div style={{ gridColumn: 1, gridRow: 2 }}>
+      <HaloRing />
+    </div>
+    <div
+      style={{
+        gridColumn: 2,
+        gridRow: 2,
+        color: 'var(--card-description-color, #161431)',
+        fontSize: 13,
+        lineHeight: 1.55,
+        fontWeight: 500
+      }}
+    >
+      早上先翻一遍筹备清单，空出一小时专注做一件手工，收工时写三行小结。坚持两周后再把专注时段拉长。
+    </div>
+  </div>
+);
+
+const paramsPanelStyle = {
+  flex: 1,
+  minWidth: 260,
+  maxWidth: 420,
+  margin: 0,
+  padding: 16,
+  borderRadius: 12,
+  background: '#0f172a',
+  color: '#e2e8f0',
+  fontSize: 12,
+  lineHeight: 1.55,
+  overflow: 'auto',
+  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace'
+};
+
+const paletteSnapshot = palette => ({
+  color: palette.color,
+  glow: palette.glow,
+  borderColor: palette.borderColor,
+  surface: palette.surface,
+  hoverShadow: palette.hoverShadow
+});
+
+const ThemeShowcase = ({ title, hint, themeName, children, previewMaxWidth = 400, swatchColor, codeExtra }) => {
+  const config = Card.themes?.[themeName] || {};
+  const { css, createThemeColors: themeCreateColors, ...rest } = config;
+  const buildColors = resolveCreateThemeColors ? resolveCreateThemeColors(themeCreateColors) : typeof themeCreateColors === 'function' ? themeCreateColors : createThemeColors;
+  const baseColor = rest.color || '#4f46e5';
+  const defaultPalette = buildColors(baseColor, rest.colors || {});
+  const swatchPalette = swatchColor ? buildColors(swatchColor, {}) : null;
+  const createThemeColorsLabel = typeof themeCreateColors === 'function' ? '(color, overrides) => palette /* custom */' : typeof themeCreateColors === 'string' ? themeCreateColors : undefined;
+  const code = JSON.stringify(
+    {
+      [themeName]: {
+        ...rest,
+        ...(createThemeColorsLabel != null ? { createThemeColors: createThemeColorsLabel } : null),
+        ...(css ? { css: '/* see theme.css mount via data-slot */' } : null)
+      },
+      usage: {
+        default: &#96;<Card theme="${themeName}" />&#96;,
+        ...(swatchColor ? { recolor: &#96;<Card theme="${themeName}" color="${swatchColor}" />&#96; } : null)
+      },
+      palette: {
+        default: paletteSnapshot(defaultPalette),
+        ...(swatchPalette ? { [&#96;color ${swatchColor}&#96;]: paletteSnapshot(swatchPalette) } : null)
+      },
+      ...codeExtra
+    },
+    null,
+    2
+  );
+
+  return (
+    <div style={{ width: '100%' }}>
+      <h3 style={{ margin: '8px 0 4px', fontSize: 16, fontWeight: 600, textAlign: 'center' }}>{title}</h3>
+      {hint && <p style={{ margin: '0 0 12px', color: '#64748b', fontSize: 13, textAlign: 'center' }}>{hint}</p>}
+      <Flex gap={20} wrap="wrap" align="flex-start" justify="center">
+        <div style={{ flex: &#96;0 1 ${previewMaxWidth}px&#96;, width: '100%', maxWidth: previewMaxWidth }}>{children}</div>
+        <pre style={paramsPanelStyle}>
+          <div style={{ marginBottom: 8, color: '#94a3b8' }}>themes.{themeName}</div>
+          {code}
+        </pre>
+      </Flex>
+    </div>
+  );
+};
+
+const InsetList = ({ title, badge, color }) => (
+  <Card theme="inset" color={color} title={title} extra={<span style={topBadgeStyle}>{badge}</span>}>
+    <Card prefix={<span style={indexStyle}>01</span>} title="画好市集摊位空状态插画" extra="2 → 5" description="对首日到场体验影响最大。先出三版草图，周五评审里定一版。" />
+    <Card prefix={<span style={indexStyle}>02</span>} title="精简报名须知文案" extra="3 → 5" description="去掉行话，每步控制在十二字内，并与新插画语气对齐。" />
+    <Card prefix={<span style={indexStyle}>03</span>} title="加上进度提示小浮层" extra="2 → 4" description="长保存时的通用反馈；三条里落地最快的一条。" />
+  </Card>
+);
+
+const RibbonSample = ({ color, colors, subtitle, extra, title, goal, children, style }) => (
+  <Card.Ribbon
+    color={color}
+    colors={colors}
+    style={style}
+    subtitle={subtitle}
+    extra={extra}
+    title={title}
+    footer={
+      <>
+        <span>目标</span>
+        <strong>{goal}</strong>
+      </>
+    }
+  >
+    {children}
+  </Card.Ribbon>
+);
+
+const SplitSample = ({ color, title }) => (
+  <Card theme="split" color={color} title={title} description="两张练习卡并排：先扫一眼说明，再选下午要走的一条线。">
+    <Card border={false} title="快速上手" description="跟着五分钟清单走一遍，先做出粗糙样件。" />
+    <Card border={false} title="深入琢磨" description="打开参考册，圈出两个喜欢的纹样并批注。" />
+  </Card>
+);
+
+/** 自定义色板算法：先注册到 preset.createThemeColors，主题里用字符串引用 */
+const createWarmColors = (color, overrides = {}) =>
+  createThemeColors(color, {
+    glow: '#fbbf24',
+    surface: '#fffbeb',
+    titleColor: '#7c2d12',
+    mutedColor: '#9a3412',
+    metricColor: '#b45309',
+    hoverShadow: '0 16px 40px rgba(194, 65, 12, 0.28)',
+    hoverBorderColor: 'rgba(194, 65, 12, 0.4)',
+    ...overrides
+  });
+
+const stripColorTokens = theme => {
+  const next = { ...(theme || {}) };
+  (THEME_COLOR_KEYS || []).forEach(key => {
+    delete next[key];
+  });
+  delete next.colors;
+  delete next.key;
+  return next;
+};
+
+preset({
+  card: {
+    createThemeColors: {
+      warm: createWarmColors
+    },
+    themes: {
+      warm: {
+        ...stripColorTokens(Card.themes.ribbon),
+        color: '#c2410c',
+        createThemeColors: 'warm'
+      }
+    }
+  }
+});
+
+const WarmSample = ({ color, subtitle, extra, title, goal }) => (
+  <Card
+    theme="warm"
+    color={color}
+    subtitle={subtitle}
+    extra={extra}
+    title={title}
+    footer={
+      <>
+        <span>目标</span>
+        <strong>{goal}</strong>
+      </>
+    }
+  >
+    <Card prefix="笔记" title="暖色配色备忘" description="琥珀光晕 · 奶油底色" />
+    <Card prefix="工坊" title="海报临摹练习" description="单帧构图，大字为主" />
+  </Card>
+);
 
 const BaseExample = () => {
   return (
-    <Flex vertical gap={16}>
-      <Card
-        title="大尺寸卡片"
-        icon="📊"
-        size="large"
-        extra={<a href="#">查看更多</a>}
-      >
-        <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
-          大尺寸卡片，padding: 32px，标题更大
-        </div>
-      </Card>
+    <Flex vertical gap={24} align="center" style={{ width: '100%' }}>
+      <Flex vertical gap={24} style={{ width: '100%', maxWidth: 480 }}>
+        <Card title="大尺寸卡片" icon="📊" size="large" extra={<a href="#">查看更多</a>}>
+          <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>大尺寸卡片，padding: 32px，标题更大</div>
+        </Card>
 
-      <Card
-        title="默认尺寸卡片"
-        icon="📊"
-        extra={<a href="#">查看更多</a>}
-      >
-        <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
-          这是卡片内容区域
-        </div>
-      </Card>
+        <Card title="默认尺寸卡片" icon="📊" extra={<a href="#">查看更多</a>}>
+          <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>这是卡片内容区域</div>
+        </Card>
 
-      <Card
-        title="小尺寸卡片"
-        icon="📊"
-        size="small"
-        extra={<a href="#">查看更多</a>}
-      >
-        <div style={{ padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>
-          小尺寸卡片，padding: 16px，标题更小
-        </div>
-      </Card>
+        <Card title="小尺寸卡片" icon="📊" size="small" extra={<a href="#">查看更多</a>}>
+          <div style={{ padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center' }}>小尺寸卡片，padding: 16px，标题更小</div>
+        </Card>
 
-      <Card
-        title="自定义样式"
-        icon="🎨"
-        padding="32px"
-        radius="16px"
-        style={{ borderLeft: '4px solid #741ce9' }}
-      >
-        <p style={{ margin: 0, color: '#475569' }}>
-          通过 padding、radius 和 style 属性自定义卡片样式
-        </p>
-      </Card>
+        <Card title="自定义样式" icon="🎨" padding="32px" radius="16px" style={{ borderLeft: '4px solid #741ce9' }}>
+          <p style={{ margin: 0, color: '#475569' }}>通过 padding、radius 和 style 属性自定义卡片样式</p>
+        </Card>
 
-      <Card
-        title="无边框卡片"
-        icon="📄"
-        border={false}
-        padding="20px"
-      >
-        <p style={{ margin: 0, color: '#475569' }}>
-          设置 border=false 可以移除边框，适用于需要自定义背景或嵌入其他容器的场景
-        </p>
-      </Card>
+        <Card title="无边框卡片" icon="📄" border={false} padding="20px">
+          <p style={{ margin: 0, color: '#475569' }}>设置 border=false 可以移除边框，适用于需要自定义背景或嵌入其他容器的场景</p>
+        </Card>
 
-      <Card
-        title="操作按钮"
-        icon="⚙️"
-        extra={
-          <Space>
-            <Button type="link" size="small">编辑</Button>
-            <Button type="link" size="small">删除</Button>
-          </Space>
-        }
-      >
-        <p style={{ margin: 0, color: '#475569' }}>
-          在 extra 区域放置操作按钮，实现卡片的交互功能
-        </p>
-      </Card>
+        <Card
+          title="操作按钮"
+          icon="⚙️"
+          extra={
+            <Space>
+              <Button type="link" size="small">
+                编辑
+              </Button>
+              <Button type="link" size="small">
+                删除
+              </Button>
+            </Space>
+          }
+        >
+          <p style={{ margin: 0, color: '#475569' }}>在 extra 区域放置操作按钮，实现卡片的交互功能</p>
+        </Card>
 
-      <Card
-        title="图表卡片"
-        icon="📈"
-        size="large"
-      >
-        <div style={{ 
-          height: '200px', 
-          backgroundColor: '#f8fafc', 
-          borderRadius: '8px', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center',
-          color: '#64748b'
-        }}>
-          图表展示区域
-        </div>
-      </Card>
+        <Card title="图表卡片" icon="📈" size="large">
+          <div
+            style={{
+              height: '200px',
+              backgroundColor: '#f8fafc',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#64748b'
+            }}
+          >
+            图表展示区域
+          </div>
+        </Card>
 
-      <Card title="简洁卡片" size="small">
-        <p style={{ margin: 0, color: '#475569', lineHeight: 1.6 }}>
-          这是一个简洁的卡片，只包含标题和内容区域。适用于不需要额外装饰的场景。
-        </p>
-      </Card>
+        <Card title="简洁卡片" size="small">
+          <p style={{ margin: 0, color: '#475569', lineHeight: 1.6 }}>这是一个简洁的卡片，只包含标题和内容区域。适用于不需要额外装饰的场景。</p>
+        </Card>
+      </Flex>
+
+      <ThemeShowcase title="inset（内嵌列表）" hint="默认色板 + color 换色（装饰角标跟随 --card-accent）" themeName="inset" swatchColor="#0d9488">
+        <Flex vertical gap={16}>
+          <InsetList title="本周焦点" badge="优先 3 条" />
+          <InsetList title="本周焦点 · 青绿" badge="换色" color="#0d9488" />
+        </Flex>
+      </ThemeShowcase>
+
+      <ThemeShowcase title="ribbon / Card.Ribbon" hint="默认色板 + color / colors 换色" themeName="ribbon" swatchColor="#7c3aed" previewMaxWidth={420}>
+        <Flex vertical gap={16}>
+          <RibbonSample subtitle="阶段乙" extra="第 5–8 周" title="市集实战营" goal="落地 3 → 4">
+            <Card prefix="项目" title="跑通一条完整摊位故事" description="草稿 · 评审 · 上架" />
+            <Card prefix="笔记" title="把耗时记进表格" description="16 小时 · 已统计" />
+            <Card prefix="复盘" title="同伴互评一场" description="请导师旁听" />
+          </RibbonSample>
+          <RibbonSample color="#7c3aed" subtitle="阶段甲" extra="第 1–4 周" title="手作入门课" goal="练习 1 → 3">
+            <Card prefix="笔记" title="读完起步指南" description="约十五分钟，先扫示例" />
+            <Card prefix="工坊" title="做一个迷你样件" description="单屏成品，不必打磨" />
+            <Card prefix="分享" title="发一张过程截图" description="丢进社群留言板" />
+          </RibbonSample>
+          <RibbonSample
+            color="#ec4899"
+            colors={{
+              glow: '#f9a8d4',
+              titleColor: '#831843',
+              hoverShadow: '0 14px 36px rgba(236, 72, 153, 0.28)'
+            }}
+            style={{ '--card-subtitle-transform': 'none', '--card-radius': '20px' }}
+            subtitle="冲刺周"
+            extra="第 1–2 周"
+            title="开市看板"
+            goal="推进 1 → 3"
+          >
+            <Card prefix="统筹" title="冻结检查清单" description="负责人 · 截止日" />
+            <Card prefix="视觉" title="打磨封面画幅" description="品牌过一遍" />
+          </RibbonSample>
+        </Flex>
+      </ThemeShowcase>
+
+      <ThemeShowcase title="halo（光晕圆环卡）" hint="默认色板 + color 换色（圆环/标题跟随主题变量）" themeName="halo" swatchColor="#db2777" previewMaxWidth={645}>
+        <Flex vertical gap={16}>
+          <Card theme="halo" footer={<HaloFooter />}>
+            <HaloBody title="每日手作节奏" />
+          </Card>
+          <Card theme="halo" color="#db2777" footer={<HaloFooter />}>
+            <HaloBody title="每日手作节奏 · 玫红" />
+          </Card>
+        </Flex>
+      </ThemeShowcase>
+
+      <ThemeShowcase title="split（双栏子卡）" hint="默认色板 + color 换色" themeName="split" swatchColor="#0891b2" previewMaxWidth={666}>
+        <Flex vertical gap={16}>
+          <SplitSample title="练习工具箱" />
+          <SplitSample title="练习工具箱 · 青蓝" color="#0891b2" />
+        </Flex>
+      </ThemeShowcase>
+
+      <ThemeShowcase
+        title="自定义色板算法（字符串引用）"
+        hint="在 card.createThemeColors 注册算法，主题里 createThemeColors: 'warm'；结构可复用 ribbon"
+        themeName="warm"
+        swatchColor="#a16207"
+        codeExtra={{
+          registry: {
+            note: "preset({ card: { createThemeColors: { warm: fn }, themes: { warm: { createThemeColors: 'warm' } } } })",
+            usage: '<Card theme="warm" color="#a16207" />',
+            paletteAt: {
+              '#c2410c': paletteSnapshot(createWarmColors('#c2410c')),
+              '#a16207': paletteSnapshot(createWarmColors('#a16207'))
+            }
+          }
+        }}
+      >
+        <Flex vertical gap={16}>
+          <WarmSample subtitle="时令" extra="十月–十一月" title="秋日手作系列" goal="速写 1 → 3" />
+          <WarmSample color="#a16207" subtitle="时令" extra="九月–十月" title="丰收手作系列 · 金" goal="速写 2 → 4" />
+        </Flex>
+      </ThemeShowcase>
     </Flex>
   );
 };
@@ -1008,8 +1385,8 @@ const BaseExample = () => {
             <HeaderCard
               key={name}
               color={color}
-              subtitle={`${name} 主题`}
-              title={`${name} HeaderCard`}
+              subtitle={&#96;${name} 主题&#96;}
+              title={&#96;${name} HeaderCard&#96;}
               description="这是一个支持主题色的头部卡片组件，可以根据传入的颜色自动计算衍生颜色，生成协调的视觉效果。"
               footer={
                 <Flex justify="space-between" align="center">
@@ -1023,7 +1400,7 @@ const BaseExample = () => {
                     width: 64,
                     height: 64,
                     borderRadius: '50%',
-                    background: `linear-gradient(135deg, ${color}40 0%, ${color}20 100%)`,
+                    background: &#96;linear-gradient(135deg, ${color}40 0%, ${color}20 100%)&#96;,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
@@ -1628,7 +2005,7 @@ const BaseExample = () => {
             }}
           >
             <div style={{ color: '#9a3412', lineHeight: 1.7 }}>
-              未传入 `layerBackground`、`layerColor`、`layerBorderColor` 时，会尝试从单个子节点的 style 中读取背景和边框。
+              未传入 &#96;layerBackground&#96;、&#96;layerColor&#96;、&#96;layerBorderColor&#96; 时，会尝试从单个子节点的 style 中读取背景和边框。
             </div>
           </Card>
         </StackCard>
@@ -1659,103 +2036,335 @@ render(<BaseExample />);
 
 ```
 
-
 ### API
 
-### Card
+#### Card
 
-通用卡片组件，支持标题、图标和操作区域，适用于展示图表、统计数据等内容。
+通用卡片组件，支持标题、图标、嵌套条目与外观主题，适用于展示图表、统计与结构化内容。
 
-#### 属性
+可通过 `theme` 选用内置或自定义主题；`color` / `colors` 控制色板；`prefix` 开启横向媒体条目布局（常用于嵌套子卡）。
 
-| 属性        | 类型        | 默认值       | 描述                                             |
-|-----------|-----------|-----------|------------------------------------------------|
-| className | string    | -         | 自定义类名                                          |
-| title     | ReactNode | -         | 卡片标题                                           |
-| icon      | ReactNode | -         | 标题图标，通常为 emoji 或图标组件                           |
-| extra     | ReactNode | -         | 标题栏右侧的额外内容，可放置操作按钮等                            |
-| children  | ReactNode | -         | 卡片主体内容                                         |
-| size      | string    | 'default' | 卡片尺寸，可选值：'large' \| 'default' \| 'small'       |
-| padding   | string    | -         | 内边距，会覆盖 size 的默认值（通过 CSS 变量 --card-padding 控制） |
-| radius    | string    | '12px'    | 圆角大小（通过 CSS 变量 --card-radius 控制）               |
-| border    | boolean   | true      | 是否显示边框                                         |
-| style     | object    | -         | 自定义样式对象                                        |
+##### 属性
 
-### Zsh
+| 属性        | 类型                          | 默认值    | 描述                                                                |
+| ----------- | ----------------------------- | --------- | ------------------------------------------------------------------- |
+| className   | string                        | -         | 自定义类名                                                          |
+| title       | ReactNode                     | -         | 卡片标题                                                            |
+| icon        | ReactNode                     | -         | 标题图标，通常为 emoji 或图标组件                                   |
+| extra       | ReactNode                     | -         | 标题栏右侧的额外内容，可放置操作按钮等                              |
+| subtitle    | ReactNode                     | -         | 副标题；有值时标题区改为上下堆叠布局                                |
+| description | ReactNode                     | -         | 描述文案，渲染在内容区顶部                                          |
+| prefix      | ReactNode \| string \| number | -         | 左侧媒体/前缀；有值时进入横向条目布局（常用于嵌套子卡）             |
+| footer      | ReactNode                     | -         | 底部区域                                                            |
+| children    | ReactNode                     | -         | 卡片主体内容；可嵌套子 `Card`                                       |
+| size        | string                        | 'default' | 卡片尺寸，可选值：'large' \| 'default' \| 'small'                   |
+| padding     | string \| number              | -         | 内边距，会覆盖 size 的默认值（通过 CSS 变量 `--card-padding` 控制） |
+| radius      | string \| number              | '12px'    | 圆角大小（通过 CSS 变量 `--card-radius` 控制）                      |
+| border      | boolean                       | true      | 是否显示边框                                                        |
+| theme       | string                        | -         | 主题名；内置：`ribbon` \| `inset` \| `halo` \| `split`              |
+| color       | string                        | -         | 主题主色；与主题注册色不同时，会丢弃预设写死色板并按新主色重算      |
+| colors      | object                        | -         | 色板覆盖项，见下方「色板字段」                                      |
+| hover       | boolean                       | true      | 主题卡是否启用 hover 阴影/描边动画；传 `false` 可关闭               |
+| style       | object                        | -         | 自定义样式对象；也可覆盖 `--card-*` CSS 变量                        |
+
+##### 布局约定
+
+- **普通卡**：无 `prefix` 时为纵向结构：`header` → `content`（`description` + `children`）→ `footer`。
+- **媒体条目**：有 `prefix` 时为横向：左侧前缀 + 右侧主区。字符串 / 数字 `prefix` 会渲染为默认徽章。
+- **嵌套**：外卡使用主题，内卡用 `prefix` 做列表项（如 `ribbon` / `inset`），或用无边框子卡做双栏（如 `split`）。
+- **副标题**：传入 `subtitle` 时，标题区上下堆叠（meta 行在上，标题在下）。
+
+##### 内置主题（按外观）
+
+| 名称   | 外观特点                       | 快捷组件      |
+| ------ | ------------------------------ | ------------- |
+| ribbon | 顶栏色带 + 嵌套条目            | `Card.Ribbon` |
+| inset  | 白底列表容器 + 浅色内嵌条目    | -             |
+| halo   | 光晕底 + 圆环媒体区 + 三列底栏 | -             |
+| split  | 淡紫渐变底 + 双栏白底子卡      | -             |
+
+```jsx
+import { Card } from '@kne/react-box';
+
+<Card.Ribbon subtitle="阶段甲" title="手作入门课" footer={<>...</>}>
+  <Card prefix="笔记" title="读完起步指南" description="约十五分钟" />
+</Card.Ribbon>
+
+<Card theme="inset" title="本周焦点">
+  <Card prefix="01" title="画好空状态插画" extra="2 → 5" description="..." />
+</Card>
+
+<Card theme="halo" footer={footer}>
+  {/* 自定义圆环 + 正文 */}
+</Card>
+<Card theme="split" title="练习工具箱" description="...">
+  <Card border={false} title="快速上手" description="..." />
+  <Card border={false} title="深入琢磨" description="..." />
+</Card>
+```
+
+##### 主题系统概览
+
+主题配置拆成两部分：
+
+1. **结构 token**：圆角、字号、间距、是否显示顶栏色带（`accentBar`）、`css` 等，决定布局骨架。
+2. **色板**：由主色 `color` 经 `createThemeColors(color, overrides)` 派生（边框、面板、glow、hover 等），可用主题扁平色字段或实例 `colors` 覆盖。
+
+解析顺序（简化）：
+
+1. `theme`（或全局 `defaultTheme`）取出主题配置。
+2. 若实例 `color` 与主题注册色不同 → 丢弃主题里写死的色板字段，按新主色重算。
+3. `createThemeColors`：主题上可为**函数**，或 **`card.createThemeColors` 注册表中的字符串名**；未配置则用默认实现。
+4. 合并 `colors` / 主题扁平色字段为 overrides。
+5. 写入 `--card-*` CSS 变量；若主题有 `css`，挂载到 `[data-card-theme="name"]`。
+
+##### 换色（同一结构，换主色）
+
+```jsx
+{
+  /* 快捷组件 */
+}
+<Card.Ribbon color="#7c3aed" subtitle="阶段甲" title="手作入门课">
+  <Card prefix="笔记" title="..." description="..." />
+</Card.Ribbon>;
+
+{
+  /* 或 theme + color */
+}
+<Card theme="inset" color="#0d9488" title="本周焦点">
+  ...
+</Card>;
+
+{
+  /* 局部覆盖色板 */
+}
+<Card.Ribbon color="#ec4899" colors={{ glow: '#f9a8d4', titleColor: '#831843', hoverShadow: '0 14px 36px rgba(236, 72, 153, 0.28)' }} style={{ '--card-radius': '20px' }} />;
+```
+
+自定义内容若要跟随换色，请使用主题 CSS 变量（如 `var(--card-accent)`、`var(--card-description-color)`），避免写死 hex。
+
+关闭 hover：`<Card theme="inset" hover={false} />`（覆盖主题默认开启）。
+
+##### 自定义色板算法
+
+**推荐：在 `preset` 注册算法，主题用字符串引用**（可与结构主题分离、多主题复用同一算法）：
+
+```jsx
+import { preset, createThemeColors, Card } from '@kne/react-box';
+
+const createWarmColors = (color, overrides = {}) =>
+  createThemeColors(color, {
+    glow: '#fbbf24',
+    surface: '#fffbeb',
+    titleColor: '#7c2d12',
+    mutedColor: '#9a3412',
+    metricColor: '#b45309',
+    hoverShadow: '0 16px 40px rgba(194, 65, 12, 0.28)',
+    ...overrides
+  });
+
+preset({
+  card: {
+    createThemeColors: {
+      warm: createWarmColors
+    },
+    themes: {
+      // 结构可对齐 ribbon，色板引用注册表
+      warm: {
+        accent: true,
+        accentBar: true,
+        color: '#c2410c',
+        radius: 15,
+        padding: '20px 16px',
+        createThemeColors: 'warm'
+      }
+    }
+  }
+});
+
+<Card theme="warm" title="秋日手作系列">
+  <Card prefix="笔记" title="暖色配色备忘" description="琥珀光晕" />
+</Card>
+<Card theme="warm" color="#a16207" title="丰收手作系列" />;
+```
+
+内置 `inset` / `halo` / `split` 已采用同名字符串引用（见 `globalParams.card.createThemeColors`）。
+
+**也可**：实例级传入 `colors={createWarmColors(color)}`，或主题上直接挂函数 `createThemeColors: (color, overrides) => ...`（不经过注册表）。
+
+##### 用 `preset()` 注册自定义主题
+
+与 `@kne/react-fetch` 等包用法类似，在应用入口合并主题与色板算法：
+
+```jsx
+import { preset, createThemeColors, Card } from '@kne/react-box';
+
+preset({
+  card: {
+    // defaultTheme: 'ribbon',
+    createThemeColors: {
+      mist: (color, overrides) => createThemeColors(color, { surface: '#f0f9ff', glow: '#67e8f9', ...overrides })
+    },
+    themes: {
+      mist: {
+        accent: true,
+        accentBar: true,
+        color: '#0ea5e9',
+        radius: 16,
+        createThemeColors: 'mist',
+        css: `
+          & [data-slot="content"] {
+            padding: 0;
+          }
+        `
+      }
+    }
+  }
+});
+
+<Card theme="mist" title="Mist card" />;
+const MistCard = Card.createTheme('MistCard', 'mist');
+```
+
+主题对象常用字段：
+
+| 字段                                                 | 说明                                                                                 |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `accent`                                             | 开启主题视觉（色带、面板、变量等）                                                   |
+| `accentBar` / `accentBarHeight` / `accentBarOpacity` | 顶栏色带                                                                             |
+| `color`                                              | 注册主色                                                                             |
+| `createThemeColors`                                  | 函数，或 `card.createThemeColors` 中的**字符串名**；省略则用默认 `createThemeColors` |
+| `hover`                                              | 主题默认是否 hover；内置主题均为开启。实例可用 `hover={false}` 关闭                  |
+| `css`                                                | 主题样式字符串；`&` 会替换为 `[data-card-theme="name"]`                              |
+| 结构 token                                           | `radius`、`padding`、`titleFontSize`、`itemPadding`、`contentGap` 等                 |
+| 扁平色字段                                           | 与下方色板字段同名时可写在主题根上，作为默认 overrides                               |
+
+##### 色板字段（`colors` / 主题扁平色 / `createThemeColors` 返回值）
+
+| 字段                                                               | 说明                              |
+| ------------------------------------------------------------------ | --------------------------------- |
+| `glow`                                                             | 光晕/辅色                         |
+| `accentDeep`                                                       | 主色加深                          |
+| `borderColor`                                                      | 边框色                            |
+| `panelFrom` / `panelTo`                                            | 面板渐变起止                      |
+| `surface`                                                          | 表面底色                          |
+| `titleColor` / `subtitleColor` / `mutedColor` / `descriptionColor` | 标题 / 副标题 / 弱文案 / 正文描述 |
+| `itemBorderColor` / `itemBackground` / `itemTitleColor`            | 嵌套条目                          |
+| `itemPrefixBg` / `itemPrefixColor`                                 | 前缀徽章                          |
+| `footerBorder` / `footerValue` / `metricColor`                     | 底栏与指标色                      |
+| `backgroundImage`                                                  | 背景图/渐变（如 halo / split）    |
+| `shadow` / `hoverShadow` / `hoverBorderColor` / `transition`       | 阴影与 hover                      |
+
+默认导出：`createThemeColors`、`Card.createThemeColors`（同一实现）；`resolveCreateThemeColors` 用于解析主题上的函数或字符串引用；`THEME_COLOR_KEYS` 为可覆盖色板字段列表。
+
+##### CSS 变量与 `data-slot`
+
+主题会在根节点设置 `data-card-theme="{theme}"`，并注入例如：
+
+- `--card-accent` / `--card-accent-deep` / `--card-glow`
+- `--card-border` / `--card-surface` / `--card-panel-from` / `--card-panel-to`
+- `--card-title` / `--card-subtitle` / `--card-muted` / `--card-description-color`
+- `--card-item-*` / `--card-footer-*` / `--card-metric-color`
+- `--card-shadow` / `--card-hover-shadow` / `--card-hover-border-color`
+
+结构插槽（便于主题 `css` 选择，避免依赖 css-module hash）：
+
+`card` / `item` / `header` / `meta` / `subtitle` / `title` / `extra` / `content` / `description` / `footer` / `media` / `prefix` / `prefix-badge` / `accent-bar` 等（值为 `data-slot`）。
+
+```jsx
+// 实例级微调
+<Card.Ribbon style={{ '--card-subtitle-transform': 'none', '--card-radius': '20px' }} />
+```
+
+##### 静态方法 / 属性
+
+| 名称                                       | 说明                              |
+| ------------------------------------------ | --------------------------------- |
+| `Card.themes`                              | 当前已注册主题配置（只读 getter） |
+| `Card.createTheme(displayName, themeName)` | 创建绑定某主题的快捷组件          |
+| `Card.createThemeColors(color, overrides)` | 由主色派生色板（默认算法）        |
+| `Card.resolveCreateThemeColors(value)`     | 解析主题上的函数或注册表字符串名  |
+| `Card.Ribbon`                              | 绑定 `ribbon` 的快捷组件          |
+
+包级导出：`preset`、`globalParams`、`createThemeColors`、`resolveCreateThemeColors`、`THEME_COLOR_KEYS`、`CardRibbon`（即 `Card.Ribbon`）。
+
+`globalParams.card.createThemeColors` 为算法注册表（内置含 `inset` / `halo` / `split`）；经 `preset({ card: { createThemeColors: { ... } } })` 合并。
+
+#### Zsh
 
 终端窗口组件，模拟 macOS 终端样式，支持自定义标题和内容。
 
-#### 属性
+##### 属性
 
-| 属性        | 类型        | 默认值        | 描述                              |
-|-----------|-----------|------------|---------------------------------|
-| className | string    | -          | 自定义类名                           |
-| title     | string    | '终端 — zsh' | 终端标题                            |
-| children  | ReactNode | -          | 终端内容                            |
-| padding   | string    | '32px'     | 内边距（通过 CSS 变量 --zsh-padding 控制） |
-| radius    | string    | '12px'     | 圆角大小（通过 CSS 变量 --zsh-radius 控制） |
-| border    | boolean   | true       | 是否显示边框                          |
-| style     | object    | -          | 自定义样式对象                         |
+| 属性      | 类型      | 默认值       | 描述                                        |
+| --------- | --------- | ------------ | ------------------------------------------- |
+| className | string    | -            | 自定义类名                                  |
+| title     | string    | '终端 — zsh' | 终端标题                                    |
+| children  | ReactNode | -            | 终端内容                                    |
+| padding   | string    | '32px'       | 内边距（通过 CSS 变量 --zsh-padding 控制）  |
+| radius    | string    | '12px'       | 圆角大小（通过 CSS 变量 --zsh-radius 控制） |
+| border    | boolean   | true         | 是否显示边框                                |
+| style     | object    | -            | 自定义样式对象                              |
 
-### ColorfulCard
+#### ColorfulCard
 
 多彩渐变卡片组件，支持多种预设颜色和自定义样式，具有精美的光晕效果和平滑的悬停动画。
 
-#### 属性
+##### 属性
 
-| 属性          | 类型        | 默认值                 | 描述                   |
-|-------------|-----------|---------------------|----------------------|
-| className   | string    | -                   | 自定义类名                |
+| 属性        | 类型      | 默认值              | 描述                                   |
+| ----------- | --------- | ------------------- | -------------------------------------- |
+| className   | string    | -                   | 自定义类名                             |
 | color       | string    | ColorfulCard.Purple | 主题颜色，支持预设颜色或自定义颜色值   |
-| radius      | string    | '12px'              | 圆角大小                 |
-| padding     | string    | '24px'              | 内边距                  |
-| style       | object    | -                   | 自定义样式对象              |
-| icon        | ReactNode | -                   | 图标元素，通常为 emoji 或图标组件 |
-| title       | ReactNode | -                   | 卡片标题                 |
-| description | ReactNode | -                   | 卡片描述文字               |
-| children    | ReactNode | -                   | 卡片底部内容区域（可添加按钮、标签等）  |
+| radius      | string    | '12px'              | 圆角大小                               |
+| padding     | string    | '24px'              | 内边距                                 |
+| style       | object    | -                   | 自定义样式对象                         |
+| icon        | ReactNode | -                   | 图标元素，通常为 emoji 或图标组件      |
+| title       | ReactNode | -                   | 卡片标题                               |
+| description | ReactNode | -                   | 卡片描述文字                           |
+| children    | ReactNode | -                   | 卡片底部内容区域（可添加按钮、标签等） |
 
-### GlassCard
+#### GlassCard
 
 毛玻璃效果卡片组件，使用 CSS backdrop-filter 实现透明模糊效果。
 
-#### 属性
+##### 属性
 
-| 属性        | 类型     | 默认值    | 描述    |
-|-----------|--------|--------|-------|
+| 属性      | 类型   | 默认值 | 描述       |
+| --------- | ------ | ------ | ---------- |
 | className | string | -      | 自定义类名 |
-| radius    | string | '12px' | 圆角大小  |
+| radius    | string | '12px' | 圆角大小   |
 
-### Jelly
+#### Jelly
 
 弹性方块组件，支持自定义颜色、尺寸和圆角，提供多种预设配色。
 
-#### 属性
+##### 属性
 
-| 属性           | 类型     | 默认值          | 描述               |
-|--------------|--------|--------------|------------------|
-| className    | string | -            | 自定义类名            |
-| size         | string | '60px'       | 方块尺寸             |
+| 属性         | 类型   | 默认值       | 描述                        |
+| ------------ | ------ | ------------ | --------------------------- |
+| className    | string | -            | 自定义类名                  |
+| size         | string | '60px'       | 方块尺寸                    |
 | width        | string | -            | 方块宽度（优先级高于 size） |
-| borderRadius | string | '18px'       | 圆角大小             |
-| color        | string | Jelly.Purple | 主题颜色             |
+| borderRadius | string | '18px'       | 圆角大小                    |
+| color        | string | Jelly.Purple | 主题颜色                    |
 
-### Result
+#### Result
 
 结果展示组件，用于显示操作结果、状态提示等信息，支持自定义图标和颜色。
 
-#### 属性
+##### 属性
 
-| 属性          | 类型        | 默认值       | 描述       |
-|-------------|-----------|-----------|----------|
-| className   | string    | -         | 自定义类名    |
-| title       | ReactNode | -         | 标题       |
-| icon        | ReactNode | -         | 图标       |
-| description | ReactNode | -         | 描述文字     |
-| color       | string    | '#10b981' | 主题颜色     |
+| 属性        | 类型      | 默认值    | 描述             |
+| ----------- | --------- | --------- | ---------------- |
+| className   | string    | -         | 自定义类名       |
+| title       | ReactNode | -         | 标题             |
+| icon        | ReactNode | -         | 图标             |
+| description | ReactNode | -         | 描述文字         |
+| color       | string    | '#10b981' | 主题颜色         |
 | children    | ReactNode | -         | 底部操作区域内容 |
 
-#### 快捷组件
+##### 快捷组件
 
 `Result` 提供以下常用状态快捷组件，均支持与 `Result` 相同的属性，并内置默认图标与主题色：
 
@@ -1771,105 +2380,105 @@ render(<BaseExample />);
 - `ErrorResult`
 - `InfoResult`
 
-### HeaderCard
+#### HeaderCard
 
 头部卡片组件，支持主题色、副标题、标题、描述、额外内容等，适用于页面头部、资源目录、组件市场等场景。根据传入的颜色自动计算衍生颜色，生成协调的视觉效果。
 
-#### 属性
+##### 属性
 
-| 属性           | 类型               | 默认值             | 描述                                                                    |
-|--------------|------------------|-----------------|-----------------------------------------------------------------------|
-| className    | string           | -               | 自定义类名                                                                 |
-| style        | object           | -               | 卡片容器自定义样式对象                                                           |
-| contentStyle | object           | -               | 内容区域自定义样式对象                                                           |
-| color        | string           | HeaderCard.Blue | 主题颜色，支持预设颜色或自定义颜色值                                                    |
-| subtitle     | ReactNode        | -               | 副标题，支持字符串或 JSX（如带 Tag 的复合内容）                                          |
-| title        | ReactNode        | -               | 标题                                                                    |
-| description  | ReactNode        | -               | 描述文字                                                                  |
-| content      | ReactNode        | -               | 描述文字下方的额外内容区域，适合放置标签、统计信息等                                            |
-| footer       | ReactNode        | -               | 底部操作区域，通常放置按钮组                                                        |
-| icon         | ReactNode        | -               | 角落图标元素，带有浮动动画效果                                                       |
+| 属性         | 类型             | 默认值          | 描述                                                                           |
+| ------------ | ---------------- | --------------- | ------------------------------------------------------------------------------ |
+| className    | string           | -               | 自定义类名                                                                     |
+| style        | object           | -               | 卡片容器自定义样式对象                                                         |
+| contentStyle | object           | -               | 内容区域自定义样式对象                                                         |
+| color        | string           | HeaderCard.Blue | 主题颜色，支持预设颜色或自定义颜色值                                           |
+| subtitle     | ReactNode        | -               | 副标题，支持字符串或 JSX（如带 Tag 的复合内容）                                |
+| title        | ReactNode        | -               | 标题                                                                           |
+| description  | ReactNode        | -               | 描述文字                                                                       |
+| content      | ReactNode        | -               | 描述文字下方的额外内容区域，适合放置标签、统计信息等                           |
+| footer       | ReactNode        | -               | 底部操作区域，通常放置按钮组                                                   |
+| icon         | ReactNode        | -               | 角落图标元素，带有浮动动画效果                                                 |
 | iconPosition | string           | 'right-bottom'  | 图标位置，可选值：'right-bottom' \| 'right-top' \| 'left-bottom' \| 'left-top' |
-| iconSize     | string \| number | 96              | 图标容器大小，支持数字（px）或字符串                                                   |
-| children     | ReactNode        | -               | 右侧额外内容区域，通常放置搜索框、表单等                                                  |
+| iconSize     | string \| number | 96              | 图标容器大小，支持数字（px）或字符串                                           |
+| children     | ReactNode        | -               | 右侧额外内容区域，通常放置搜索框、表单等                                       |
 
-### AuroraCard
+#### AuroraCard
 
 极光流光激活容器组件，使用流动彩边、呼吸光晕和玻璃质感模拟激活态视觉效果。
 
-#### 属性
+##### 属性
 
-| 属性           | 类型               | 默认值                          | 描述                                  |
-|--------------|------------------|------------------------------|-------------------------------------|
-| className    | string           | -                            | 自定义类名                               |
-| style        | object           | -                            | 外层容器自定义样式对象                         |
-| children     | ReactNode        | -                            | 内容区域                                 |
-| width        | number \| string | '100%'                       | 组件宽度，支持数字（px）或字符串                   |
-| minHeight    | number \| string | 220                          | 最小高度，支持数字（px）或字符串                   |
-| radius       | number \| string | 32                           | 外层圆角大小                              |
-| padding      | number \| string | 28                           | 内容区内边距                              |
-| ringWidth    | number \| string | 2.5                          | 激活彩边厚度                              |
-| blur         | number \| string | 28                           | 外围光晕模糊半径                            |
-| color        | string           | AuroraCard.Blue       | 主色                                  |
-| secondaryColor | string         | AuroraCard.Purple     | 次级流动色                               |
-| accentColor  | string           | AuroraCard.Pink       | 点缀流动色                               |
-| background   | string           | '#ffffff'                    | 内层内容面板背景                            |
-| glow         | number           | 1                            | 光晕强度系数                              |
-| flowSpeed    | number           | 1                            | 流光速度系数，值越大流动越快                      |
-| variant      | string           | 'soft'                       | 视觉风格，可选值：'soft'（柔和乳光）\| 'vivid'（彩色流光边框） |
-| animated     | boolean          | true                         | 是否启用旋转和呼吸动画                         |
+| 属性           | 类型             | 默认值            | 描述                                                           |
+| -------------- | ---------------- | ----------------- | -------------------------------------------------------------- |
+| className      | string           | -                 | 自定义类名                                                     |
+| style          | object           | -                 | 外层容器自定义样式对象                                         |
+| children       | ReactNode        | -                 | 内容区域                                                       |
+| width          | number \| string | '100%'            | 组件宽度，支持数字（px）或字符串                               |
+| minHeight      | number \| string | 220               | 最小高度，支持数字（px）或字符串                               |
+| radius         | number \| string | 32                | 外层圆角大小                                                   |
+| padding        | number \| string | 28                | 内容区内边距                                                   |
+| ringWidth      | number \| string | 2.5               | 激活彩边厚度                                                   |
+| blur           | number \| string | 28                | 外围光晕模糊半径                                               |
+| color          | string           | AuroraCard.Blue   | 主色                                                           |
+| secondaryColor | string           | AuroraCard.Purple | 次级流动色                                                     |
+| accentColor    | string           | AuroraCard.Pink   | 点缀流动色                                                     |
+| background     | string           | '#ffffff'         | 内层内容面板背景                                               |
+| glow           | number           | 1                 | 光晕强度系数                                                   |
+| flowSpeed      | number           | 1                 | 流光速度系数，值越大流动越快                                   |
+| variant        | string           | 'soft'            | 视觉风格，可选值：'soft'（柔和乳光）\| 'vivid'（彩色流光边框） |
+| animated       | boolean          | true              | 是否启用旋转和呼吸动画                                         |
 
-### StackCard
+#### StackCard
 
 层叠卡片容器组件，可包裹其他 Card 类组件，在背后生成层叠视觉效果。
 
-#### 属性
+##### 属性
 
-| 属性               | 类型               | 默认值                                         | 描述                                                                    |
-|------------------|------------------|---------------------------------------------|-----------------------------------------------------------------------|
-| className        | string           | -                                           | 自定义类名                                                                 |
-| style            | object           | -                                           | 外层容器自定义样式                                                             |
-| children         | ReactElement     | -                                           | 被包裹的主卡片内容，仅允许一个子节点                                                    |
-| layers           | number           | 2                                           | 背后层叠数量（不包含最上层主卡片）                                                     |
-| offset           | number \| string | 8                                           | 每层偏移距离，支持数字（px）或字符串                                                   |
-| offsetDirection  | string           | 'right-bottom'                              | 偏移方向，可选值：'right-bottom' \| 'right-top' \| 'left-bottom' \| 'left-top' |
-| radius           | number \| string | '12px'                                      | 背后层圆角，支持数字（px）或字符串                                                    |
-| layerBackground  | string           | 自动读取 children 背景 / '#ffffff'                | 背后层背景样式，支持颜色值或渐变等 background 值；未传时会尝试读取子节点样式                          |
-| layerColor       | string           | -                                           | 背后层背景颜色，优先级高于 layerBackground                                         |
-| layerBorderColor | string           | 自动读取 children 边框 / 'rgba(15, 23, 42, 0.08)' | 背后层边框颜色；未传时会尝试读取子节点边框样式                                               |
-| layerShadow      | string           | '0 6px 20px rgba(15, 23, 42, 0.06)'         | 背后层阴影样式                                                               |
-| opacityStep      | number           | 0.12                                        | 每向后一层透明度递减值，值越大层叠透明差异越明显                                              |
-| minLayerOpacity  | number           | 0.35                                        | 背景层最小透明度（范围 0~1），防止后层完全不可见                                            |
+| 属性             | 类型             | 默认值                                            | 描述                                                                           |
+| ---------------- | ---------------- | ------------------------------------------------- | ------------------------------------------------------------------------------ |
+| className        | string           | -                                                 | 自定义类名                                                                     |
+| style            | object           | -                                                 | 外层容器自定义样式                                                             |
+| children         | ReactElement     | -                                                 | 被包裹的主卡片内容，仅允许一个子节点                                           |
+| layers           | number           | 2                                                 | 背后层叠数量（不包含最上层主卡片）                                             |
+| offset           | number \| string | 8                                                 | 每层偏移距离，支持数字（px）或字符串                                           |
+| offsetDirection  | string           | 'right-bottom'                                    | 偏移方向，可选值：'right-bottom' \| 'right-top' \| 'left-bottom' \| 'left-top' |
+| radius           | number \| string | '12px'                                            | 背后层圆角，支持数字（px）或字符串                                             |
+| layerBackground  | string           | 自动读取 children 背景 / '#ffffff'                | 背后层背景样式，支持颜色值或渐变等 background 值；未传时会尝试读取子节点样式   |
+| layerColor       | string           | -                                                 | 背后层背景颜色，优先级高于 layerBackground                                     |
+| layerBorderColor | string           | 自动读取 children 边框 / 'rgba(15, 23, 42, 0.08)' | 背后层边框颜色；未传时会尝试读取子节点边框样式                                 |
+| layerShadow      | string           | '0 6px 20px rgba(15, 23, 42, 0.06)'               | 背后层阴影样式                                                                 |
+| opacityStep      | number           | 0.12                                              | 每向后一层透明度递减值，值越大层叠透明差异越明显                               |
+| minLayerOpacity  | number           | 0.35                                              | 背景层最小透明度（范围 0~1），防止后层完全不可见                               |
 
-### PersonalCard
+#### PersonalCard
 
 个人档案卡片组件，支持大模式、纵向和横向三种展示模式，用于展示人员信息。
 
-### ResultCard
+#### ResultCard
 
 简约结果卡片组件，用于显示操作结果、状态提示等信息，支持底部信息列表。
 
-#### 属性
+##### 属性
 
-| 属性          | 类型        | 默认值       | 描述                                                                |
-|-------------|-----------|-----------|-------------------------------------------------------------------|
-| className   | string    | -         | 自定义类名                                                             |
-| title       | ReactNode | -         | 标题                                                                |
-| icon        | ReactNode | -         | 图标                                                                |
-| description | ReactNode | -         | 描述文字                                                              |
-| color       | string    | '#07c160' | 主题颜色                                                              |
+| 属性        | 类型      | 默认值    | 描述                                                                               |
+| ----------- | --------- | --------- | ---------------------------------------------------------------------------------- |
+| className   | string    | -         | 自定义类名                                                                         |
+| title       | ReactNode | -         | 标题                                                                               |
+| icon        | ReactNode | -         | 图标                                                                               |
+| description | ReactNode | -         | 描述文字                                                                           |
+| color       | string    | '#07c160' | 主题颜色                                                                           |
 | items       | array     | []        | 底部信息列表，格式为 [{ icon, label, value }]，icon 支持内置名称或自定义 ReactNode |
-| children    | ReactNode | -         | 底部操作区域内容                                                          |
+| children    | ReactNode | -         | 底部操作区域内容                                                                   |
 
-#### items 子项属性
+##### items 子项属性
 
-| 属性    | 类型               | 默认值 | 描述                                              |
-|-------|------------------|-----|-------------------------------------------------|
-| icon  | string \| ReactNode | -   | 图标，内置名称：'briefcase'、'clock'，或自定义 ReactNode    |
-| label | string           | -   | 标签名                                             |
-| value | ReactNode        | -   | 值                                               |
+| 属性  | 类型                | 默认值 | 描述                                                     |
+| ----- | ------------------- | ------ | -------------------------------------------------------- |
+| icon  | string \| ReactNode | -      | 图标，内置名称：'briefcase'、'clock'，或自定义 ReactNode |
+| label | string              | -      | 标签名                                                   |
+| value | ReactNode           | -      | 值                                                       |
 
-#### 快捷组件
+##### 快捷组件
 
 `ResultCard` 提供以下常用状态快捷组件，均支持与 `ResultCard` 相同的属性，并内置默认图标与主题色：
 
@@ -1885,55 +2494,55 @@ render(<BaseExample />);
 - `ResultCardError`
 - `ResultCardInfo`
 
-### PersonalCard
+#### PersonalCard
 
 个人档案卡片组件，支持大模式、纵向和横向三种展示模式，用于展示人员信息。
 
-#### 属性
+##### 属性
 
-| 属性          | 类型     | 默认值      | 描述                                             |
-|-------------|--------|----------|------------------------------------------------|
-| avatar      | string \| function | -        | 头像图片地址，或 `({ className }) => ReactNode` 渲染函数 |
-| name        | string \| ReactNode | -        | 姓名                                             |
-| title       | string \| ReactNode | -        | 职位/头衔                                          |
-| description | string \| ReactNode | -        | 个人简介                                           |
-| phone       | string    | -        | 电话号码                                           |
-| email       | string    | -        | 邮箱地址                                           |
-| moreInfo    | array     | []       | 附加信息数组，格式为 [{ label, content }]                |
-| status      | string    | 'online' | 在线状态，可选值：'online' \| 'offline' \| 'busy'       |
-| badge       | string    | -        | 徽章文字                                           |
-| mode        | string    | 'large'  | 显示模式，可选值：'large' \| 'vertical' \| 'horizontal' |
-| extra       | ReactNode | -        | 卡片角落扩展区，可放置 Checkbox 等                         |
-| footer      | ReactNode | -        | 卡片底部操作区，可放置 ButtonGroup 等                      |
-| selected    | boolean   | false    | 是否选中态                                          |
-| className   | string    | -        | 自定义类名                                          |
+| 属性        | 类型                | 默认值   | 描述                                                     |
+| ----------- | ------------------- | -------- | -------------------------------------------------------- |
+| avatar      | string \| function  | -        | 头像图片地址，或 `({ className }) => ReactNode` 渲染函数 |
+| name        | string \| ReactNode | -        | 姓名                                                     |
+| title       | string \| ReactNode | -        | 职位/头衔                                                |
+| description | string \| ReactNode | -        | 个人简介                                                 |
+| phone       | string              | -        | 电话号码                                                 |
+| email       | string              | -        | 邮箱地址                                                 |
+| moreInfo    | array               | []       | 附加信息数组，格式为 [{ label, content }]                |
+| status      | string              | 'online' | 在线状态，可选值：'online' \| 'offline' \| 'busy'        |
+| badge       | string              | -        | 徽章文字                                                 |
+| mode        | string              | 'large'  | 显示模式，可选值：'large' \| 'vertical' \| 'horizontal'  |
+| extra       | ReactNode           | -        | 卡片角落扩展区，可放置 Checkbox 等                       |
+| footer      | ReactNode           | -        | 卡片底部操作区，可放置 ButtonGroup 等                    |
+| selected    | boolean             | false    | 是否选中态                                               |
+| className   | string              | -        | 自定义类名                                               |
 
-### defaultColors
+#### defaultColors
 
 默认颜色配置对象，包含一组预设的颜色值，用于组件库中各组件的配色方案。
 
-#### 颜色列表
+##### 颜色列表
 
-| 颜色名称   | 颜色值       |
-|--------|-----------|
-| Purple | '#9333ea' |
-| Orange | '#fb923c' |
-| Blue   | '#0ea5e9' |
-| Pink   | '#fb7185' |
-| Green  | '#10b981' |
-| Yellow | '#f59e0b' |
-| Red    | '#ef4444' |
-| Gray   | '#6b7280' |
-| Black  | '#000000' |
+| 颜色名称 | 颜色值    |
+| -------- | --------- |
+| Purple   | '#9333ea' |
+| Orange   | '#fb923c' |
+| Blue     | '#0ea5e9' |
+| Pink     | '#fb7185' |
+| Green    | '#10b981' |
+| Yellow   | '#f59e0b' |
+| Red      | '#ef4444' |
+| Gray     | '#6b7280' |
+| Black    | '#000000' |
 
-### withColors
+#### withColors
 
 高阶函数，用于将默认颜色绑定到目标组件上。调用后，目标组件会获得：
 
 - `Colors` 属性：包含所有预设颜色的对象
 - 各个颜色名称的直接属性（如 `Purple`、`Orange` 等）
 
-#### 用法示例
+##### 用法示例
 
 ```javascript
 import { withColors } from '@kne/react-box';
@@ -1942,7 +2551,6 @@ import { withColors } from '@kne/react-box';
 withColors(MyComponent);
 
 // 使用颜色
-MyComponent.Purple    // '#9333ea'
-MyComponent.Colors    // { Purple: '#9333ea', Orange: '#fb923c', ... }
+MyComponent.Purple; // '#9333ea'
+MyComponent.Colors; // { Purple: '#9333ea', Orange: '#fb923c', ... }
 ```
-

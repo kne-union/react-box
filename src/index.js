@@ -1,4 +1,5 @@
-export { default as Card } from './Card';
+export { default as Card, RibbonCard as CardRibbon, createThemeColors, resolveCreateThemeColors, THEME_COLOR_KEYS } from './Card';
+export { default as preset, globalParams } from './preset';
 export { default as Zsh } from './Zsh';
 export { default as Jelly } from './Jelly';
 export { default as Result, SuccessResult, WarningResult, ErrorResult, InfoResult } from './Result';
