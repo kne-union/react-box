@@ -3,7 +3,7 @@
   "list": [
     {
       "title": "Card",
-      "description": "通用卡片组件，支持标题、图标和操作区域",
+      "description": "通用卡片组件：内置 ribbon / inset / halo / split 外观主题，支持 theme / color 换色、colors / createThemeColors 自定义色板与嵌套条目布局",
       "code": "./card.js",
       "scope": [
         {

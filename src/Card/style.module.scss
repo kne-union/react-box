@@ -7,6 +7,7 @@
   $text-muted: #64748b;
 
   .card {
+    position: relative;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     background-color: $card-light;
     border-radius: var(--card-radius, 0.75rem);
@@ -61,21 +62,219 @@
     border: none;
   }
 
+  // Accent / media 主题视觉由 CSS 变量 + 可选 theme.css 挂载控制
+  .is-accent {
+    border: var(--card-theme-border, 1px solid var(--card-border));
+    border-radius: var(--card-radius, 15px);
+    background-color: var(--card-surface, #ffffff);
+    background-image: var(--card-background-image, linear-gradient(180deg, var(--card-panel-from) 0%, var(--card-panel-to) 42%), linear-gradient(var(--card-surface, #fff), var(--card-surface, #fff)));
+    box-shadow: var(--card-shadow, none);
+    transition: var(--card-transition, box-shadow 0.25s ease, border-color 0.25s ease);
+
+    &:hover {
+      box-shadow: var(--card-hover-shadow, var(--card-shadow, none));
+      border-color: var(--card-hover-border-color, var(--card-border));
+    }
+
+    .card-header {
+      margin-bottom: var(--card-header-margin, 9px);
+    }
+
+    .card-header-stacked {
+      gap: 9px;
+    }
+
+    .subtitle {
+      color: var(--card-subtitle, var(--card-accent));
+      font-size: var(--card-subtitle-size, 11px);
+      font-weight: var(--card-subtitle-weight, 800);
+      letter-spacing: var(--card-subtitle-tracking, 0.09em);
+      text-transform: var(--card-subtitle-transform, uppercase);
+      line-height: 1.2;
+    }
+
+    .header-right {
+      color: var(--card-muted);
+      font-size: var(--card-extra-size, 11.5px);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .title {
+      color: var(--card-title);
+      font-size: var(--card-title-size, 15.5px);
+      font-weight: var(--card-title-weight, 800);
+      letter-spacing: var(--card-title-tracking, -0.01em);
+      line-height: var(--card-title-leading, 1.35);
+    }
+
+    .description {
+      color: var(--card-description-color, var(--card-muted));
+      font-size: var(--card-description-size, 12px);
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--card-content-gap, 10px);
+      padding: 5px 0 0;
+    }
+
+    .footer {
+      margin-top: 9px;
+      padding-top: 13px;
+      border-top-color: var(--card-footer-border);
+      color: var(--card-muted);
+      font-size: 12px;
+
+      strong,
+      b {
+        color: var(--card-footer-value);
+        font-size: 12.5px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--card-accent-bar-height, 3px);
+    background: linear-gradient(90deg, transparent 0%, var(--card-glow) 33%, var(--card-accent) 66%, transparent 100%);
+    opacity: var(--card-accent-bar-opacity, 0.7);
+    pointer-events: none;
+  }
+
+  // —— Media / nested item ——
+  .is-media {
+    --card-padding: var(--card-item-padding, 12px 13px);
+    border-radius: var(--card-item-radius, var(--card-radius, 11px));
+    padding: var(--card-padding);
+    background-color: var(--card-item-bg, rgba(255, 255, 255, 0.9));
+    border-color: var(--card-item-border);
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    .card-header {
+      margin-bottom: 3px;
+    }
+
+    .card-header:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-small .card-header {
+      margin-bottom: 3px;
+    }
+
+    .title {
+      color: var(--card-item-title);
+      font-size: var(--card-item-title-size, 13px);
+      font-weight: var(--card-item-title-weight, 700);
+      line-height: 1.4;
+      white-space: normal;
+    }
+
+    .description {
+      color: var(--card-description-color, var(--card-muted));
+      font-size: var(--card-description-size, 12px);
+      line-height: 1.35;
+    }
+
+    .description:not(:last-child) {
+      margin-bottom: 0;
+    }
+
+    .header-right {
+      color: var(--card-metric-color);
+      font-size: var(--card-item-extra-size, 13px);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .prefix-badge {
+      border-radius: var(--card-item-prefix-radius, 6px);
+    }
+  }
+
+  .card-media {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--card-media-gap, 10px);
+  }
+
+  .prefix {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: flex-start;
+  }
+
+  .prefix-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 3px;
+    border-radius: 6px;
+    background: var(--card-item-prefix-bg);
+    color: var(--card-item-prefix-color);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .card-main {
+    flex: 1;
+    min-width: 0;
+  }
+
   .card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.75rem;
     margin-bottom: 1.5rem;
+  }
+
+  .card-header-stacked {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
   }
 
   .header-left {
     flex: 1;
     display: flex;
     align-items: center;
+    min-width: 0;
   }
 
   .header-right {
     flex-shrink: 0;
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.04em;
+    color: $primary;
   }
 
   .title {
@@ -100,5 +299,31 @@
   .card-content {
     position: relative;
     min-height: 0;
+  }
+
+  .description {
+    margin: 0;
+    color: $text-muted;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .description:not(:last-child) {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid $border-light;
+  }
+
+  .card-small .footer {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
   }
 }
