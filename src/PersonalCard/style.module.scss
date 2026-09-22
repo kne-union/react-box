@@ -90,6 +90,8 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    // 透明底头像默认白底，避免透出蓝环/卡片底色
+    background-color: #fff;
   }
 
   .avatar-placeholder {
@@ -362,16 +364,25 @@
         margin-bottom: 0.75rem;
         width: 5rem;
         height: 5rem;
-        padding: 0.25rem;
-        background: linear-gradient(to top right, $primary, #93c5fd);
+        box-sizing: border-box;
         border-radius: 50%;
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+        overflow: hidden;
 
         img,
+        .avatar,
         .avatar-placeholder {
+          display: block;
           width: 100%;
           height: 100%;
+          max-width: 100%;
+          max-height: 100%;
           border-radius: 50%;
+          box-sizing: border-box;
+          background-color: #fff;
+        }
+
+        :global(.ant-avatar) {
+          background-color: #fff;
         }
 
         .status-indicator {
@@ -415,6 +426,12 @@
       padding: 0 0.75rem;
       margin-bottom: 1rem;
       box-sizing: border-box;
+
+      // 旧包可能无条件渲染空 description，空节点直接隐藏避免占位
+      &:has(> .description:empty) {
+        display: none;
+      }
+
       .description {
         color: #475569;
         font-size: 0.6875rem;
@@ -428,6 +445,12 @@
         background: #f8fafc;
         border-radius: 0.5rem;
         padding: 0.5rem 0.75rem;
+
+        &:empty {
+          display: none;
+          padding: 0;
+          margin: 0;
+        }
       }
     }
 
