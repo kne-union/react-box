@@ -12,7 +12,22 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
   const validMoreInfo = Array.isArray(moreInfo) ? moreInfo.filter(item => item?.content != null && item.content !== '') : [];
   const hasMoreInfo = validMoreInfo.length > 0;
   const hasContact = !!(phone || email);
-  const hasDescription = !!description;
+  // 空串 / 纯空白 / boolean 不当作有简介，避免空 description 占位
+  const hasDescription = (() => {
+    if (description == null || typeof description === 'boolean') {
+      return false;
+    }
+    if (typeof description === 'string') {
+      return description.trim().length > 0;
+    }
+    if (typeof description === 'number') {
+      return true;
+    }
+    if (Array.isArray(description)) {
+      return description.some(item => item != null && item !== false && item !== true && !(typeof item === 'string' && !item.trim()));
+    }
+    return true;
+  })();
 
   const AvatarWithStatus = ({ size = 'default' }) => {
     const sizeClasses = {
@@ -27,14 +42,21 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
       small: 24,
       default: 32
     };
+    // 与 .avatar-large/medium/small 的 rem 尺寸对齐（1rem=16px），供 Image.Avatar 等自定义渲染填满圆
+    const avatarPixelSizeMap = {
+      large: 128,
+      medium: 80,
+      small: 64,
+      default: 80
+    };
     const sizeKey = sizeClasses[size] ? size : 'default';
 
     const renderAvatarContent = () => {
       if (typeof avatar === 'function') {
-        return avatar({ className: style['avatar'] });
+        return avatar({ className: style['avatar'], size: avatarPixelSizeMap[sizeKey] });
       }
-      if (avatar) {
-        return <img src={avatar} alt={name} className={style['avatar']} />;
+      if (typeof avatar === 'string' && avatar.trim()) {
+        return <img src={avatar.trim()} alt={name} className={style['avatar']} />;
       }
       return (
         <div className={`${style['avatar']} ${style['avatar-placeholder']}`} aria-label={name || 'avatar placeholder'}>
