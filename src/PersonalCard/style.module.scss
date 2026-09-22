@@ -53,10 +53,13 @@
     box-sizing: border-box;
     border-top: 1px solid $border-light;
     background: $card-light;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .card-actions-body {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     min-width: 0;
   }
 
@@ -90,8 +93,8 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    // 透明底头像默认白底，避免透出蓝环/卡片底色
-    background-color: #fff;
+    // 透明底头像默认灰底，避免透出蓝环/卡片底色
+    background-color: #f1f5f9;
   }
 
   .avatar-placeholder {
@@ -352,6 +355,12 @@
   .card-vertical {
     border-radius: 1rem;
     border: 1px solid $border-light;
+    // 网格等高时撑满格子：header 顶、bottom（邮箱+操作）底
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 
     .card-header {
       padding: 1rem;
@@ -359,14 +368,21 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      // 禁止被父级 flex 拉高，空档应落在 header 与 bottom 之间
+      flex: 0 0 auto;
+      align-self: stretch;
 
       .avatar-container {
         margin-bottom: 0.75rem;
         width: 5rem;
         height: 5rem;
+        min-width: 5rem;
+        min-height: 5rem;
         box-sizing: border-box;
         border-radius: 50%;
         overflow: hidden;
+        // 灰底占位：图片未加载 / 透明图时可见
+        background-color: #f1f5f9;
 
         img,
         .avatar,
@@ -378,11 +394,19 @@
           max-height: 100%;
           border-radius: 50%;
           box-sizing: border-box;
-          background-color: #fff;
+          background-color: #f1f5f9;
         }
 
-        :global(.ant-avatar) {
-          background-color: #fff;
+        // Image.Avatar → ant-avatar；提高优先级盖过 antd 默认白底，不用 !important
+        :global(span.ant-avatar.ant-avatar-circle),
+        :global(span.ant-avatar.ant-avatar-image) {
+          width: 100%;
+          height: 100%;
+          background-color: #f1f5f9;
+        }
+
+        :global(span.ant-avatar img) {
+          background-color: #f1f5f9;
         }
 
         .status-indicator {
@@ -426,6 +450,7 @@
       padding: 0 0.75rem;
       margin-bottom: 1rem;
       box-sizing: border-box;
+      flex: 0 0 auto;
 
       // 旧包可能无条件渲染空 description，空节点直接隐藏避免占位
       &:has(> .description:empty) {
@@ -454,6 +479,15 @@
       }
     }
 
+    // 邮箱 + 操作：整块沉底，与 header 垂直两端对齐
+    .card-bottom {
+      margin-top: auto;
+      width: 100%;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
     .card-footer {
       width: 100%;
       padding: 0.75rem;
@@ -462,6 +496,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.375rem;
+      flex: 0 0 auto;
 
       .contact-item {
         display: flex;

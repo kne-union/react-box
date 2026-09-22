@@ -132,6 +132,7 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
     footer ? (
       <div
         className={style['card-actions']}
+        data-slot="personal-card-actions"
         onClick={event => {
           event.stopPropagation();
         }}
@@ -144,9 +145,9 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
   const cardClassName = [style['card'], className, selected ? style['is-selected'] : null].filter(Boolean).join(' ');
 
   const renderVertical = () => (
-    <div className={`${cardClassName} ${style['card-vertical']}`}>
+    <div className={`${cardClassName} ${style['card-vertical']}`} data-slot="personal-card">
       {renderExtra()}
-      <div className={style['card-header']}>
+      <div className={style['card-header']} data-slot="personal-card-header">
         <AvatarWithStatus size="medium" />
         <div className={style['name-section']}>
           <h1 className={style['name']}>
@@ -158,17 +159,22 @@ const PersonalCard = ({ avatar, name, title, description, phone, email, moreInfo
         <BasicInfo />
       </div>
       {hasDescription && (
-        <div className={style['card-description']}>
+        <div className={style['card-description']} data-slot="personal-card-description">
           <div className={style['description']}>{description}</div>
         </div>
       )}
-      {hasContact && (
-        <div className={style['card-footer']}>
-          <ContactItem icon={MailIcon} size={14} value={email} />
-          <ContactItem icon={CallIcon} size={14} value={phone} />
+      {/* 底部块整体沉底，与 header 垂直两端对齐；勿让 header 自己 flex 长高 */}
+      {(hasContact || footer) && (
+        <div className={style['card-bottom']} data-slot="personal-card-bottom">
+          {hasContact && (
+            <div className={style['card-footer']} data-slot="personal-card-footer">
+              <ContactItem icon={MailIcon} size={14} value={email} />
+              <ContactItem icon={CallIcon} size={14} value={phone} />
+            </div>
+          )}
+          {renderFooter()}
         </div>
       )}
-      {renderFooter()}
     </div>
   );
 
